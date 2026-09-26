@@ -31,7 +31,16 @@ def test_post_message_stub_response_shape() -> None:
     assert r.status_code == 200
     body = r.json()
     assert body["safety_disclaimer"] == DISCLAIMER
-    assert body["execution_class"] == "unsupported"
+    # Wave 6 note: "What is the current EF?" matches no registered tool
+    # (TWIN family has none), which used to return "unsupported" directly.
+    # Wave 6 routes that same "no tool matched" case through the new MODEL
+    # ROUTER (orchestrator.py's module docstring point (g)), whose
+    # classify_intent policy gate currently always defers to clarification
+    # (laya_policy.py: classify_intent measured 58.6% accuracy, below its own
+    # 70% trust threshold) rather than ever risking a real model call on an
+    # unreliable route — see test_orchestrator.py's equivalent note for the
+    # full explanation.
+    assert body["execution_class"] == "clarification_required"
     assert body["artifacts"] == []
     assert "request_id" in body["trace"]
 
@@ -62,4 +71,5 @@ def test_post_message_physician_audience_still_stubbed() -> None:
     payload["context"]["audience"] = "physician"
     r = client.post("/message", json=payload)
     assert r.status_code == 200
-    assert r.json()["execution_class"] == "unsupported"
+    # See test_post_message_stub_response_shape's Wave 6 note above.
+    assert r.json()["execution_class"] == "clarification_required"

@@ -15,6 +15,8 @@ from datetime import datetime
 
 import pytest
 
+from python.hearttwin.assistant.context_resolver import resolve_context
+from python.hearttwin.assistant.laya_adapter import LayaAdapter
 from python.hearttwin.assistant.orchestrator import handle_message
 from python.hearttwin.assistant.schemas import AssistantRequest, ConversationContext, ExecutionClass
 from python.hearttwin.assistant.tool_registry import get_tool_registry
@@ -143,13 +145,31 @@ async def test_bare_referent_with_no_context_triggers_clarification() -> None:
     assert response.trace.tools_invoked == []
 
 
-async def test_bare_referent_with_component_id_does_not_trigger_clarification() -> None:
+async def test_bare_referent_with_component_id_resolves_context_but_still_defers() -> None:
+    """Wave 6 note: this message used to reach handle_message's tool-dispatch
+    dead end and return != CLARIFICATION_REQUIRED (UNSUPPORTED, since no
+    registered tool's required args resolve from component_id alone). Wave 6
+    routes that same "no tool matched" case through the new MODEL ROUTER
+    (orchestrator.py's module docstring point (g)), whose classify_intent
+    policy gate (laya_policy.should_defer_to_clarification) currently always
+    defers -- classify_intent measured 58.6% accuracy, below its own 70%
+    trust threshold (laya_policy.py) -- rather than ever risking a real model
+    call on an unreliable route. So the end-to-end answer for this query is
+    now CLARIFICATION_REQUIRED too, but for a different, later reason than
+    before. This test keeps proving the thing it originally proved --
+    context_resolver itself treats "here" + component_id as resolved, NOT
+    ambiguous -- directly, so that guarantee stays covered independently of
+    the later model-router policy decision.
+    """
     context = _context(component_id="LV")
-    request = _request("what about here?", context)
+    resolution = await resolve_context("what about here?", context, laya=LayaAdapter())
+    assert resolution.needs_clarification is False
 
+    request = _request("what about here?", context)
     response = await handle_message(request)
 
-    assert response.execution_class != ExecutionClass.CLARIFICATION_REQUIRED
+    assert response.execution_class == ExecutionClass.CLARIFICATION_REQUIRED
+    assert response.trace.tools_invoked == []
 
 
 # ---------------------------------------------------------------------------
@@ -187,10 +207,22 @@ async def test_ensemble_assumptions_keyword_selects_assumptions_tool(persisted_e
 
 # ---------------------------------------------------------------------------
 # (f) honest "no answer" — never fabricated
+#
+# Wave 6 note: both tests below used to assert UNSUPPORTED/
+# INSUFFICIENT_EVIDENCE — the plain "can't answer" text tool dispatch (d)
+# produces when no tool matches. Wave 6 routes that exact "no tool matched"
+# case through the new MODEL ROUTER instead (orchestrator.py's module
+# docstring point (g)), whose classify_intent policy gate currently always
+# defers to clarification (laya_policy.py: classify_intent measured 58.6%
+# accuracy, below its own 70% trust threshold) rather than ever risking a
+# real model call on an unreliable route. Both queries below therefore now
+# resolve to CLARIFICATION_REQUIRED — still an honest, non-fabricated
+# response (an "ask" instead of a "can't answer"), and still zero tools
+# invoked, which is exactly what these tests exist to guard.
 # ---------------------------------------------------------------------------
 
 
-async def test_no_matching_tool_family_returns_unsupported_not_fabricated() -> None:
+async def test_no_matching_tool_family_returns_clarification_not_fabricated() -> None:
     context = _context()
     # Fallback tool-family routing sends "current EF" style asks to TWIN,
     # a category with zero registered tools this wave.
@@ -198,22 +230,23 @@ async def test_no_matching_tool_family_returns_unsupported_not_fabricated() -> N
 
     response = await handle_message(request)
 
-    assert response.execution_class == ExecutionClass.UNSUPPORTED
+    assert response.execution_class == ExecutionClass.CLARIFICATION_REQUIRED
     assert response.trace.tools_invoked == []
 
 
-async def test_missing_required_context_returns_insufficient_evidence_not_fabricated() -> None:
+async def test_missing_required_context_returns_clarification_not_fabricated() -> None:
     # Routes to the UNCERTAINTY family (has tools) but no ensemble_id is set,
     # so no candidate tool's required args are satisfiable. Avoids "ensemble"
     # (would misroute to the tool-less EXPERIMENT bucket, see the test above)
     # and avoids bare referents ("this"/"that"/"it"/"here") so this exercises
-    # the missing-context path rather than the clarification short-circuit.
+    # the missing-context path rather than the earlier context-resolution
+    # clarification short-circuit.
     context = _context()
     request = _request("Explain the general uncertainty in the modeling assumptions.", context)
 
     response = await handle_message(request)
 
-    assert response.execution_class == ExecutionClass.INSUFFICIENT_EVIDENCE
+    assert response.execution_class == ExecutionClass.CLARIFICATION_REQUIRED
     assert response.trace.tools_invoked == []
 
 

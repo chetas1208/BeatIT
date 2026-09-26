@@ -1,4 +1,4 @@
-"""Request-handling pipeline for the unified BeatIT conversation assistant (Wave 3).
+"""Request-handling pipeline for the unified BeatIT conversation assistant (Wave 3-6).
 
 Wires together, in order, the pieces Wave 2 built in isolation
 (``laya_adapter.py``, ``tool_registry.py``, ``safety_validator.py``) plus
@@ -26,29 +26,46 @@ Concretely, ``handle_message`` runs:
   (d) Tool dispatch: pick a registered tool in the selected family whose
       required input-schema fields are all present in context, execute it
       via ``ToolRegistry``, and render a deterministic response straight
-      from its real ``ToolResult`` payload. No LLM call is made anywhere in
-      this wave (see module-level note below) — if no tool's requirements
-      are met, this returns an honest INSUFFICIENT_EVIDENCE/UNSUPPORTED
-      response instead of fabricating an answer.
+      from its real ``ToolResult`` payload. If no tool's requirements are
+      met, this used to be a dead end (Wave 3-5); Wave 6 extends it with the
+      MODEL ROUTER below rather than immediately giving up.
   (e) Output rail: ``check_output_safety`` always, ``validate_numeric_claims``
-      against the tool's own canonical payload whenever a tool ran. Either
-      failing falls back to a generic, safe response instead of the
-      generated text.
+      against the tool's own canonical payload whenever a tool ran (or an
+      empty payload when none did — see (g)). Either failing falls back to a
+      generic, safe response instead of the generated text.
   (f) The safety disclaimer is always attached — ``AssistantResponse``
       defaults ``safety_disclaimer`` to the canonical ``DISCLAIMER``
       (schemas.py), so every return path below gets it for free.
-
-No LLM / model-router integration exists in this wave. Wave 2 built
-``model_pool.py`` (a key pool) but no chat-completion client, and building
-one is explicitly out of this agent's scope (docs/assistant/WAVE_2_HANDOFF.md
-"Known failures": "no chat-completion client exists yet"). Every response
-this module produces is therefore deterministic: either a safety/
-clarification short-circuit, or text rendered directly from a real
-ToolResult payload. GENERATIVE_EXPLANATION / COMPLEX_SYNTHESIS execution
-classes cannot actually be fulfilled yet — a request that Laya routes there
-falls through the same "no matching tool" path as any other unsupported
-family, which is correct: this wave must never pretend to reason when it
-cannot.
+  (g) MODEL ROUTER (Wave 6, ``_generate_model_response``) — reached only when
+      (d) found no matching real tool, i.e. exactly
+      docs/assistant/GLOBAL_ARCHITECTURE.md's "MODEL ROUTER" first branch
+      ("Can deterministic tool answer completely? NO -> ..."). This is the
+      first wave that makes a real, billed NVIDIA chat-completion call:
+        1. Wave 5's ``laya_policy.should_defer_to_clarification`` is
+           consulted for the ``classify_intent`` decision already made in
+           (c) — its own measured accuracy (58.6%, below its 70% trust
+           threshold; see laya_policy.py) means this currently defers to the
+           existing conservative clarification response *every* time,
+           rather than ever guessing past an unreliable routing signal. This
+           is deliberate: it is the first real production wiring of that
+           policy module, and Wave 5's own numbers are what it acts on.
+        2. Otherwise, ``LayaAdapter.is_complex_reasoning_required`` (System-1)
+           picks FAST_MODEL vs DEEP_MODEL (GLOBAL_ARCHITECTURE.md "simple
+           explanation? -> FAST" / "complex synthesis? -> DEEP").
+        3. The prompt is tool-grounded whenever a real ``ToolResult`` is
+           available at this call site; otherwise the model is explicitly
+           instructed to give only general orientation/clarifying language,
+           never a specific cardiac fact — GLOBAL_ARCHITECTURE.md's
+           tool-first rule, enforced both by instruction AND structurally by
+           step 4 (an un-grounded numeric claim has no canonical payload to
+           match, so ``validate_numeric_claims`` rejects it either way).
+        4. The SAME output-safety + numeric-claim gates (e) already runs on
+           tool-rendered text run again here. A violation, an empty
+           response, or ANY model-call failure (timeout, exhausted key pool,
+           malformed response) all fall back to the plain deterministic
+           response (d) would have produced without ever crashing — per
+           GLOBAL_ARCHITECTURE.md's FALLBACK TREE, "All NVIDIA unavailable ->
+           canonical BeatIT tools still work".
 """
 
 from __future__ import annotations
@@ -56,7 +73,10 @@ from __future__ import annotations
 from typing import Any, Optional
 
 from python.hearttwin.assistant.context_resolver import resolve_context
-from python.hearttwin.assistant.laya_adapter import LayaAdapter
+from python.hearttwin.assistant.laya_adapter import ChoiceDecision, LayaAdapter
+from python.hearttwin.assistant.laya_policy import should_defer_to_clarification
+from python.hearttwin.assistant.model_client import ModelClientError, chat_completion
+from python.hearttwin.assistant.model_pool import ModelRole, get_model_id
 from python.hearttwin.assistant.safety_validator import (
     RequestSafetyDecision,
     check_output_safety,
@@ -89,6 +109,173 @@ _UNSAFE_OUTPUT_FALLBACK_MESSAGE = (
     "BeatIT could not verify that response against canonical data, so it is "
     "withholding it rather than risk showing an unsupported or unsafe claim."
 )
+
+# ---------------------------------------------------------------------------
+# (g) MODEL ROUTER (Wave 6) — see module docstring for the full decision tree.
+# ---------------------------------------------------------------------------
+
+_MODEL_MAX_TOKENS = 600
+_MODEL_TEMPERATURE = 0.2
+_MODEL_TIMEOUT_SECONDS = 45.0
+
+# GLOBAL_ARCHITECTURE.md's tool-first rule, spelled out for the model itself
+# (belt-and-suspenders alongside the structural enforcement in
+# _generate_model_response: an ungrounded numeric claim always fails
+# validate_numeric_claims against an empty canonical payload regardless of
+# what the model was told).
+_MODEL_SYSTEM_PROMPT = (
+    "You are the System-2 explanation layer of BeatIT, an educational cardiac "
+    "digital twin assistant. You NEVER diagnose, prescribe, recommend "
+    "treatment, or give emergency guidance — a qualified human always makes "
+    "those calls. You NEVER state or imply a specific numeric cardiac "
+    "measurement (ejection fraction/EF, stroke volume/SV, cardiac output/CO, "
+    "mean arterial pressure/MAP, heart rate/HR, EDV, ESV, QTc, or any other "
+    "patient-specific number) unless that exact figure is given to you below "
+    "under GROUNDING DATA. If no GROUNDING DATA is provided, give only brief, "
+    "general orientation about cardiac physiology concepts or BeatIT's "
+    "capabilities, or ask a clarifying question — never state or imply a "
+    "specific patient finding. Do not show your reasoning steps; answer "
+    "directly in 2-4 sentences."
+)
+
+
+def _build_model_messages(
+    message: str,
+    context: ConversationContext,
+    tool_result: Optional[ToolResult],
+) -> list[dict[str, str]]:
+    """Build the (system, user) messages for a Wave 6 model call.
+
+    Grounds the prompt in a real ``ToolResult.canonical_payload`` when one is
+    available at this call site; otherwise tells the model explicitly there
+    is no grounding data so it must stick to general orientation — the
+    tool-first rule from GLOBAL_ARCHITECTURE.md's MODEL ROUTER section.
+    """
+    context_lines = [f"audience: {context.audience}"]
+    for field_name in (
+        "product_space",
+        "component_id",
+        "scenario_id",
+        "ensemble_id",
+        "pair_id",
+        "shadow_trial_id",
+    ):
+        value = getattr(context, field_name, None)
+        if value:
+            context_lines.append(f"{field_name}: {value}")
+
+    user_parts = [
+        f"User message: {message}",
+        "Conversation context (non-clinical routing metadata only):\n" + "\n".join(context_lines),
+    ]
+    if tool_result is not None:
+        user_parts.append(
+            "GROUNDING DATA (canonical, real, from BeatIT tool "
+            f"'{tool_result.tool_name}'; only these facts may be stated as "
+            f"numbers): {tool_result.canonical_payload!r}"
+        )
+    else:
+        user_parts.append(
+            "GROUNDING DATA: none available for this turn. Do not state or "
+            "imply any specific cardiac number or patient finding — general "
+            "orientation or a clarifying question only."
+        )
+
+    return [
+        {"role": "system", "content": _MODEL_SYSTEM_PROMPT},
+        {"role": "user", "content": "\n\n".join(user_parts)},
+    ]
+
+
+async def _generate_model_response(
+    request: AssistantRequest,
+    laya: LayaAdapter,
+    intent_decision: ChoiceDecision,
+    *,
+    tool_result: Optional[ToolResult],
+    fallback_response_text: str,
+    fallback_execution_class: ExecutionClass,
+) -> AssistantResponse:
+    """MODEL ROUTER second half: "Can deterministic tool answer completely? NO".
+
+    Only called once (d) has already established the "NO" branch (no
+    matching/executable tool this turn) — see module docstring point (g) for
+    the full step-by-step. Never raises; every failure mode degrades to
+    ``fallback_response_text``/``fallback_execution_class``, i.e. exactly the
+    honest response the caller would have returned without this function.
+    """
+    tools_invoked = [tool_result.tool_name] if tool_result is not None else []
+
+    # Step 1: Wave 5's policy gate on the classify_intent decision already
+    # made in (c). This is the first real production call site for
+    # laya_policy.should_defer_to_clarification — not merely imported.
+    if should_defer_to_clarification("classify_intent", intent_decision.source):
+        return _clarification_response()
+
+    # Step 2: FAST vs DEEP, per GLOBAL_ARCHITECTURE.md's MODEL ROUTER.
+    complexity_decision = await laya.is_complex_reasoning_required(
+        request.message, request.context.model_dump()
+    )
+    role = ModelRole.DEEP if complexity_decision.answer else ModelRole.FAST
+    generated_execution_class = (
+        ExecutionClass.COMPLEX_SYNTHESIS if role is ModelRole.DEEP else ExecutionClass.GENERATIVE_EXPLANATION
+    )
+    model_id = get_model_id(role)
+
+    # Step 3: tool-grounded (or explicitly not) prompt.
+    messages = _build_model_messages(request.message, request.context, tool_result)
+
+    # Step 4a: the real, billed NVIDIA call. Any failure (no healthy key,
+    # every key's HTTP call failing, timeout, malformed body) raises a typed
+    # ModelClientError — caught here and degraded to the deterministic
+    # fallback, per the FALLBACK TREE ("All NVIDIA unavailable -> canonical
+    # BeatIT tools still work"). The bare `except Exception` is
+    # belt-and-suspenders: this function must never crash the orchestrator
+    # regardless of what a future model_client change might raise.
+    try:
+        result = await chat_completion(
+            messages,
+            model_id,
+            max_tokens=_MODEL_MAX_TOKENS,
+            temperature=_MODEL_TEMPERATURE,
+            timeout_seconds=_MODEL_TIMEOUT_SECONDS,
+        )
+    except ModelClientError:
+        return AssistantResponse(
+            message=fallback_response_text,
+            execution_class=fallback_execution_class,
+            trace=AssistantTraceMeta(tools_invoked=tools_invoked),
+        )
+    except Exception:  # noqa: BLE001 — never crash on ANY model-call failure
+        return AssistantResponse(
+            message=fallback_response_text,
+            execution_class=fallback_execution_class,
+            trace=AssistantTraceMeta(tools_invoked=tools_invoked),
+        )
+
+    # Step 4b: the SAME output rail (e) already runs on tool-rendered text.
+    # canonical_payload is {} when no tool ran, which means ANY numeric
+    # cardiac claim the model makes without grounding data automatically
+    # mismatches (validate_numeric_claims flags an unsupported claim when the
+    # metric is absent from the payload) — this is what structurally
+    # enforces the tool-first / no-fabrication rule, not just the prompt.
+    generated_text = (result.text or "").strip()
+    canonical_payload = tool_result.canonical_payload if tool_result is not None else {}
+    output_decision = check_output_safety(generated_text)
+    numeric_result = validate_numeric_claims(generated_text, canonical_payload)
+    if not generated_text or output_decision.blocked or not numeric_result.valid:
+        return AssistantResponse(
+            message=_UNSAFE_OUTPUT_FALLBACK_MESSAGE,
+            execution_class=generated_execution_class,
+            trace=AssistantTraceMeta(tools_invoked=tools_invoked, model_used=model_id),
+        )
+
+    return AssistantResponse(
+        message=generated_text,
+        execution_class=generated_execution_class,
+        trace=AssistantTraceMeta(tools_invoked=tools_invoked, model_used=model_id),
+    )
+
 
 # UNCERTAINTY-family disambiguation: when more than one registered tool in a
 # family could answer, prefer the one whose keyword the user actually used
@@ -281,11 +468,18 @@ async def handle_message(
     tools_invoked = [tool_result.tool_name] if tool_result is not None else []
 
     if tool_result is None:
-        # Honest "can't answer yet" — never fabricated content, per (d).
-        return AssistantResponse(
-            message=response_text,
-            execution_class=execution_class,
-            trace=AssistantTraceMeta(tools_invoked=tools_invoked),
+        # (g) MODEL ROUTER: no deterministic tool could answer this — see
+        # module docstring point (g) and _generate_model_response. Every
+        # internal failure mode of that function degrades back to exactly
+        # this honest response/execution_class, so this is still never a
+        # fabricated answer, per (d).
+        return await _generate_model_response(
+            request,
+            laya,
+            intent_decision,
+            tool_result=None,
+            fallback_response_text=response_text,
+            fallback_execution_class=execution_class,
         )
 
     # (e) output rail — numeric claim gate + clinical-boundary gate
