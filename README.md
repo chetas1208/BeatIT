@@ -43,6 +43,30 @@ python scripts/create_demo_ppt.py
 > **Demo integrity:** synthetic measurements = 0; cross-patient stitching = 0;
 > missing modalities remain explicitly missing.
 
+## Built for the Healthcare AI Hackathon
+
+BeatIT is being presented for the **Healthcare AI Hackathon** on
+**September 26, 2026**, hosted at the **AWS Builder Loft in San Francisco**.
+The event brings together clinicians, engineers, researchers, founders, and
+investors to build products with meaningful real-world healthcare impact.
+
+Presented by **Pear VC, NEA, and Cathay Innovation**, and powered by
+**OpenAI, AWS, J.P. Morgan, and Troutman Pepper**, the hackathon emphasizes
+new healthcare capabilities—not incremental AI wrappers. BeatIT addresses that
+brief with an inspectable cardiac evidence model, deterministic physiology,
+multi-agent orchestration, and explicit uncertainty.
+
+**Hackathon demonstration:**
+
+- Load an independent, verified PTB-XL ECG or UCI heart-failure case.
+- Inspect what is observed, derived, modeled, and missing.
+- Watch specialist agents construct and evaluate the cardiac twin.
+- Run bounded computational scenarios without presenting them as treatment.
+- Trace every displayed value back to evidence, formula, or labeled prior.
+
+> BeatIT is a research and educational prototype. It is not a diagnostic,
+> treatment, triage, or clinical decision-making system.
+
 ## Why BeatIT?
 
 Cardiac evidence arrives as ECGs, imaging, vitals, laboratory results,
