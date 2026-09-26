@@ -91,4 +91,7 @@ models/
 
 # Local runtime state / generated artifacts (not source)
 data/beatit-ensembles.sqlite3
+data/synthetic_cohort_500/beatit_cohort.sqlite3
+web/test-results/
+artifacts/
 archives/*.tar.gz

@@ -1,0 +1,34 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Dependency/build/cache output
+.git
+.next
+web/.next
+node_modules
+web/node_modules
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+.run
+
+# Private or generated data
+data/raw
+data/cases
+data/cache
+data/staging
+data/logs
+data/artifacts
+data/beatit-ensembles.sqlite3*
+uploads
+archives
+models/*
+!models/manifest.json

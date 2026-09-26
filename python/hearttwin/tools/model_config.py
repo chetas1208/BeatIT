@@ -32,7 +32,13 @@ def _is_newer_openai_model(model: str) -> bool:
     raises HTTP 400 ``unsupported_parameter``.
     """
     m = (model or "").lower()
-    return m.startswith(("gpt-5", "gpt-6", "o1", "o3", "o4")) or "reasoning" in m
+    return (
+        m.startswith(("gpt-5", "gpt-6", "o1", "o3", "o4"))
+        or "gpt-5" in m
+        or "gpt-6" in m
+        or "gpt-oss" in m
+        or "reasoning" in m
+    )
 
 
 def chat_tuning(model: str, max_output_tokens: int, temperature: float | None = None) -> dict:

@@ -77,8 +77,8 @@ async def test_generic_provider_uses_configured_endpoint_and_auth() -> None:
     assert client.posts[0][2]["model"] == "demo-model"
 
     await provider.complete([{"role": "user", "content": "hello"}], extra={"max_completion_tokens": 7})
-    assert client.posts[1][2]["max_tokens"] == 7
-    assert "max_completion_tokens" not in client.posts[1][2]
+    assert client.posts[1][2]["max_completion_tokens"] == 7
+    assert "max_tokens" not in client.posts[1][2]
 
 
 @pytest.mark.asyncio

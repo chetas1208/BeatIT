@@ -1,0 +1,19 @@
+{
+  "product": "BeatIT",
+  "release_candidate": "m10-rc-1",
+  "source_identifier": "working-tree-2026-09-26",
+  "frontend_version": "0.1.0",
+  "api_version": "0.1.0",
+  "physiology_version": "canonical-repository-engine",
+  "ensemble_version": "m5.5-ensemble-projection-v1",
+  "shadow_trial_version": "m6-shadow-trial-v1",
+  "sensitivity_version": "m8-tier1-bounded-v1",
+  "evidence_map_version": "m8-reviewed-model-proxy-v1",
+  "model_manifest": "models/manifest.json#version-1",
+  "demo_fixture_version": "m10.5-release-demo-v1",
+  "dataset_version": "m10.5-demo-v1",
+  "verification_timestamp": "2026-09-26T17:44:30Z",
+  "verification_artifact": "artifacts/release-verification.json",
+  "safety_boundary": "educational simulation only; not diagnosis or treatment",
+  "release_status": "not_ready_do_not_ship"
+}

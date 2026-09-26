@@ -66,16 +66,16 @@ class GenericOpenAICompatibleProvider(IntelligenceProvider):
         if response_format is not None:
             payload["response_format"] = dict(response_format)
         if max_tokens is not None:
-            payload["max_tokens"] = max_tokens
+            payload["max_completion_tokens"] = max_tokens
         if temperature is not None:
-            payload["temperature"] = temperature
+            if float(temperature) == 1.0:
+                payload["temperature"] = temperature
         if extra:
             payload.update(dict(extra))
-            # Legacy agents may derive this key from an old model name. Keep
-            # the generic transport on the broadly supported Chat Completions
-            # spelling instead of leaking a vendor-specific assumption.
-            if "max_completion_tokens" in payload and "max_tokens" not in payload:
-                payload["max_tokens"] = payload.pop("max_completion_tokens")
+            if "max_completion_tokens" in payload and "max_tokens" in payload:
+                payload.pop("max_tokens", None)
+            elif "max_completion_tokens" not in payload and "max_tokens" in payload:
+                payload["max_completion_tokens"] = payload.pop("max_tokens")
         headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
         owns_client = self._client is None
         client = self._client or httpx.AsyncClient(timeout=timeout_seconds or self.timeout_seconds)

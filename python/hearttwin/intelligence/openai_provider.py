@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import inspect
+import os
 from collections.abc import Mapping, Sequence
 from typing import Any
 
 from python.hearttwin.intelligence.base import IntelligenceProvider
+from python.hearttwin.tools.model_config import chat_tuning
 from python.hearttwin.intelligence.errors import (
     ProviderConfigurationError,
     ProviderResponseError,
@@ -47,20 +49,27 @@ class OpenAIProvider(IntelligenceProvider):
             from openai import AsyncOpenAI
         except ImportError as exc:
             raise ProviderUnavailable("OpenAI SDK is not installed") from exc
+        effective_model = model or self.default_model
         kwargs: dict[str, Any] = {
-            "model": model or self.default_model,
+            "model": effective_model,
             "messages": [item.model_dump(mode="json") if isinstance(item, ChatMessage) else dict(item) for item in messages],
         }
         if response_format is not None:
             kwargs["response_format"] = dict(response_format)
         if max_tokens is not None:
-            kwargs["max_tokens"] = max_tokens
-        if temperature is not None:
+            kwargs.update(chat_tuning(effective_model, max_tokens, temperature))
+        elif temperature is not None and float(temperature) == 1.0:
             kwargs["temperature"] = temperature
         if extra:
             kwargs.update(dict(extra))
+        base_url = os.environ.get("OPENAI_BASE_URL", "").strip() or None
         try:
-            client = AsyncOpenAI(api_key=self.api_key, timeout=timeout_seconds or self.timeout_seconds, max_retries=self.max_retries)
+            client = AsyncOpenAI(
+                api_key=self.api_key,
+                base_url=base_url,
+                timeout=timeout_seconds or self.timeout_seconds,
+                max_retries=self.max_retries,
+            )
             response = await client.chat.completions.create(**kwargs)
             content = response.choices[0].message.content or ""
             if not content.strip():
@@ -90,8 +99,10 @@ class OpenAIProvider(IntelligenceProvider):
         try:
             from openai import AsyncOpenAI
 
+            base_url = os.environ.get("OPENAI_BASE_URL", "").strip() or None
             client = AsyncOpenAI(
                 api_key=self.api_key,
+                base_url=base_url,
                 timeout=min(self.timeout_seconds, 5),
                 max_retries=0,
             )
