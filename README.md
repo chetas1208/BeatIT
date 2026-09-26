@@ -12,6 +12,9 @@ AI may explain and interrogate it.**
 [![FastAPI](https://img.shields.io/badge/FastAPI-API-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![AWS](https://img.shields.io/badge/AWS-integrated%20%7C%20Bedrock%20verified-FF9900?logo=amazonwebservices&logoColor=white)](#verified-aws-status)
+
+**AWS-integrated with verified Bedrock inference.**
 
 > **Research and clinician-supervised education only.** BeatIT is not a medical
 > device, diagnostic system, treatment recommender, emergency service, or
