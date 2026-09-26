@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-09-26",
+  "product": {
+    "name": "BeatIT",
+    "intended_use": "Clinician-supervised educational and research cardiac simulation",
+    "medical_device": false
+  },
+  "frontend": {
+    "path": "web",
+    "framework": "Next.js",
+    "version": "16.2.7",
+    "language": "TypeScript",
+    "runtime": "Node.js >=22",
+    "deployment": {
+      "provider": null,
+      "status": "failed",
+      "evidence": "Vercel attempt failed; local project metadata exists but no successful deployment URL is verified"
+    }
+  },
+  "backend": {
+    "entrypoint": "python.hearttwin.api:app",
+    "serverless_entrypoint": "api.index:app",
+    "framework": "FastAPI",
+    "language": "Python",
+    "python_requirement": ">=3.12",
+    "deployment": {
+      "provider": null,
+      "status": "not_deployed",
+      "public_url": null
+    }
+  },
+  "numerical_authority": {
+    "type": "deterministic_python",
+    "modules": [
+      "python/hearttwin/tools/cardiac_state.py",
+      "python/hearttwin/tools/hemodynamics.py",
+      "python/hearttwin/tools/recovery_sim.py",
+      "python/hearttwin/ensemble.py",
+      "python/hearttwin/shadow_trial_engine.py",
+      "python/hearttwin/missing_piece"
+    ],
+    "external_models_may_override": false
+  },
+  "storage": {
+    "default_artifacts": "local_filesystem",
+    "case_memory": [
+      "local",
+      "optional_redis"
+    ],
+    "experiments": "sqlite",
+    "optional_artifacts": "amazon_s3",
+    "deployed_cloud_storage": false
+  },
+  "models": {
+    "language": {
+      "providers": [
+        "disabled",
+        "generic_openai_compatible",
+        "openai",
+        "amazon_bedrock_openai"
+      ],
+      "optional": true,
+      "bedrock_smoke_verified": true,
+      "bedrock_smoke_model": "nvidia.nemotron-nano-12b-v2",
+      "hosted_e2e_verified": false
+    },
+    "routing": {
+      "provider": "Laya",
+      "optional": true,
+      "audited_runtime_status": "unreachable",
+      "fallback": "deterministic"
+    },
+    "imaging": {
+      "provider": "VISTA-3D",
+      "optional": true,
+      "location": "local",
+      "public_bridge_status": "stopped",
+      "fallback": "explicit unavailable state and procedural geometry"
+    }
+  },
+  "external_services": {
+    "cloudflare": {
+      "type": "Quick Tunnel",
+    "status": "temporary_active_to_local_backend",
+      "durable_endpoint": null
+    },
+    "vercel": {
+      "status": "attempt_failed",
+      "successful_public_url": null
+    },
+    "aws_hosting": {
+      "status": "failed_before_resource_creation",
+      "resources_created": []
+    }
+  },
+  "safety": {
+    "diagnosis": "unsupported",
+    "treatment_selection": "unsupported",
+    "emergency_guidance": "unsupported",
+    "clinical_validation_claimed": false
+  }
+}

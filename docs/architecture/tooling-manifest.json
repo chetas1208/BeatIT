@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-09-26",
+  "runtime": {
+    "frontend": [
+      {
+        "name": "Next.js",
+        "version": "16.2.7"
+      },
+      {
+        "name": "React",
+        "version": "19.2.4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5.9.3"
+      },
+      {
+        "name": "Zustand",
+        "version": "5.0.3"
+      },
+      {
+        "name": "Three.js",
+        "version": "0.184.0"
+      },
+      {
+        "name": "React Three Fiber",
+        "version": "9.6.1"
+      },
+      {
+        "name": "Plotly.js",
+        "version": "2.35.3"
+      }
+    ],
+    "backend": [
+      "Python >=3.12",
+      "FastAPI",
+      "Pydantic 2",
+      "Uvicorn",
+      "NumPy",
+      "SciPy",
+      "HTTPX",
+      "Redis client",
+      "OpenAI SDK"
+    ]
+  },
+  "development": [
+    "pnpm",
+    "Node.js >=22",
+    "Python virtual environment",
+    "ESLint",
+    "Tailwind CSS"
+  ],
+  "testing": [
+    "pytest",
+    "pytest-asyncio",
+    "Node.js test runner",
+    "Playwright scripts",
+    "repository verification scripts"
+  ],
+  "models": [
+    {
+      "name": "BeatIT deterministic cardiac engine",
+      "role": "canonical physiology",
+      "external": false,
+      "status": "implemented"
+    },
+    {
+      "name": "Amazon Bedrock OpenAI-compatible models",
+      "role": "optional language explanation",
+      "external": true,
+      "status": "adapter implemented; standalone smoke verified"
+    },
+    {
+      "name": "Laya",
+      "role": "optional bounded software routing",
+      "external": true,
+      "status": "adapter implemented; audited runtime unreachable; deterministic fallback active"
+    },
+    {
+      "name": "VISTA-3D",
+      "role": "optional CT segmentation",
+      "external": true,
+      "status": "local integration; public Quick Tunnel stopped"
+    }
+  ],
+  "data_and_storage": [
+    "local filesystem artifacts",
+    "SQLite experiment stores",
+    "optional Redis",
+    "optional Amazon S3 adapter",
+    "FHIR-shaped data contracts"
+  ],
+  "deployment": [
+    {
+      "name": "Vercel",
+      "status": "configuration present; deployment attempt failed; no verified public URL"
+    },
+    {
+      "name": "AWS",
+      "status": "hosting failed before resource creation; Bedrock smoke only"
+    },
+    {
+      "name": "Cloudflare Tunnel",
+      "status": "named-tunnel scripts present; temporary Quick Tunnel active to local backend"
+    }
+  ],
+  "observability": [
+    {
+      "name": "Weave",
+      "status": "optional integration implemented; deployment not established"
+    },
+    {
+      "name": "CloudWatch Logs",
+      "status": "account probe allowed; no BeatIT hosted log resource"
+    }
+  ]
+}

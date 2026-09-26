@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { CopilotProvider } from "@/components/copilot/CopilotProvider";
 
 // One typeface for the whole console — Inter, tuned for on-screen readability.
 const inter = Inter({
@@ -13,16 +12,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "BeatIT — Cardiac Twin",
   description:
-    "Multi-agent cardiac digital twin console for WeaveHacks 4. Educational simulation only, not for diagnosis or treatment decisions.",
+    "Auditable cardiac evidence, deterministic physiology, and bounded simulation. Educational and research use only.",
   applicationName: "BeatIT",
   keywords: [
     "BeatIT",
-    "WeaveHacks",
-    "CopilotKit",
-    "Weave",
-    "Redis",
+    "cardiac twin",
+    "deterministic physiology",
+    "bounded simulation",
     "cardiac simulation",
-    "agent trace",
+    "provenance",
   ],
 };
 
@@ -39,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <CopilotProvider>{children}</CopilotProvider>
+        {children}
       </body>
     </html>
   );

@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-09-26",
+  "region": "us-east-1",
+  "account_id": "107171643295",
+  "hosting_status": "not_deployed",
+  "hosting_failure": "The audited workshop role lacked permissions for every viable hosting path",
+  "resources_created": [],
+  "public_urls": [],
+  "services": [
+    {
+      "service": "Amazon Bedrock",
+      "purpose": "Optional language-model inference",
+      "resource_type": "account model access",
+      "required": false,
+      "implementation_status": "implemented",
+      "deployment_status": "standalone_smoke_verified",
+      "evidence": "Model/profile discovery and one minimal nvidia.nemotron-nano-12b-v2 inference passed"
+    },
+    {
+      "service": "Amazon CloudWatch Logs",
+      "purpose": "Candidate hosted runtime logging",
+      "resource_type": "log group",
+      "required": false,
+      "implementation_status": "candidate",
+      "deployment_status": "probe_allowed_no_resource_created"
+    },
+    {
+      "service": "Amazon S3",
+      "purpose": "Optional artifact storage",
+      "resource_type": "bucket",
+      "required": false,
+      "implementation_status": "adapter_implemented",
+      "deployment_status": "iam_denied_not_deployed"
+    },
+    {
+      "service": "Amazon ECR",
+      "purpose": "Candidate container image registry",
+      "resource_type": "repository",
+      "required": false,
+      "implementation_status": "not_configured",
+      "deployment_status": "iam_denied_not_deployed"
+    },
+    {
+      "service": "Amazon ECS with Fargate",
+      "purpose": "Candidate backend hosting",
+      "resource_type": "cluster_task_service",
+      "required": false,
+      "implementation_status": "not_configured",
+      "deployment_status": "iam_denied_not_deployed"
+    },
+    {
+      "service": "AWS App Runner",
+      "purpose": "Candidate backend hosting",
+      "resource_type": "service",
+      "required": false,
+      "implementation_status": "not_configured",
+      "deployment_status": "iam_denied_not_deployed"
+    },
+    {
+      "service": "AWS Amplify Hosting",
+      "purpose": "Candidate frontend hosting",
+      "resource_type": "application",
+      "required": false,
+      "implementation_status": "not_configured",
+      "deployment_status": "iam_denied_not_deployed"
+    },
+    {
+      "service": "Amazon EC2",
+      "purpose": "Candidate container host",
+      "resource_type": "instance",
+      "required": false,
+      "implementation_status": "not_configured",
+      "deployment_status": "iam_denied_not_deployed"
+    },
+    {
+      "service": "AWS Secrets Manager",
+      "purpose": "Candidate runtime secret storage",
+      "resource_type": "secret",
+      "required": false,
+      "implementation_status": "not_integrated",
+      "deployment_status": "iam_denied_not_deployed"
+    },
+    {
+      "service": "AWS Systems Manager Parameter Store",
+      "purpose": "Candidate runtime configuration",
+      "resource_type": "parameter",
+      "required": false,
+      "implementation_status": "not_integrated",
+      "deployment_status": "iam_denied_not_deployed"
+    }
+  ],
+  "non_aws_deployment_context": {
+    "vercel": "attempt_failed_no_verified_url",
+    "cloudflare_quick_tunnel": "temporary_active_to_local_backend",
+    "vista": "local_not_publicly_bridged"
+  }
+}

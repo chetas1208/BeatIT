@@ -23,6 +23,7 @@ from typing import Any
 
 import pytest
 
+from python.hearttwin.tools.scoring import score_visualization_readiness
 from python.hearttwin.agents.evaluator_agent import (
     CriticFinding,
     EvalScores,
@@ -41,6 +42,20 @@ from python.hearttwin.agents.evaluator_agent import (
     run_evaluator_agent,
     run_evaluator_critic,
 )
+
+
+def test_visualization_accepts_canonical_pv_loop_field_names() -> None:
+    score = score_visualization_readiness(
+        {"measurements": {}, "hemodynamics": {}, "tissue_state": {}},
+        {
+            "pv_loop": {
+                "volume_ml": [55, 130],
+                "pressure_mmhg": [80, 120],
+            }
+        },
+    )
+
+    assert score >= 0.2
 from python.hearttwin.schemas import (
     AgentResponse,
     AgentStatus,

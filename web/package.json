@@ -11,10 +11,6 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.112.3",
-    "@copilotkit/react-core": "1.59.5",
-    "@copilotkit/react-ui": "1.59.5",
-    "@copilotkit/runtime": "1.59.5",
-    "@copilotkit/runtime-client-gql": "1.59.5",
     "@phosphor-icons/react": "2.1.7",
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",

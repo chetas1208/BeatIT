@@ -5,7 +5,7 @@
  *   (case intake), a dominant center work surface that tabs between the Digital
  *   Twin (3D) and Physiology Simulation (charts), and a right rail of compressed
  *   observability (agent trace, evaluation, case memory). Also renders the
- *   header, CopilotDock, footer, and the first-open DisclaimerModal (the safety
+ *   header and the first-open DisclaimerModal (the safety
  *   boundary lives there, not a persistent banner), and bootstraps the SSE trace
  *   stream + initial Redis snapshot.
  * READS from store: caseId, status, redisStats (and wires the trace stream).
@@ -25,7 +25,6 @@ import { HeartScene } from "@/components/heart/HeartScene";
 import { CareGuardConsole } from "@/components/careguard/CareGuardConsole";
 import { EvalScorecard } from "@/components/eval/EvalScorecard";
 import { RedisStatsRail } from "@/components/redis/RedisStatsRail";
-import { CopilotDock } from "@/components/copilot/CopilotDock";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { TemporalTwinProvider } from "@/lib/twin/integration/context";
 import { ScenarioPanel } from "@/components/twin/scenario/ScenarioPanel";
@@ -183,12 +182,6 @@ export function AppShell() {
       </TemporalTwinProvider>
 
       <DisclaimerModal />
-      {/* One copilot per surface: the CareGuard tab has its own dedicated
-          analysis copilot (CareGuardConsole -> CareGuardCopilot), so the
-          cardiac-twin CopilotDock is suppressed there to avoid two launchers. */}
-      {tab !== "careguard" && (
-        <ErrorBoundary name="Cardiology Copilot"><CopilotDock /></ErrorBoundary>
-      )}
     </div>
   );
 }

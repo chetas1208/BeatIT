@@ -1,216 +1,427 @@
 # BeatIT
 
-[![GitHub](https://img.shields.io/badge/GitHub-chetas1208%2FBeatIT-181717?logo=github)](https://github.com/chetas1208/BeatIT)
+### Evidence → physiology → experiment → uncertainty
 
-**BeatIT helps cardiologists explain and explore bounded recovery scenarios using
-patient data and deterministic cardiovascular modeling—without allowing an LLM
-to invent clinical calculations.** It connects supplied cardiac evidence to a
-reproducible baseline, inspectable scenario assumptions, and a visual comparison.
-Every displayed value should show where it came from and whether it was measured,
-extracted, derived, inferred, prior-filled, or simulated.
+**BeatIT turns cardiac evidence into an auditable computational twin that a
+clinician or researcher can inspect, experiment on, compare, and question.**
 
-> **Educational simulation only.** DualBeat is **not a medical device**. It does not diagnose, prescribe, triage, or recommend treatment. Every output is a simulated, educational estimate.
+**Not another medical chatbot. The cardiac engine establishes the physiology;
+AI may explain and interrogate it.**
 
----
+[![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-API-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-## Why this matters
+> **Research and clinician-supervised education only.** BeatIT is not a medical
+> device, diagnostic system, treatment recommender, emergency service, or
+> validated patient-outcome predictor.
 
-Recovery planning after a cardiac event is difficult to personalize and explain
-because patient evidence, physiological models, uncertainty, and care-team
-reasoning remain disconnected. During a supervised follow-up conversation,
-clinicians need to show what is known, what is assumed, and how a bounded
-hypothetical change affects the model without presenting it as a predicted
-patient outcome. Two failure modes dominate:
+![BeatIT Twin workspace showing evidence intake, the cardiac viewport, and model trace](docs/screenshots/01-twin-console.png)
 
-1. **Static calculators** give you one formula in isolation. They can't relate EF to afterload, localize a regional change to a coronary territory, or project a recovery trajectory.
-2. **Black-box medical LLMs** can invent numerical results, hide assumptions, and
-   drift into unsupported clinical language.
+*A real local application capture. The empty viewport is honest: this screen
+was captured before a case run, while the synthetic-demo workflow was ready.*
 
-BeatIT is built around the conviction that **a simulation is only trustworthy
-when every value is traceable, its math is reproducible, and its limits are
-explicit.** It is a clinician-supervised education and exploration instrument,
-not a clinical prediction system.
+## Why BeatIT?
 
----
+Cardiac evidence arrives as ECGs, imaging, vitals, laboratory results,
+medication histories, clinical notes, and longitudinal events. These sources
+are useful individually, but their provenance, timing, and uncertainty are hard
+to carry into one inspectable physiological representation.
 
-## How it's different — in depth
+Electronic records primarily preserve facts and workflow. Language models are
+good at language and retrieval but are unsafe numerical authorities for
+patient-specific physiology. Mechanistic simulation provides mathematical
+structure but is often separated from clinical evidence and interaction.
+BeatIT is an engineering attempt to join those layers while keeping their
+authority boundaries visible:
 
-### 1. Provenance on every single value
-Extracted values cite the **source file, extraction method, and a confidence score**. Derived values cite the **exact formula**. Anything filled from population data is explicitly labeled a **`default_model_prior`**. You can audit the entire state field-by-field. No other "AI cardiac" tool hands you a fully sourced state object.
+```text
+evidence → sourced state → deterministic physiology → bounded simulation
+         → paired comparison → uncertainty analysis → grounded explanation
+```
 
-### 2. LLMs never do the math
-Core numeric outputs (SV, EF, CO, MAP, RR, QTc, BSA) come from **pure, tested deterministic functions** — never from a language model. LLMs are used only where they're appropriate: reading documents, classifying intent, and writing prose. Baseline results are reproducible; M5 plausible-twin mode samples explicit input distributions with a recorded seed and then runs deterministic physiology. This distinction is central to the audit trail.
+Cardiovascular disease remains a major global burden, but this repository does
+not turn that burden into a claim of clinical efficacy or market adoption. See
+[Problem](docs/product/PROBLEM.md) and
+[Market gap](docs/product/MARKET_GAP.md) for sourced context.
 
-### 3. Anatomically-localized, code-tagged findings (for radiologists & cardiologists)
-DualBeat doesn't stop at scalars. A deterministic **findings layer** localizes the simulated state to anatomy using the standard **AHA 17-segment left-ventricle model** and **coronary artery territories (LAD / RCA / LCx)**, and renders them as **numbered callouts on the 3D twin** with a matching clinical readout: region, a brief observation, the driving metric, and **reference codes**. Reduced EF → global LV; a regional wall change + scar fraction → the right segments and territory; widened QRS / prolonged QTc → conduction and repolarization observations. Every finding is framed as an **educational simulation observation with reference terminology — never a diagnosis** — so it is legible to a clinician without crossing the safety line.
+### Conceptual positioning
 
-### 4. An observable processing pipeline
-The staged pipeline keeps intake, extraction, validation, deterministic modeling,
-explanation, and evaluation inspectable. Its architecture supports the product;
-it is not the product claim.
+This is a category-level description, not an exhaustive comparison of every
+vendor or research platform.
 
-### 5. A model you can run bounded scenarios on
-Beyond a static snapshot, BeatIT produces bounded simulated trajectories,
-deterministic causal scenarios, and plausible-twin ensembles with explicit input
-uncertainty. These are hypothetical model outputs, not forecasts of an
-individual patient's outcome.
+| Approach | Records and workflow | Language interaction | Mechanistic physiology | Counterfactual experiments | Explicit uncertainty and provenance |
+|---|---:|---:|---:|---:|---:|
+| Electronic health record | Strong | Product-dependent | Usually not its purpose | Usually not its purpose | Source history varies |
+| General language model | Context-dependent | Strong | Unreliable as numerical authority | Generative rather than mechanistic | Variable |
+| Cardiac simulation research | Input-dependent | Usually limited | Strong within model scope | Strong within model scope | Method-dependent |
+| BeatIT research prototype | Normalized evidence model | Optional | Deterministic, bounded engine | Paired computational scenarios | First-class product concepts |
 
-### 6. Degrades, never bluffs
-Missing data is filled from conservative population priors **and flagged**, with elevated uncertainty — never silently guessed. On valid input, no agent hard-fails: the pipeline degrades with explained warnings (covered by an adversarial no-fail test). The only blocking paths are intentional safety gates, and each states its reason.
+BeatIT does not claim to replace any of these categories. It tests whether a
+clinician-facing workflow can connect their useful parts without erasing the
+differences between evidence, model assumptions, simulation, and prose.
 
-### 7. Safe by construction
-Diagnostic / treatment / emergency language is blocked at **both** the request (intake) and the model-output boundary. Every API response carries a mandatory disclaimer. The product is honest about being a simulation.
+## What BeatIT does
 
----
+| Space | Question | Implemented behavior |
+|---|---|---|
+| **Twin** | What evidence and modeled state are present? | Longitudinal snapshots, semantic heart, ECG/PV context, provenance |
+| **Experiment** | How does a bounded hypothetical input affect the model? | Immutable baseline, validated parameters, deterministic propagation |
+| **Compare** | What changed? | Same-sample baseline/counterfactual pairing and Split Heart |
+| **Evidence** | Why is the result uncertain? | Sensitivity, uncertainty drivers, evidence-priority heuristics |
+| **Report** | How do the pieces fit together? | Summary with assumptions, provenance, and limitations |
 
-## Who it's for
+Optional providers can enrich this path, but the deterministic baseline and
+scenario workflow remains available when language, tracing, memory, or imaging
+providers are unavailable.
 
-- **Primary:** cardiologists preparing for or conducting supervised recovery and
-  follow-up conversations.
-- **Secondary:** cardiac rehabilitation educators, trainees, and researchers
-  exploring bounded cardiovascular simulations.
+## Signature workflow
 
-It is **not** for diagnosis, treatment selection, emergency triage, autonomous
-clinical decision-making, or validated outcome prediction.
+```mermaid
+flowchart LR
+    A[Supplied evidence] --> B[Longitudinal twin]
+    B --> C[Deterministic cardiac state]
+    C --> D[Bounded experiment]
+    C --> E[Plausible twins]
+    D --> F[Shadow Trial]
+    E --> F
+    F --> G[Split Heart comparison]
+    G --> H[Uncertainty and Missing Piece]
+    H --> I[Grounded physician support]
+```
 
-## What it produces
+### Split Heart
 
-- A sourced `CardiacTwinState` (deterministic SV, EF, CO, MAP, QTc).
-- A beating **3D digital twin** with severity-coded, anatomically-anchored finding callouts (AHA 17-segment + coronary territory + reference codes) and an honest "no findings / no CT provided" state.
-- A simulated cardiac cycle with a pressure–volume loop.
-- 2–4 bounded recovery trajectories with uncertainty bands.
-- A seeded plausible-twin ensemble with rejected-sample accounting and output percentiles when uncertainty mode is enabled.
-- A full 8-agent orchestration trace + structured eval scores, every warning explained.
+Split Heart displays one plausible twin before and after the same bounded
+scenario. Selection can be linked across both hearts, and the comparison clock
+can show synchronized phase or physiological-rate context. Metric deltas come
+from backend computation.
 
----
+```text
+BASELINE                    COUNTERFACTUAL
+same sample                 same sample + bounded scenario
+     ♥                              ♥
+EF / SV / CO                 EF / SV / CO
+              deterministic Δ
+```
+
+The geometry is a procedural semantic visualization, not a patient-specific
+biomechanical reconstruction. A visual difference is not an outcome forecast.
+
+### Probabilistic Twin
+
+BeatIT represents selected uncertain inputs as explicit bounded distributions,
+samples them with a recorded seed, rejects invalid samples, and runs every
+accepted sample through the same deterministic physiology:
+
+```text
+one evidence set → uncertain modeled inputs → seeded plausible twins
+```
+
+The resulting percentiles describe accepted simulations. They are not clinical
+confidence intervals, disease probabilities, or patient risks.
+
+### Shadow Trial
+
+Shadow Trial applies one scenario to every stored plausible twin and compares
+each twin only with its own descendant:
+
+```text
+twin 1 baseline → twin 1 scenario
+twin 2 baseline → twin 2 scenario
+twin 3 baseline → twin 3 scenario
+```
+
+**Shadow Trial is BeatIT's name for a paired computational counterfactual
+experiment. It is not a clinical trial.**
+
+### Missing Piece
+
+Missing Piece asks which uncertain inputs move a selected model output and
+which evidence categories could constrain those inputs. Its rankings are
+deterministic sensitivity and evidence-mapping heuristics. They do not instruct
+a clinician to order a test or estimate the clinical benefit of doing so.
+
+## Deterministic computation and AI
+
+| Function | Authority |
+|---|---|
+| SV, EF, CO, MAP, RR, QTc, BSA | Python deterministic tools |
+| Pressure-volume and recovery trajectories | Python deterministic tools |
+| Cardiac and comparison clocks | BeatIT runtime |
+| Scenario validation and propagation | BeatIT scenario engine |
+| Plausible-twin sampling | Seeded BeatIT ensemble engine |
+| Shadow Trial pairing and deltas | BeatIT backend |
+| Sensitivity and evidence ranking | BeatIT Missing Piece engine |
+| Image segmentation | Optional external VISTA-3D |
+| Tool routing | Deterministic registry; optional Laya integration |
+| Explanation and synthesis | Optional provider-neutral language layer |
+
+The assistant is one interface over a canonical tool registry. Tools establish
+facts; a configured model may explain them. Output validation and safety
+boundaries remain active, and no model response may overwrite canonical
+physiology. See [AI boundary](docs/architecture/AI_BOUNDARY.md).
+
+<details>
+<summary>Canonical formulas</summary>
+
+```text
+SV  = EDV - ESV
+EF  = SV / EDV × 100
+CO  = HR × SV / 1000
+MAP = DBP + (SBP - DBP) / 3
+RR  = 60000 / HR
+QTc = QT / sqrt(RR seconds)
+BSA = sqrt(height × weight / 3600)
+```
+
+Implementations and versioned assumptions—not this README—are authoritative.
+
+</details>
+
+## Architecture truth
+
+```mermaid
+flowchart TB
+    U[Browser] --> N[Next.js frontend]
+    N --> F[FastAPI backend]
+    F --> D[Deterministic cardiac engine]
+    F --> S[(SQLite / optional Redis and artifact storage)]
+    F -. optional .-> BR[Amazon Bedrock language inference]
+    F -. optional .-> V[VISTA-3D inference API]
+    V --> G[Local NVIDIA GPUs]
+```
+
+### What is actually deployed
+
+- **AWS hosting:** not deployed. The inspected AWS workshop role permits
+  Bedrock and CloudWatch but denies the hosting, registry, storage, and secret
+  services required for application deployment.
+- **Amazon Bedrock:** smoke-tested in `us-east-1`; one minimal inference
+  succeeded. It is optional and is not numerical authority.
+- **Vercel:** a `beatit` project and GitHub connection exist, but the first
+  deployment failed because of an incorrect root-directory combination. No
+  working Vercel frontend is claimed.
+- **Cloudflare Tunnel:** a temporary Quick Tunnel currently exposes only the
+  loopback-bound BeatIT backend. It runs detached; its generated hostname is
+  ignored runtime state, not a durable deployment.
+- **VISTA-3D:** the API and two GPU workers run detached. A fresh automatic
+  segmentation completed on GPU 0 in 0.257 seconds. Its current API process
+  lacks endpoint authentication, so it is deliberately not tunneled directly.
+
+These statements distinguish code capability from deployed infrastructure. See
+[AWS architecture](docs/architecture/AWS.md) and
+[AWS service inventory](docs/architecture/AWS_SERVICE_INVENTORY.md).
+
+## Data and provenance
+
+- **Synthetic demo fixtures:** the safe default for public demonstrations.
+- **Open real datasets:** adapters/local artifacts for PTB-XL, UCI Heart
+  Failure Clinical Records, and selected imaging research sources, subject to
+  their licenses.
+- **Restricted/private sources:** excluded from public deployment unless a
+  documented agreement and security review permit use.
+
+Different datasets are never represented as one real patient. A composite
+software-testing case remains explicitly labeled as composite. Missing evidence
+is not interpreted as normal.
+
+Every displayed value should retain one of these statuses:
+`measured`, `extracted`, `derived`, `inferred`, `default_model_prior`, or
+`simulated`. Derived values identify their formula; simulations identify their
+scenario and model version.
+
+```text
+displayed value → derivation/status → evidence reference → source
+```
+
+More supplied evidence may constrain modeled inputs. Less evidence produces
+more prior-filled or unavailable state and should increase visible uncertainty;
+it must never manufacture completeness.
+
+### Input contract and graceful degradation
+
+A useful full case may include patient basics, vitals, a 12-lead ECG, echo
+measurements, and clinical context. The software can accept narrower evidence,
+but it must label what is absent. PTB-XL contributes real ECG evidence without
+invented echo or vitals; UCI Heart Failure contributes tabular clinical
+variables without pretending to contain raw ECG or imaging.
+
+```text
+more relevant evidence → fewer unconstrained modeled inputs
+less relevant evidence → wider or unavailable modeled state → Missing Piece
+```
+
+That relationship is a modeling principle, not a promise that every additional
+test improves clinical decisions. Missing Piece ranks evidence categories that
+could constrain the implemented model; it does not prescribe testing.
+
+## How the 3D heart works
+
+The client uses React Three Fiber and Three.js to render a procedural,
+anatomically suggestive heart. A semantic component registry supports
+selection, findings, component inspection, and linked comparison. A shared
+cardiac clock drives beat phase and electrical context.
+
+VISTA-3D is a separate optional segmentation boundary. It can return a CT label
+map and metadata; deterministic Python code derives supported volumetric
+quantities. The current VISTA heart label is whole-heart, not chamber-specific,
+so BeatIT does not claim CT-derived chamber mechanics.
+
+## Repository map
+
+```text
+BeatIT/
+├── api/                    # deployment entry point
+├── python/hearttwin/       # API, deterministic engines, assistant, storage
+├── web/                    # Next.js UI and five product spaces
+├── fixtures/               # synthetic and golden verification inputs
+├── data/                   # governed local datasets and generated artifacts
+├── scripts/                # smoke, release, data, and model checks
+├── deploy/                 # local launcher and proxy guidance
+└── docs/                   # architecture, product, credibility, demo, release
+```
+
+Machine-readable inventories:
+[system](docs/architecture/system-manifest.json),
+[AWS](docs/architecture/aws-manifest.json), and
+[tooling](docs/architecture/tooling-manifest.json).
+
+## Technology stack
+
+Only technologies represented in the audited source or runtime evidence are
+listed here.
+
+- **Frontend:** Next.js 16, React 19, TypeScript, Zustand, Three.js, React Three
+  Fiber, React Three Drei, and Zod.
+- **Backend:** Python 3.13, FastAPI, Pydantic, NumPy, SciPy, and Uvicorn.
+- **Cardiac computation:** internal modules for cardiac state, hemodynamics,
+  recovery simulation, scenarios, ensembles, paired Shadow Trials, and Missing
+  Piece sensitivity.
+- **Data and persistence:** FHIR-shaped normalization, JSON artifacts, SQLite
+  experiment stores, plus optional Redis and S3 adapters.
+- **Optional intelligence:** provider-neutral language adapters, Amazon Bedrock
+  paths, Laya routing with deterministic fallback, and VISTA-3D segmentation.
+- **Operations:** Docker/local process scripts, Vercel configuration, AWS CLI
+  audit artifacts, and Cloudflare Tunnel scripts. Their presence does not imply
+  a successful deployment.
+
+Exact versions and status are recorded in
+[tooling-manifest.json](docs/architecture/tooling-manifest.json) and
+[THIRD_PARTY.md](THIRD_PARTY.md).
 
 ## Quick start
 
-Frontend is a Next.js + CopilotKit app under `web/`; backend is FastAPI under `python/hearttwin`. Run them as two processes:
+Requirements: Python 3.13, Node.js 22+, and pnpm.
 
 ```bash
-cp .env.example .env        # add your API keys (never commit .env)
+git clone https://github.com/chetas1208/BeatIT.git
+cd BeatIT
+cp .env.example .env
 
-# 1. Backend (FastAPI) on :8000
-python -m uvicorn python.hearttwin.api:app --reload --port 8000
+# Backend
+python -m pip install -r requirements.txt
+python -m uvicorn api.index:app --reload --port 8000
 
-# 2. Frontend (Next.js) on :3000
-cd web && pnpm install --ignore-workspace && pnpm dev   # http://localhost:3000
+# Frontend, in another shell
+cd web
+pnpm install --ignore-workspace
+NEXT_PUBLIC_API_BASE=http://localhost:8000/api/v1 pnpm dev
 ```
 
-Point the frontend at the backend with `NEXT_PUBLIC_API_BASE` (copy `web/.env.example` to `web/.env.local`; defaults to `http://localhost:8000/api/v1`). The CopilotKit chat route proxies to the backend's `/copilotkit` AG-UI endpoint.
-
-Without any API keys the app still runs: LLM-backed steps fall back to deterministic behavior, and Weave / Redis / OpenAI / VISTA-3D all degrade safely when unconfigured.
-
-## API endpoints
-
-```
-GET  /api/v1/health                          health check
-POST /api/v1/cases                           create a case
-POST /api/v1/cases/{id}/files                upload PDF/image/CSV
-POST /api/v1/cases/{id}/extract              stages 1-3: intake + extraction + validation
-POST /api/v1/cases/{id}/operate              stages 4-5-7: state builder + EP + hemodynamics + evaluator
-                                             (returns visualization.cardiac_findings)
-POST /api/v1/cases/{id}/simulate-recovery    stages 6-7: bounded recovery + evaluator
-POST /api/v1/cases/{id}/self-improve         bounded harness improvement rerun
-POST /api/v1/twin/ensemble                   seeded plausible-twin ensemble
-GET  /api/v1/twin/ensemble/{id}              retrieve a process-local ensemble
-GET  /api/v1/twin/ensemble/{id}/distributions retrieve ensemble distributions
-GET  /api/v1/cases/{id}                      full case state
-GET  /api/v1/cases/{id}/trace                agent trace (snapshot)
-GET  /api/v1/cases/{id}/trace/stream         live agent trace (SSE)
-```
-
-## Pipeline stages
-
-| Stage | Agent | Endpoint |
-|-------|-------|----------|
-| 1 | Intake & Safety | `/extract` |
-| 2 | Multimodal Extraction | `/extract` |
-| 3 | Evidence Validator | `/extract` |
-| 4 | Cardiac State Builder | `/operate` |
-| 5a | Electrophysiology (parallel) | `/operate` |
-| 5b | Hemodynamics Simulation (parallel) | `/operate` |
-| 6 | Recovery Orchestration | `/simulate-recovery` |
-| 7 | Evaluator & Critic | `/operate` + `/simulate-recovery` |
-
-## Deterministic formulas
-
-All numeric outputs come from pure Python in `python/hearttwin/tools/`. LLMs never perform math.
-
-```
-SV  = EDV - ESV
-EF  = (SV / EDV) × 100
-CO  = (HR × SV) / 1000
-MAP = DBP + (SBP - DBP) / 3
-RR  = 60000 / HR
-QTc = QT / sqrt(RR [seconds])   [Bazett]
-BSA = sqrt(H × W / 3600)         [Mosteller]
-```
-
-## Findings & anatomy
-
-The findings layer (`python/hearttwin/tools/cardiac_findings.py`) maps the simulated state onto the **AHA 17-segment model** and **coronary territories**, attaching a 3D anchor, severity, observation, and reference codes. It reports `imaging_source` honestly (`none` / `image_extraction` / `vista3d_segmentation`). VISTA-3D segmentation is **optional** and, in its current contract, returns segmentation label IDs + a job handle (not a CT-derived mesh); the 3D twin is an anatomically-faithful stylized model driven by the real state, not a rendered scan.
-
-## Environment variables
-
-See `.env.example`. Highlights: `OPENAI_API_KEY` (+ per-agent `OPENAI_MODEL_*`), `WANDB_*` for Weave tracing, `UPSTASH_REDIS_REST_*` for case memory, `VISTA3D_*` for optional segmentation, and `NEXT_PUBLIC_API_BASE` for the frontend.
-
-## Tests
+Open `http://localhost:3000`. Secrets belong only in ignored local environment
+files or a deployment secret store; never expose them through `NEXT_PUBLIC_*`.
 
 ```bash
-pnpm test:py          # Python backend tests (incl. adversarial no-fail + findings)
-pnpm build            # build the Next.js frontend (web/)
-pnpm verify:all       # env + repo + vercel checks, tests, and build
+curl http://localhost:8000/api/v1/system-check
 ```
 
-## Deploy (Vercel)
-
-Two pieces: the **frontend** as a Vercel project with **Root Directory = `web`** (framework: Next.js; set `NEXT_PUBLIC_API_BASE` to the backend URL), and the **backend** as a Python serverless function from the repo root (`vercel.json` routes `/api/:path*` → `api/index.py`).
-
-## Safety boundary
-
-DualBeat is an educational simulation. It does **not** diagnose, recommend medication or treatment, or provide emergency guidance. It blocks diagnostic/treatment language at the intake and output boundaries, labels every output `SIMULATION ONLY`, flags every value filled from priors, and frames all anatomic findings as educational observations with reference terminology — never a clinical diagnosis. Use it for education, research, and exploring cardiac physiology — not for clinical decisions.
-
----
-
-## Built at the Abridge Hackathon
-
-**DualBeat CareGuard** — an additive, feature-flagged (`CAREGUARD_ENABLED` /
-`NEXT_PUBLIC_CAREGUARD_ENABLED`), clinician-facing multimorbidity medication-safety and
-evidence-review module. It does not diagnose, dose, prescribe, or place orders; every
-surface reads *"Clinical decision support draft. Clinician and pharmacist review
-required."* With the flags off, DualBeat behaves exactly as before.
-
-New CareGuard functions created during this event:
-
-- **FHIR R4 ingestion** with per-fact JSON-pointer provenance (`careguard/fhir/`)
-- **Multimorbidity reconstruction** — FHIR conditions + report-mention NLP with
-  negation/temporality/experiencer (`careguard/reports/`, `medications/morbidity_reconciler.py`)
-- **Local-first guideline retrieval** with freshness + abstention (`careguard/evidence/`)
-- **RxNorm medication normalization** + ingredient decomposition + duplicate detection
-  (`medications/medication_reconciler.py`, `rxnorm_client.py`)
-- **FDA/DailyMed/openFDA evidence retrieval** + **Orange Book / RxClass / DDInter /
-  SIDER / DrugCentral** federation with tiers and a DrugBank license gate
-  (`medications/`)
-- **Cross-organ contraindication matrix** (`careguard/risk/`)
-- **Deterministic conflict engine** (drug–drug/disease/organ/allergy/duplication/monitoring)
-- **Evidence-bounded alternative engine** (generic / same-class / cross-class, each
-  re-checked; never "safe/best") (`medications/alternative_engine.py`)
-- **Anthropic CareGuard agents** with structured output, Fable refusal handling +
-  fallback, and a deidentification boundary (`careguard/anthropic/`)
-- **Candidate care-plan comparison** + **clinician decision workflow** (`/careguard`)
-- **CDS Hooks** cards (patient-view / order-select / order-sign — cards only)
-- **CareGuard evals, safety critic, and an audit trail**
-
-See `docs/careguard/` (architecture, clinical-safety-boundary, medication-source-matrix,
-anthropic-integration, demo-script, and more). CareGuard reuses DualBeat's existing,
-tested simulation through a read-only adapter — it reimplements no DualBeat formula and
-mutates no DualBeat state. DualBeat itself predates this event; only the CareGuard
-functions listed above were built here.
+Production-style local fallback:
 
 ```bash
-pnpm test:careguard            # CareGuard + medication-safety test suite
-pnpm verify:careguard          # isolation, env, forbidden-phrase, secret/PHI, source policy
-pnpm verify:medication-sources # source tiers, DrugBank license, no-Kaggle-as-authority
+./scripts/demo-preflight.sh
+./deploy/beatit up
+./deploy/beatit status
 ```
+
+## Testing
+
+```bash
+pnpm test:py
+pnpm -C web exec tsc --noEmit
+pnpm -C web lint
+pnpm -C web build
+python scripts/run_local_smoke.py
+./scripts/verify-release.sh --deep
+```
+
+Test counts are intentionally not hard-coded. See [testing](docs/testing.md).
+
+## 90-second demo
+
+1. Load the labeled synthetic case in **Twin** and inspect provenance.
+2. Scrub the timeline and select an anatomical component.
+3. Change one bounded parameter in **Experiment**.
+4. Generate plausible twins and run a paired **Shadow Trial**.
+5. Open **Split Heart** to compare the same twin before and after.
+6. Ask **Missing Piece** what drives uncertainty and show its limitations.
+7. Finish in **Report** with assumptions, provenance, and the safety boundary.
+
+See [the full demo script](docs/demo/DEMO_SCRIPT.md).
+
+## Safety and regulatory boundary
+
+BeatIT is not currently claimed to be FDA-cleared, FDA-approved, clinically
+validated, HIPAA-ready, an autonomous diagnostic system, a treatment selector,
+or a substitute for professional judgment. It does not provide emergency
+triage.
+
+A clinical deployment would require authentication, authorization, tenant
+isolation, encryption, retention/deletion controls, audit logs, governed data
+agreements, validated integration, cybersecurity review, human-factors work,
+and regulatory assessment tied to intended use and claims. See
+[Safety boundary](docs/product/SAFETY_BOUNDARY.md).
+
+## Current limitations
+
+- Computational credibility tests are not clinical validation.
+- AWS/Vercel deployment is incomplete; the current public backend bridge is an
+  ephemeral Cloudflare Quick Tunnel whose hostname changes on restart.
+- CopilotKit was removed from the active frontend after its runtime discovery
+  blocked the core workflow. Laya routing and deterministic assistant paths
+  remain backend capabilities.
+- Process-local case state is not durable without a configured provider.
+- SQLite is restart-safe on one host, not a hosted multi-worker database.
+- Procedural heart geometry is explanatory, not patient-specific mechanics.
+- VISTA availability and its whole-heart label limit imaging claims.
+- Plausible-twin distributions depend on declared input assumptions and do not
+  model validated joint patient distributions.
+- Browser, accessibility, public TLS, and backup/restore evidence remain release
+  gates where the corresponding reports say so.
+
+## Roadmap
+
+- **Now:** close provenance, scenario-contract, safety, and deployed-demo gates.
+- **Next:** clinician workflow feedback and governed de-identified pilot
+  infrastructure.
+- **Later:** validated integrations and prospective evaluation appropriate to a
+  deliberately reviewed intended use.
+
+## Contributing
+
+Read [AGENTS.md](AGENTS.md) and claim work in [docs/TASKS.md](docs/TASKS.md).
+Canonical formula changes require explicit review and new golden evidence. New
+behavior needs focused tests. Never commit secrets, raw restricted data, model
+weights, generated builds, or unsupported medical claims.
+
+## Research, software, and data attribution
+
+Research references are organized in
+[docs/research/REFERENCES.md](docs/research/REFERENCES.md). Open-source software,
+models, and datasets are listed in [THIRD_PARTY.md](THIRD_PARTY.md) and
+[data/LICENSES.md](data/LICENSES.md).
+
+No repository-level software license is currently present. Until maintainers add
+one, the source is publicly visible but must not be described as licensed for
+unrestricted reuse.

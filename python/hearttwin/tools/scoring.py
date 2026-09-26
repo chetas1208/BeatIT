@@ -371,7 +371,10 @@ def score_visualization_readiness(
         score += 0.20
 
     pv_loop = visualization_payload.get("pv_loop")
-    if isinstance(pv_loop, dict) and pv_loop.get("volumes_ml") and pv_loop.get("pressures_mmhg"):
+    if isinstance(pv_loop, dict) and (
+        (pv_loop.get("volumes_ml") and pv_loop.get("pressures_mmhg"))
+        or (pv_loop.get("volume_ml") and pv_loop.get("pressure_mmhg"))
+    ):
         score += 0.20
     elif visualization_payload:
         failed_checks.append("visualization_missing_pv_loop")
