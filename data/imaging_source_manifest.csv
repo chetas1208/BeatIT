@@ -1,0 +1,6 @@
+source_id,source_name,version,doi,license,access_type,access_verified,dua_required,dua_recorded,has_same_subject_clinical_data,has_reference_masks,local_present,tier,expected_max_cases,access_state
+multid4cad,MultiD4CAD — multimodal cardiac CT (CAD),,10.5281/zenodo.15148653,Controlled access — Zenodo restricted; signed DUA required,controlled,False,True,False,True,True,False,1,118,access_pending
+imagecas,ImageCAS — coronary CTA segmentation benchmark (~1000 scans),,,Controlled request; license must be recorded,controlled,False,True,False,False,True,False,3,1000,access_pending
+totalsegmentator,TotalSegmentator dataset — multi-organ CT reference masks,,10.5281/zenodo.10047292,CC BY 4.0 (open); example files under the Apache-2.0 repo,open,True,False,True,False,True,False,4,1228,access_verified
+tcia,TCIA collections (varied),,,Per-collection; must be recorded,controlled,False,True,False,False,False,False,2,0,access_pending
+rad-chestct,RAD-ChestCT — chest CT + report labels,,,Controlled; must be recorded,controlled,False,True,False,False,False,False,5,0,access_pending

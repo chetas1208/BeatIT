@@ -1,0 +1,49 @@
+{
+  "n_eligible_cases": 1000,
+  "cap_usd": 500.0,
+  "measured_from_pilot": {
+    "case_only": {
+      "input": 7819.666666666667,
+      "output": 9194.666666666666,
+      "n_pilot": 3
+    },
+    "evidence": {
+      "input": 13300.0,
+      "output": 6600.0,
+      "n_pilot": 0
+    }
+  },
+  "arms": {
+    "sonnet_45_case_only": {
+      "model": "claude-sonnet-4-5-20250929",
+      "mode": "case_only",
+      "cost_per_call_usd": 0.1614,
+      "full_pass_cost_usd": 161.38
+    },
+    "sonnet_46_case_only": {
+      "model": "claude-sonnet-4-6",
+      "mode": "case_only",
+      "cost_per_call_usd": 0.1614,
+      "full_pass_cost_usd": 161.38
+    },
+    "sonnet_45_evidence_grounded": {
+      "model": "claude-sonnet-4-5-20250929",
+      "mode": "evidence",
+      "cost_per_call_usd": 0.1389,
+      "full_pass_cost_usd": 138.9
+    },
+    "sonnet_46_evidence_grounded": {
+      "model": "claude-sonnet-4-6",
+      "mode": "evidence",
+      "cost_per_call_usd": 0.1389,
+      "full_pass_cost_usd": 138.9
+    }
+  },
+  "totals": {
+    "full_4arm_pass_usd": 600.56,
+    "repeat_trials_extra_usd": 240.22,
+    "grand_total_usd": 840.78,
+    "grand_total_batch_api_usd": 420.39,
+    "exceeds_cap": true
+  }
+}

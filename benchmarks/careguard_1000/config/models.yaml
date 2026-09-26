@@ -1,0 +1,24 @@
+# Pinned model identifiers. These are verified against the Models API by
+# runners/verify_models.py before any arm executes. NEVER substituted silently.
+
+models:
+  sonnet_45:
+    id: claude-sonnet-4-5-20250929
+    display: Claude Sonnet 4.5
+    note: dated snapshot; stable
+  sonnet_46:
+    id: claude-sonnet-4-6
+    display: Claude Sonnet 4.6
+    note: dateless fixed snapshot (not an auto-updating alias)
+
+# Standard Messages API pricing (USD / 1M tokens). 4.5 and 4.6 share prices.
+# Batch API is half; batch is used only for quality/cost-at-scale, never for
+# interactive latency.
+pricing:
+  claude-sonnet-4-5-20250929: {input: 3.0, output: 15.0}
+  claude-sonnet-4-6: {input: 3.0, output: 15.0}
+
+api:
+  key_env: ANTHROPIC_API_KEY
+  fallback_key_envs: [ANTHROPIC_API_KEY_FALLBACK, ANTHROPIC_API_KEY_2]
+  version: "2023-06-01"

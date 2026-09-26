@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CareGuard benchmark common output",
+  "description": "Every model arm and the CareGuard system map into this schema. Used as the forced-tool input_schema for direct model arms and as the grading contract for all arms.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "identified_conditions",
+    "reconciled_medications",
+    "identified_conflicts",
+    "missing_information",
+    "alternative_candidates",
+    "overall_status",
+    "citations",
+    "clinician_review_required"
+  ],
+  "properties": {
+    "case_id": {"type": "string"},
+    "arm_id": {"type": "string"},
+    "trial_id": {"type": "string"},
+    "identified_conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["normalized_name", "status"],
+        "properties": {
+          "normalized_name": {"type": "string"},
+          "organ_system": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["recorded_active", "recorded_historical",
+                     "possible_report_mention", "negated", "uncertain"]
+          },
+          "source_fact_ids": {"type": "array", "items": {"type": "string"}},
+          "confidence": {"type": "number"}
+        }
+      }
+    },
+    "reconciled_medications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["original_text"],
+        "properties": {
+          "original_text": {"type": "string"},
+          "normalized_name": {"type": ["string", "null"]},
+          "rxcui": {"type": ["string", "null"]},
+          "ingredients": {"type": "array", "items": {"type": "string"}},
+          "status": {"type": "string"},
+          "source_fact_ids": {"type": "array", "items": {"type": "string"}},
+          "confidence": {"type": "number"}
+        }
+      }
+    },
+    "identified_conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["conflict_type", "severity", "statement"],
+        "properties": {
+          "conflict_type": {
+            "type": "string",
+            "enum": ["documented_contraindication", "drug_drug_interaction",
+                     "drug_disease_interaction", "drug_organ_concern",
+                     "allergy_conflict", "therapeutic_duplication",
+                     "monitoring_gap", "insufficient_evidence"]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["blocked_for_draft", "high_concern", "caution",
+                     "informational", "insufficient_evidence"]
+          },
+          "medication_ids": {"type": "array", "items": {"type": "string"}},
+          "condition_or_fact_ids": {"type": "array", "items": {"type": "string"}},
+          "statement": {"type": "string"},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "requires_clinician_confirmation": {"type": "boolean"},
+          "confidence": {"type": "number"}
+        }
+      }
+    },
+    "missing_information": {"type": "array", "items": {"type": "string"}},
+    "alternative_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["normalized_name", "display_status"],
+        "properties": {
+          "normalized_name": {"type": "string"},
+          "alternative_type": {"type": "string"},
+          "reasons_considered": {"type": "array", "items": {"type": "string"}},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "remaining_conflicts": {"type": "array", "items": {"type": "string"}},
+          "missing_information": {"type": "array", "items": {"type": "string"}},
+          "display_status": {
+            "type": "string",
+            "enum": ["candidate_for_clinician_review",
+                     "requires_more_information", "excluded_due_to_conflict",
+                     "insufficient_evidence"]
+          },
+          "confidence": {"type": "number"}
+        }
+      }
+    },
+    "overall_status": {
+      "type": "string",
+      "enum": ["no_documented_conflict_found", "review_required",
+               "high_concern", "blocked_for_draft", "insufficient_evidence"]
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_id"],
+        "properties": {
+          "evidence_id": {"type": "string"},
+          "source_title": {"type": "string"},
+          "source_version": {"type": ["string", "null"]},
+          "section": {"type": ["string", "null"]},
+          "quoted_passage": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "abstentions": {"type": "array", "items": {"type": "string"}},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "clinician_review_required": {"type": "boolean"},
+    "pharmacist_review_recommended": {"type": "boolean"},
+    "safety_disclaimer": {"type": "string"}
+  }
+}

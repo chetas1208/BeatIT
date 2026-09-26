@@ -1,0 +1,7 @@
+CASE FACTS (canonical, de-identified — deduplicated across source formats):
+
+{case_packet_json}
+
+Review this case for medication safety and return the structured object via the
+tool. Remember: no external evidence is provided in this arm; abstain rather
+than assert anything you cannot support from the case facts above.

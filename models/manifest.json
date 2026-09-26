@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "models": {
+    "medical-segmentation": {
+      "runtime": "monai",
+      "path_env": "BEATIT_SEGMENTATION_MODEL",
+      "default_path": "/usr/data/models/vista-3d-host/models/vista3d/models/model.pt",
+      "model_id": "vista3d-0.5.8",
+      "required": false,
+      "notes": "Existing local VISTA-3D checkpoint; metadata-only default, never loaded at startup."
+    },
+    "language": {
+      "runtime": "provider-neutral",
+      "path_env": "BEATIT_LANGUAGE_MODEL",
+      "required": false,
+      "notes": "Optional local endpoint/checkpoint for explanations; deterministic physiology is authoritative."
+    },
+    "embedding": {
+      "runtime": "provider-neutral",
+      "path_env": "BEATIT_EMBEDDING_MODEL",
+      "required": false,
+      "notes": "Intentionally optional; provenance lookup currently avoids semantic retrieval."
+    }
+  }
+}

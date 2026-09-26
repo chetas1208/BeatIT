@@ -1,0 +1,2 @@
+series,n_slices,readable_slices,modality,series_uids,study_uids,patients,spacing,slice_thickness,valid,n_issues,issues,n_warnings,warnings
+ts_example_dicom,20,20,CT,1,1,0,"[0.9765625, 0.9765625, 3.0]",3.0,True,0,,1,SOPInstanceUID blanked on all slices (deidentification) — verifying uniqueness/ordering via InstanceNumber instead

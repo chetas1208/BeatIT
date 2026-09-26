@@ -1,0 +1,55 @@
+{
+  "product": "BeatIT",
+  "manifest_version": "m5.5-credibility-v1",
+  "status": "m5.5-in-progress",
+  "numerical_authority": "python/hearttwin",
+  "models": {
+    "physiology": {
+      "version": "m5.5-ensemble-projection-v1",
+      "base_model_version": "m4-deterministic-v1",
+      "type": "bounded deterministic educational physiology",
+      "formulas_are_noisy": false
+    },
+    "probabilistic_ensemble": {
+      "version": "m5.5-backend-ensemble-v1",
+      "sampling": "validated input distributions with seeded Python RNG",
+      "summary": "descriptive statistics over accepted deterministic simulations",
+      "distribution_schema_version": "m5.5-backend-ensemble-v1",
+      "prior_version": "m5-priors-v1"
+    }
+  },
+  "fixture_version": "m5.5-golden-v1",
+  "validated_invariants": [
+    "EDV exceeds ESV for accepted samples",
+    "stroke volume is positive for accepted samples",
+    "ejection fraction is between 0 and 100 percent",
+    "cardiac output is finite and positive",
+    "seeded requests reproduce samples and summaries",
+    "accepted and rejected sample counts reconcile"
+  ],
+  "known_limitations": [
+    "Input proxies are sampled independently; no validated joint correlation model is available.",
+    "Local SQLite durability requires a persistent shared filesystem.",
+    "Pointwise pressure-volume loop uncertainty is not returned by the backend.",
+    "Component uncertainty is limited to explicitly mapped scalar output metrics.",
+    "Browser and assistive-technology behavior require manual environment validation."
+  ],
+  "lineage": {
+    "required_origin_quality": ["observed", "derived", "interpolated", "synthetic"],
+    "synthetic_is_patient_evidence": false
+  },
+  "claims_not_supported": [
+    "clinical diagnosis",
+    "treatment recommendation",
+    "patient-specific probability",
+    "clinical confidence interval",
+    "Bayesian posterior",
+    "calibrated risk"
+  ],
+  "known_gates": {
+    "frontend_backend_golden_vectors": "backend_canonical_suite_and_frontend_adapter_runtime_pass",
+    "browser_accessibility_qa": "pending",
+    "component_specific_uncertainty": "bounded_scalar_mapping",
+    "pv_pointwise_uncertainty": "unavailable_bounded_scalar_surface"
+  }
+}

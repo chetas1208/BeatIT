@@ -1,0 +1,2 @@
+export { buildComponentReport } from "./reportModel";
+

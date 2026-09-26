@@ -1,0 +1,12 @@
+CASE FACTS (canonical, de-identified — deduplicated across source formats):
+
+{case_packet_json}
+
+AUTHORITATIVE EVIDENCE PACKET (assembled independently; source text only, no
+answer key):
+
+{evidence_packet_json}
+
+Review this case for medication safety using ONLY the case facts and the
+evidence above. Cite the evidence_id for every evidence-dependent conflict.
+Return the structured object via the tool.

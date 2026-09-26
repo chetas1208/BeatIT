@@ -1,0 +1,33 @@
+# Report generation configuration.
+
+title: "HeartTwin CareGuard — 1,000-Case Benchmark vs Claude Sonnet 4.5 / 4.6"
+subtitle: "Research benchmark on deidentified / composite open-data cases"
+
+disclaimers:
+  - "Research benchmark using deidentified, synthetic, or composite open-data cases."
+  - "Not a clinical-validation study and not for diagnosis or treatment decisions."
+  - "Where a case links a PTB-XL ECG to an eICU record, the ECG and EHR originate from different deidentified individuals and are combined only for multimodal software testing."
+
+arms_display_order:
+  - sonnet_45_case_only
+  - sonnet_46_case_only
+  - sonnet_45_evidence_grounded
+  - sonnet_46_evidence_grounded
+  - careguard_full
+  - careguard_no_critic
+  - careguard_no_retrieval
+  - careguard_no_multimorbidity
+  - careguard_no_deterministic_conflict_engine
+
+outputs:
+  html: true
+  markdown: true
+  pdf: true
+  charts: true
+  demo_summary: true
+
+statistical:
+  bootstrap_resamples: 2000
+  ci: 0.95
+  paired_test: wilcoxon
+  significance_alpha: 0.05

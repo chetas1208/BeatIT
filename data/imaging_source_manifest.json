@@ -1,0 +1,205 @@
+{
+  "generated_at": "2026-07-18T22:37:44+00:00",
+  "sources": [
+    {
+      "source_id": "multid4cad",
+      "source_name": "MultiD4CAD \u2014 multimodal cardiac CT (CAD)",
+      "version": "",
+      "doi": "10.5281/zenodo.15148653",
+      "license": "Controlled access \u2014 Zenodo restricted; signed DUA required",
+      "access_type": "controlled",
+      "access_verified": false,
+      "dua_required": true,
+      "dua_recorded": false,
+      "image_modality": [
+        "CT"
+      ],
+      "image_formats": [
+        "nifti"
+      ],
+      "has_same_subject_clinical_data": true,
+      "has_reference_masks": true,
+      "clinical_metadata_fields": [
+        "cad_label",
+        "clinical_features"
+      ],
+      "subject_id_field": "sample_id",
+      "study_id_field": "sample_id",
+      "series_id_field": "sample_id",
+      "downloaded_at": null,
+      "local_root": null,
+      "checksum_manifest": null,
+      "local_present": false,
+      "tier": 1,
+      "expected_max_cases": 118,
+      "approved_uses": [
+        "imaging_native_same_subject cases",
+        "EAT/PAT reference (endpoint-permitting)"
+      ],
+      "prohibited_uses": [
+        "fusing into an eICU subject",
+        "bypassing access controls"
+      ],
+      "access_state": "access_pending",
+      "can_ingest": false
+    },
+    {
+      "source_id": "imagecas",
+      "source_name": "ImageCAS \u2014 coronary CTA segmentation benchmark (~1000 scans)",
+      "version": "",
+      "doi": null,
+      "license": "Controlled request; license must be recorded",
+      "access_type": "controlled",
+      "access_verified": false,
+      "dua_required": true,
+      "dua_recorded": false,
+      "image_modality": [
+        "CT"
+      ],
+      "image_formats": [
+        "nifti"
+      ],
+      "has_same_subject_clinical_data": false,
+      "has_reference_masks": true,
+      "clinical_metadata_fields": [],
+      "subject_id_field": "case_id",
+      "study_id_field": "case_id",
+      "series_id_field": "case_id",
+      "downloaded_at": null,
+      "local_root": null,
+      "checksum_manifest": null,
+      "local_present": false,
+      "tier": 3,
+      "expected_max_cases": 1000,
+      "approved_uses": [
+        "imaging_only benchmark",
+        "throughput/quality analysis"
+      ],
+      "prohibited_uses": [
+        "inventing meds/labs",
+        "attaching to an eICU patient",
+        "coronary Dice unless endpoint supports coronary target"
+      ],
+      "access_state": "access_pending",
+      "can_ingest": false
+    },
+    {
+      "source_id": "totalsegmentator",
+      "source_name": "TotalSegmentator dataset \u2014 multi-organ CT reference masks",
+      "version": "",
+      "doi": "10.5281/zenodo.10047292",
+      "license": "CC BY 4.0 (open); example files under the Apache-2.0 repo",
+      "access_type": "open",
+      "access_verified": true,
+      "dua_required": false,
+      "dua_recorded": true,
+      "image_modality": [
+        "CT"
+      ],
+      "image_formats": [
+        "nifti",
+        "dicom"
+      ],
+      "has_same_subject_clinical_data": false,
+      "has_reference_masks": true,
+      "clinical_metadata_fields": [],
+      "subject_id_field": "subject_id",
+      "study_id_field": "subject_id",
+      "series_id_field": "subject_id",
+      "downloaded_at": null,
+      "local_root": null,
+      "checksum_manifest": null,
+      "local_present": false,
+      "tier": 4,
+      "expected_max_cases": 1228,
+      "approved_uses": [
+        "imaging_only benchmark",
+        "organ Dice/HD95 vs overlapping VISTA labels",
+        "DICOM/NIfTI validation"
+      ],
+      "prohibited_uses": [
+        "attaching to an eICU patient",
+        "diagnosis"
+      ],
+      "access_state": "access_verified",
+      "can_ingest": true
+    },
+    {
+      "source_id": "tcia",
+      "source_name": "TCIA collections (varied)",
+      "version": "",
+      "doi": null,
+      "license": "Per-collection; must be recorded",
+      "access_type": "controlled",
+      "access_verified": false,
+      "dua_required": true,
+      "dua_recorded": false,
+      "image_modality": [
+        "CT"
+      ],
+      "image_formats": [
+        "dicom"
+      ],
+      "has_same_subject_clinical_data": false,
+      "has_reference_masks": false,
+      "clinical_metadata_fields": [],
+      "subject_id_field": "PatientID",
+      "study_id_field": "StudyInstanceUID",
+      "series_id_field": "SeriesInstanceUID",
+      "downloaded_at": null,
+      "local_root": null,
+      "checksum_manifest": null,
+      "local_present": false,
+      "tier": 2,
+      "expected_max_cases": 0,
+      "approved_uses": [
+        "only with verified same-subject linkage document"
+      ],
+      "prohibited_uses": [
+        "assuming clinical metadata exists"
+      ],
+      "access_state": "access_pending",
+      "can_ingest": false
+    },
+    {
+      "source_id": "rad-chestct",
+      "source_name": "RAD-ChestCT \u2014 chest CT + report labels",
+      "version": "",
+      "doi": null,
+      "license": "Controlled; must be recorded",
+      "access_type": "controlled",
+      "access_verified": false,
+      "dua_required": true,
+      "dua_recorded": false,
+      "image_modality": [
+        "CT"
+      ],
+      "image_formats": [
+        "nifti",
+        "npz"
+      ],
+      "has_same_subject_clinical_data": false,
+      "has_reference_masks": false,
+      "clinical_metadata_fields": [
+        "report_labels"
+      ],
+      "subject_id_field": "scan_id",
+      "study_id_field": "scan_id",
+      "series_id_field": "scan_id",
+      "downloaded_at": null,
+      "local_root": null,
+      "checksum_manifest": null,
+      "local_present": false,
+      "tier": 5,
+      "expected_max_cases": 0,
+      "approved_uses": [
+        "imaging analysis with verified scan id"
+      ],
+      "prohibited_uses": [
+        "inventing missing clinical context"
+      ],
+      "access_state": "access_pending",
+      "can_ingest": false
+    }
+  ]
+}

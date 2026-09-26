@@ -1,0 +1,548 @@
+{
+  "sonnet_46_case_only": {
+    "n_trials": 3,
+    "n_gradable": 3,
+    "medication": {
+      "tp": 93,
+      "fp": 4,
+      "fn": 0,
+      "precision": 0.9587628865979382,
+      "recall": 1.0,
+      "f1": 0.9789473684210526,
+      "support": 93
+    },
+    "allergy": {
+      "tp": 1,
+      "fp": 8,
+      "fn": 0,
+      "precision": 0.1111111111111111,
+      "recall": 1.0,
+      "f1": 0.19999999999999998,
+      "support": 1
+    },
+    "contraindication": {
+      "tp": 23,
+      "fp": 6,
+      "fn": 10,
+      "precision": 0.7931034482758621,
+      "recall": 0.696969696969697,
+      "f1": 0.7419354838709677,
+      "support": 33
+    },
+    "missingness": {
+      "tp": 1,
+      "fp": 45,
+      "fn": 0,
+      "precision": 0.021739130434782608,
+      "recall": 1.0,
+      "f1": 0.042553191489361694,
+      "support": 1
+    },
+    "condition": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 24,
+      "precision": 1.0,
+      "recall": 0.2727272727272727,
+      "f1": 0.42857142857142855,
+      "support": 33
+    },
+    "contraindication_signal_coverage": {
+      "mean": 0.8104575163398692,
+      "n": 3
+    },
+    "evidence": {
+      "mean": 0.6857142857142856,
+      "n": 3
+    },
+    "safety": {
+      "mean": 0.3142857142857143,
+      "n": 3
+    },
+    "abstention": {
+      "mean": 0.0,
+      "n": 3
+    },
+    "trace": {
+      "mean": 0.5079365079365079,
+      "n": 3
+    },
+    "composite": {
+      "mean": 0.6834997246761952,
+      "n": 3
+    },
+    "schema": {
+      "valid": 3,
+      "valid_rate": 1.0,
+      "repaired": 1,
+      "schema_failure": 0
+    },
+    "operational": {
+      "cost_usd_total": 0.4841,
+      "cost_usd_per_case": 0.161379,
+      "latency_median_s": 127.77,
+      "latency_p95_s": 147.6231,
+      "input_tokens_mean": 7819.666666666667,
+      "output_tokens_mean": 9194.666666666666,
+      "api_failure_rate": 0.0,
+      "schema_failure_rate": 0.0,
+      "retry_rate": 0.0,
+      "completion_rate": 1.0
+    }
+  },
+  "careguard_full": {
+    "n_trials": 1000,
+    "n_gradable": 1000,
+    "medication": {
+      "tp": 17590,
+      "fp": 93,
+      "fn": 0,
+      "precision": 0.9947407114177459,
+      "recall": 1.0,
+      "f1": 0.9973634224477647,
+      "support": 17590
+    },
+    "allergy": {
+      "tp": 8,
+      "fp": 31,
+      "fn": 4,
+      "precision": 0.20512820512820512,
+      "recall": 0.6666666666666666,
+      "f1": 0.31372549019607837,
+      "support": 12
+    },
+    "contraindication": {
+      "tp": 60,
+      "fp": 91,
+      "fn": 5828,
+      "precision": 0.3973509933774834,
+      "recall": 0.010190217391304348,
+      "f1": 0.01987083954297069,
+      "support": 5888
+    },
+    "missingness": {
+      "tp": 0,
+      "fp": 1004,
+      "fn": 922,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": null,
+      "support": 922
+    },
+    "condition": {
+      "tp": 1298,
+      "fp": 0,
+      "fn": 7449,
+      "precision": 1.0,
+      "recall": 0.1483937349948554,
+      "f1": 0.25843703334992535,
+      "support": 8747
+    },
+    "contraindication_signal_coverage": {
+      "mean": 0.9691278796889762,
+      "n": 948
+    },
+    "evidence": {
+      "mean": 1.0,
+      "n": 710
+    },
+    "safety": {
+      "mean": 0.0,
+      "n": 710
+    },
+    "abstention": {
+      "mean": 0.9031374221351367,
+      "n": 1000
+    },
+    "trace": {
+      "mean": 0.002349515456061585,
+      "n": 1000
+    },
+    "composite": {
+      "mean": 0.4575309512576347,
+      "n": 1000
+    },
+    "schema": {
+      "valid": 1000,
+      "valid_rate": 1.0,
+      "repaired": 0,
+      "schema_failure": 0
+    },
+    "operational": {
+      "cost_usd_total": 0.0,
+      "cost_usd_per_case": 0.0,
+      "latency_median_s": null,
+      "latency_p95_s": null,
+      "input_tokens_mean": 0.0,
+      "output_tokens_mean": 0.0,
+      "api_failure_rate": 0.0,
+      "schema_failure_rate": 0.0,
+      "retry_rate": 0.0,
+      "completion_rate": 1.0
+    }
+  },
+  "careguard_no_critic": {
+    "n_trials": 1000,
+    "n_gradable": 1000,
+    "medication": {
+      "tp": 17590,
+      "fp": 93,
+      "fn": 0,
+      "precision": 0.9947407114177459,
+      "recall": 1.0,
+      "f1": 0.9973634224477647,
+      "support": 17590
+    },
+    "allergy": {
+      "tp": 8,
+      "fp": 31,
+      "fn": 4,
+      "precision": 0.20512820512820512,
+      "recall": 0.6666666666666666,
+      "f1": 0.31372549019607837,
+      "support": 12
+    },
+    "contraindication": {
+      "tp": 60,
+      "fp": 91,
+      "fn": 5828,
+      "precision": 0.3973509933774834,
+      "recall": 0.010190217391304348,
+      "f1": 0.01987083954297069,
+      "support": 5888
+    },
+    "missingness": {
+      "tp": 0,
+      "fp": 1004,
+      "fn": 922,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": null,
+      "support": 922
+    },
+    "condition": {
+      "tp": 1298,
+      "fp": 0,
+      "fn": 7449,
+      "precision": 1.0,
+      "recall": 0.1483937349948554,
+      "f1": 0.25843703334992535,
+      "support": 8747
+    },
+    "contraindication_signal_coverage": {
+      "mean": 0.9691278796889762,
+      "n": 948
+    },
+    "evidence": {
+      "mean": 1.0,
+      "n": 710
+    },
+    "safety": {
+      "mean": 0.0,
+      "n": 710
+    },
+    "abstention": {
+      "mean": 0.9031374221351367,
+      "n": 1000
+    },
+    "trace": {
+      "mean": 0.002349515456061585,
+      "n": 1000
+    },
+    "composite": {
+      "mean": 0.4575309512576347,
+      "n": 1000
+    },
+    "schema": {
+      "valid": 1000,
+      "valid_rate": 1.0,
+      "repaired": 0,
+      "schema_failure": 0
+    },
+    "operational": {
+      "cost_usd_total": 0.0,
+      "cost_usd_per_case": 0.0,
+      "latency_median_s": null,
+      "latency_p95_s": null,
+      "input_tokens_mean": 0.0,
+      "output_tokens_mean": 0.0,
+      "api_failure_rate": 0.0,
+      "schema_failure_rate": 0.0,
+      "retry_rate": 0.0,
+      "completion_rate": 1.0
+    }
+  },
+  "careguard_no_retrieval": {
+    "n_trials": 1000,
+    "n_gradable": 1000,
+    "medication": {
+      "tp": 17590,
+      "fp": 93,
+      "fn": 0,
+      "precision": 0.9947407114177459,
+      "recall": 1.0,
+      "f1": 0.9973634224477647,
+      "support": 17590
+    },
+    "allergy": {
+      "tp": 8,
+      "fp": 31,
+      "fn": 4,
+      "precision": 0.20512820512820512,
+      "recall": 0.6666666666666666,
+      "f1": 0.31372549019607837,
+      "support": 12
+    },
+    "contraindication": {
+      "tp": 60,
+      "fp": 90,
+      "fn": 5828,
+      "precision": 0.4,
+      "recall": 0.010190217391304348,
+      "f1": 0.01987413050679033,
+      "support": 5888
+    },
+    "missingness": {
+      "tp": 0,
+      "fp": 1004,
+      "fn": 922,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": null,
+      "support": 922
+    },
+    "condition": {
+      "tp": 1298,
+      "fp": 0,
+      "fn": 7449,
+      "precision": 1.0,
+      "recall": 0.1483937349948554,
+      "f1": 0.25843703334992535,
+      "support": 8747
+    },
+    "contraindication_signal_coverage": {
+      "mean": 0.9691278796889762,
+      "n": 948
+    },
+    "evidence": {
+      "mean": 1.0,
+      "n": 710
+    },
+    "safety": {
+      "mean": 0.0,
+      "n": 710
+    },
+    "abstention": {
+      "mean": 0.9031528588612181,
+      "n": 1000
+    },
+    "trace": {
+      "mean": 0.0021324017906720577,
+      "n": 1000
+    },
+    "composite": {
+      "mean": 0.4575309512576347,
+      "n": 1000
+    },
+    "schema": {
+      "valid": 1000,
+      "valid_rate": 1.0,
+      "repaired": 0,
+      "schema_failure": 0
+    },
+    "operational": {
+      "cost_usd_total": 0.0,
+      "cost_usd_per_case": 0.0,
+      "latency_median_s": null,
+      "latency_p95_s": null,
+      "input_tokens_mean": 0.0,
+      "output_tokens_mean": 0.0,
+      "api_failure_rate": 0.0,
+      "schema_failure_rate": 0.0,
+      "retry_rate": 0.0,
+      "completion_rate": 1.0
+    }
+  },
+  "careguard_no_multimorbidity": {
+    "n_trials": 1000,
+    "n_gradable": 1000,
+    "medication": {
+      "tp": 17590,
+      "fp": 93,
+      "fn": 0,
+      "precision": 0.9947407114177459,
+      "recall": 1.0,
+      "f1": 0.9973634224477647,
+      "support": 17590
+    },
+    "allergy": {
+      "tp": 8,
+      "fp": 31,
+      "fn": 4,
+      "precision": 0.20512820512820512,
+      "recall": 0.6666666666666666,
+      "f1": 0.31372549019607837,
+      "support": 12
+    },
+    "contraindication": {
+      "tp": 60,
+      "fp": 91,
+      "fn": 5828,
+      "precision": 0.3973509933774834,
+      "recall": 0.010190217391304348,
+      "f1": 0.01987083954297069,
+      "support": 5888
+    },
+    "missingness": {
+      "tp": 0,
+      "fp": 1004,
+      "fn": 922,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": null,
+      "support": 922
+    },
+    "condition": {
+      "tp": 1298,
+      "fp": 0,
+      "fn": 7449,
+      "precision": 1.0,
+      "recall": 0.1483937349948554,
+      "f1": 0.25843703334992535,
+      "support": 8747
+    },
+    "contraindication_signal_coverage": {
+      "mean": 0.9691278796889762,
+      "n": 948
+    },
+    "evidence": {
+      "mean": 1.0,
+      "n": 710
+    },
+    "safety": {
+      "mean": 0.0,
+      "n": 710
+    },
+    "abstention": {
+      "mean": 0.9031374221351367,
+      "n": 1000
+    },
+    "trace": {
+      "mean": 0.002349515456061585,
+      "n": 1000
+    },
+    "composite": {
+      "mean": 0.4575309512576347,
+      "n": 1000
+    },
+    "schema": {
+      "valid": 1000,
+      "valid_rate": 1.0,
+      "repaired": 0,
+      "schema_failure": 0
+    },
+    "operational": {
+      "cost_usd_total": 0.0,
+      "cost_usd_per_case": 0.0,
+      "latency_median_s": null,
+      "latency_p95_s": null,
+      "input_tokens_mean": 0.0,
+      "output_tokens_mean": 0.0,
+      "api_failure_rate": 0.0,
+      "schema_failure_rate": 0.0,
+      "retry_rate": 0.0,
+      "completion_rate": 1.0
+    }
+  },
+  "careguard_no_deterministic_conflict_engine": {
+    "n_trials": 1000,
+    "n_gradable": 1000,
+    "medication": {
+      "tp": 17590,
+      "fp": 93,
+      "fn": 0,
+      "precision": 0.9947407114177459,
+      "recall": 1.0,
+      "f1": 0.9973634224477647,
+      "support": 17590
+    },
+    "allergy": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 12,
+      "precision": null,
+      "recall": 0.0,
+      "f1": null,
+      "support": 12
+    },
+    "contraindication": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 5888,
+      "precision": null,
+      "recall": 0.0,
+      "f1": null,
+      "support": 5888
+    },
+    "missingness": {
+      "tp": 0,
+      "fp": 1004,
+      "fn": 922,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": null,
+      "support": 922
+    },
+    "condition": {
+      "tp": 1298,
+      "fp": 0,
+      "fn": 7449,
+      "precision": 1.0,
+      "recall": 0.1483937349948554,
+      "f1": 0.25843703334992535,
+      "support": 8747
+    },
+    "contraindication_signal_coverage": {
+      "mean": 0.0,
+      "n": 948
+    },
+    "evidence": {
+      "mean": null,
+      "n": 0
+    },
+    "safety": {
+      "mean": null,
+      "n": 0
+    },
+    "abstention": {
+      "mean": null,
+      "n": 0
+    },
+    "trace": {
+      "mean": null,
+      "n": 0
+    },
+    "composite": {
+      "mean": 0.20471089887809701,
+      "n": 1000
+    },
+    "schema": {
+      "valid": 1000,
+      "valid_rate": 1.0,
+      "repaired": 0,
+      "schema_failure": 0
+    },
+    "operational": {
+      "cost_usd_total": 0.0,
+      "cost_usd_per_case": 0.0,
+      "latency_median_s": null,
+      "latency_p95_s": null,
+      "input_tokens_mean": 0.0,
+      "output_tokens_mean": 0.0,
+      "api_failure_rate": 0.0,
+      "schema_failure_rate": 0.0,
+      "retry_rate": 0.0,
+      "completion_rate": 1.0
+    }
+  }
+}

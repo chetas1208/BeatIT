@@ -1,0 +1,6 @@
+source_id,access_type,license,access_verified,dua_required,dua_recorded,local_files,can_ingest,reason
+multid4cad,controlled,Controlled access — Zenodo restricted; signed DUA required,False,True,False,0,False,"access_pending — controlled source; not approved. Set MULTID4CAD_ACCESS_APPROVED, MULTID4CAD_DUA_RECORDED after signing the DUA. Access controls are NEVER bypassed."
+imagecas,controlled,Controlled request; license must be recorded,False,True,False,0,False,"access_pending — controlled source; not approved. Set IMAGECAS_LICENSE_RECORDED, IMAGECAS_LICENSE_RECORDED after signing the DUA. Access controls are NEVER bypassed."
+totalsegmentator,open,CC BY 4.0 (open); example files under the Apache-2.0 repo,True,False,True,0,True,open license; ingestion permitted
+tcia,restricted,Per-collection; must be recorded,False,True,False,0,False,"access_pending — controlled source; not approved. Set TCIA_ENABLED, TCIA_ENABLED after signing the DUA. Access controls are NEVER bypassed."
+rad-chestct,controlled,Controlled; must be recorded,False,True,False,0,False,"access_pending — controlled source; not approved. Set RAD_CHESTCT_ENABLED, RAD_CHESTCT_ENABLED after signing the DUA. Access controls are NEVER bypassed."

@@ -1,0 +1,15 @@
+,renal,hepatic,pulmonary,endocrine_metabolic,neurologic,hematologic_coagulation,infectious,oncologic,gastrointestinal,musculoskeletal,psychiatric,obstetric,allergy_immunologic,other
+renal,560,65,470,407,353,509,322,119,333,101,31,1,32,174
+hepatic,65,104,79,71,78,95,62,30,89,16,7,0,8,33
+pulmonary,470,79,803,516,504,710,450,173,447,124,52,2,42,258
+endocrine_metabolic,407,71,516,652,406,584,348,115,381,91,36,3,33,208
+neurologic,353,78,504,406,608,524,318,111,377,113,62,2,34,214
+hematologic_coagulation,509,95,710,584,524,878,476,203,524,134,51,1,39,251
+infectious,322,62,450,348,318,476,516,116,321,73,39,1,22,179
+oncologic,119,30,173,115,111,203,116,209,114,23,9,0,8,51
+gastrointestinal,333,89,447,381,377,524,321,114,564,88,45,0,30,201
+musculoskeletal,101,16,124,91,113,134,73,23,88,150,9,1,29,63
+psychiatric,31,7,52,36,62,51,39,9,45,9,63,0,3,45
+obstetric,1,0,2,3,2,1,1,0,0,1,0,4,0,4
+allergy_immunologic,32,8,42,33,34,39,22,8,30,29,3,0,45,18
+other,174,33,258,208,214,251,179,51,201,63,45,4,18,302

@@ -1,0 +1,50 @@
+{
+  "resourceType": "Provenance",
+  "id": "prov-imaging-case-000002",
+  "target": [
+    {
+      "reference": "ImagingStudy/imgstudy-imaging-case-000002"
+    }
+  ],
+  "recorded": "2026-07-18T22:50:18+00:00",
+  "activity": {
+    "text": "Imported + normalized real TotalSegmentator CT; VISTA gated (no live run)"
+  },
+  "agent": [
+    {
+      "type": {
+        "text": "software"
+      },
+      "who": {
+        "display": "HeartTwin CareGuard imaging pipeline"
+      }
+    }
+  ],
+  "entity": [
+    {
+      "role": "source",
+      "what": {
+        "display": "TotalSegmentator dataset (CC BY 4.0), DOI 10.5281/zenodo.10047292"
+      }
+    }
+  ],
+  "extension": [
+    {
+      "url": "https://hearttwin.local/careguard/provenance",
+      "extension": [
+        {
+          "url": "source_dataset",
+          "valueString": "totalsegmentator"
+        },
+        {
+          "url": "source_subject_id",
+          "valueString": "ts_example_sm"
+        },
+        {
+          "url": "assertion_type",
+          "valueString": "model_derived_imaging_measurement"
+        }
+      ]
+    }
+  ]
+}

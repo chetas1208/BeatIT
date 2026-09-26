@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-07-18T22:50:18+00:00",
+  "map": [
+    {
+      "source_label": "heart",
+      "vista_label": "heart",
+      "comparison_allowed": true,
+      "mapping_reason": "identical whole-heart structure; endpoint declares 'heart'",
+      "reviewed": true
+    },
+    {
+      "source_label": "aorta",
+      "vista_label": "aorta",
+      "comparison_allowed": true,
+      "mapping_reason": "identical great-vessel structure; endpoint declares 'aorta'",
+      "reviewed": true
+    },
+    {
+      "source_label": "coronary arteries",
+      "vista_label": null,
+      "comparison_allowed": false,
+      "mapping_reason": "reference mask available, endpoint class unsupported",
+      "reviewed": true
+    },
+    {
+      "source_label": "epicardial adipose tissue",
+      "vista_label": null,
+      "comparison_allowed": false,
+      "mapping_reason": "reference mask available, endpoint class unsupported",
+      "reviewed": true
+    },
+    {
+      "source_label": "pericoronary adipose tissue",
+      "vista_label": null,
+      "comparison_allowed": false,
+      "mapping_reason": "reference mask available, endpoint class unsupported",
+      "reviewed": true
+    }
+  ]
+}

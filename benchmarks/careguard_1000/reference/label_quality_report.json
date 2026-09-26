@@ -1,0 +1,15 @@
+{
+  "n_cases": 1000,
+  "totals": {
+    "medications": 17590,
+    "allergy_conflicts": 12,
+    "contraindication_signals": 5888,
+    "missing_information": 922
+  },
+  "cases_with_allergy_conflict": 10,
+  "cases_with_contra_signal": 948,
+  "adjudication_queue_size": 80,
+  "n_strata": 9,
+  "tier": "silver",
+  "note": "source-derived; human-adjudicated gold subset pending"
+}

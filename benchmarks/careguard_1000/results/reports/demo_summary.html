@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>CareGuard 1,000-Case Benchmark</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:1000px;
+margin:24px auto;padding:0 20px;color:#0f172a;line-height:1.5}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13px}
+th,td{border:1px solid #e2e8f0;padding:6px 8px;text-align:left}
+th{background:#f8fafc} td{text-align:right} td:first-child{text-align:left}
+blockquote{background:#fef2f2;border-left:4px solid #dc2626;padding:8px 12px;
+color:#7f1d1d} img{max-width:100%} code{background:#f1f5f9;padding:1px 4px}
+h1,h2{color:#7c3aed}
+</style></head><body><h1>CareGuard benchmark — proof summary</h1>
+<blockquote>
+<p>Research benchmark using deidentified, synthetic, or composite open-data cases. Not a clinical-validation study and not for diagnosis or treatment decisions. Where a case links a PTB-XL ECG to an eICU record, the ECG and EHR originate from different deidentified individuals and are combined only for multimodal software testing.</p>
+</blockquote>
+<ul>
+<li><strong>CareGuard (Arm E)</strong> graded on <strong>1000</strong> cases; composite 0.458, medication recall 100.0%, schema-valid 100.0%, cost/case $0.0000.</li>
+<li><strong>system_vs_model_46</strong>: careguard_full 0.594 vs sonnet_46_case_only 0.683 (Δ -0.090, n/a, n=3).</li>
+<li><strong>ablation_conflict_engine</strong>: careguard_full 0.458 vs careguard_no_deterministic_conflict_engine 0.205 (Δ 0.253, p=1.48e-121, n=1000).</li>
+<li><strong>ablation_retrieval</strong>: careguard_full 0.458 vs careguard_no_retrieval 0.458 (Δ 0.000, n/a, n=1000).</li>
+</ul>
+<p>Full tables, CIs, subgroup and failure analysis in <code>results/reports/report.md</code> / <code>.html</code> / <code>.pdf</code>.</p></body></html>

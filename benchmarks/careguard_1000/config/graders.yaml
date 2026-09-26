@@ -1,0 +1,30 @@
+# Grader registry. All primary graders are deterministic and compare arm output
+# against the source-derived reference set. An optional blinded LLM judge may
+# add a SECONDARY qualitative score but never determines the primary result.
+
+deterministic_graders:
+  - condition_grader
+  - medication_grader
+  - conflict_grader
+  - allergy_grader
+  - missingness_grader
+  - evidence_grader
+  - alternative_grader
+  - safety_grader
+  - abstention_grader
+  - trace_grader
+  - format_grader
+
+aggregate_grader: aggregate_grader
+
+optional_llm_judge:
+  enabled: false
+  role: secondary_qualitative_only
+  blinded: true
+  must_not_determine_primary: true
+  independent_of_tested_models: true    # judge is a distinct model family
+
+matching:
+  medication_match: rxcui_or_normalized_name_or_ingredient
+  name_normalization: casefold_strip_punctuation
+  set_metrics: [precision, recall, f1]

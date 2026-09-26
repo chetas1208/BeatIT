@@ -1,0 +1,45 @@
+{
+  "corpus_version": "0.1.0",
+  "notice": "OFFLINE DEMO supplemental medication-source snapshot. Synthetic, clearly-labeled stand-ins for RxClass / Orange Book / DDInter so the alternative engine can run WITHOUT network. Each carries its canonical_source. Replace with approved licensed data (configure *_DATA_PATH) before non-demo use. NON-AUTHORITATIVE DEVELOPMENT FIXTURE for anything not backed by an official label/guideline entry.",
+  "rxclass": {
+    "9997":   [{"class_id": "N02AA", "class_name": "Mineralocorticoid receptor antagonists", "class_type": "MOA", "source": "rxclass"}],
+    "298869": [{"class_id": "N02AA", "class_name": "Mineralocorticoid receptor antagonists", "class_type": "MOA", "source": "rxclass"}],
+    "29046":  [{"class_id": "C09AA", "class_name": "ACE inhibitors, plain", "class_type": "ATC", "source": "rxclass"}],
+    "866426": [{"class_id": "C07AB", "class_name": "Beta blocking agents, selective", "class_type": "ATC", "source": "rxclass"}],
+    "1488564":[{"class_id": "A10BK", "class_name": "Sodium-glucose co-transporter 2 (SGLT2) inhibitors", "class_type": "ATC", "source": "rxclass"}]
+  },
+  "class_members": {
+    "Mineralocorticoid receptor antagonists": [
+      {"rxcui": "9997", "name": "spironolactone"},
+      {"rxcui": "298869", "name": "eplerenone"}
+    ],
+    "Sodium-glucose co-transporter 2 (SGLT2) inhibitors": [
+      {"rxcui": "1488564", "name": "dapagliflozin"},
+      {"rxcui": "1373458", "name": "empagliflozin"}
+    ]
+  },
+  "orange_book": {
+    "29046": {
+      "ingredient": "lisinopril", "dosage_form": "tablet", "route": "oral", "strength": "10 mg",
+      "te_code": "AB", "application_number": "ANDA-DEMO", "approval_status": "approved",
+      "canonical_source": "https://www.fda.gov/drugs/drug-approvals-and-databases/approved-drug-products-therapeutic-equivalence-evaluations-orange-book",
+      "equivalents": [{"rxcui": "29046", "name": "lisinopril (generic)", "te_code": "AB"}],
+      "synthetic_excerpt": true
+    }
+  },
+  "ddinter": [
+    {
+      "drug_a": "spironolactone", "rxcui_a": "9997",
+      "drug_b": "lisinopril", "rxcui_b": "29046",
+      "interaction_type": "drug_drug", "severity_label": "moderate-major",
+      "mechanism": "Both raise serum potassium; combination increases hyperkalemia risk.",
+      "management": "Monitor serum potassium and renal function.",
+      "version": "2.0", "source": "ddinter",
+      "canonical_source": "http://ddinter2.scbdd.com/",
+      "synthetic_excerpt": true
+    }
+  ],
+  "sider": {
+    "9997": [{"effect": "hyperkalemia", "frequency": "common", "source": "sider", "note": "supplemental adverse-effect signal only; not a contraindication authority"}]
+  }
+}

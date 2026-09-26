@@ -1,0 +1,456 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>CareGuard 1,000-Case Benchmark</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:1000px;
+margin:24px auto;padding:0 20px;color:#0f172a;line-height:1.5}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13px}
+th,td{border:1px solid #e2e8f0;padding:6px 8px;text-align:left}
+th{background:#f8fafc} td{text-align:right} td:first-child{text-align:left}
+blockquote{background:#fef2f2;border-left:4px solid #dc2626;padding:8px 12px;
+color:#7f1d1d} img{max-width:100%} code{background:#f1f5f9;padding:1px 4px}
+h1,h2{color:#7c3aed}
+</style></head><body><h1>HeartTwin CareGuard — 1,000-Case Benchmark</h1>
+<p><em>Generated 2026-07-19 01:30 UTC</em></p>
+<blockquote>
+<p>Research benchmark using deidentified, synthetic, or composite open-data cases. Not a clinical-validation study and not for diagnosis or treatment decisions. Where a case links a PTB-XL ECG to an eICU record, the ECG and EHR originate from different deidentified individuals and are combined only for multimodal software testing.</p>
+</blockquote>
+<h2>Model verification</h2>
+<table>
+<thead>
+<tr>
+<th>arm key</th>
+<th>model id</th>
+<th>available</th>
+<th>display</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sonnet_45</td>
+<td><code>claude-sonnet-4-5-20250929</code></td>
+<td>yes</td>
+<td>Claude Sonnet 4.5</td>
+</tr>
+<tr>
+<td>sonnet_46</td>
+<td><code>claude-sonnet-4-6</code></td>
+<td>yes</td>
+<td>Claude Sonnet 4.6</td>
+</tr>
+</tbody>
+</table>
+<p>Cases indexed: <strong>1000</strong> (eligible for run: 1000; with medication label evidence: 978).</p>
+<h2>Primary metrics by arm (silver reference set)</h2>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">med recall</th>
+<th style="text-align: right;">contra recall</th>
+<th style="text-align: right;">organ recall</th>
+<th style="text-align: right;">grounding</th>
+<th style="text-align: right;">unsupported</th>
+<th style="text-align: right;">abstention</th>
+<th style="text-align: right;">schema valid</th>
+<th style="text-align: right;">composite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sonnet_46_case_only</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">69.7%</td>
+<td style="text-align: right;">27.3%</td>
+<td style="text-align: right;">68.6%</td>
+<td style="text-align: right;">31.4%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.683</td>
+</tr>
+<tr>
+<td>careguard_full</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">1.0%</td>
+<td style="text-align: right;">14.8%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">90.3%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.458</td>
+</tr>
+<tr>
+<td>careguard_no_critic</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">1.0%</td>
+<td style="text-align: right;">14.8%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">90.3%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.458</td>
+</tr>
+<tr>
+<td>careguard_no_retrieval</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">1.0%</td>
+<td style="text-align: right;">14.8%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">90.3%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.458</td>
+</tr>
+<tr>
+<td>careguard_no_multimorbidity</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">1.0%</td>
+<td style="text-align: right;">14.8%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">90.3%</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.458</td>
+</tr>
+<tr>
+<td>careguard_no_deterministic_conflict_engine</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">14.8%</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">0.205</td>
+</tr>
+</tbody>
+</table>
+<h2>Operational metrics</h2>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th style="text-align: right;">cost/case</th>
+<th style="text-align: right;">median lat (s)</th>
+<th style="text-align: right;">p95 lat (s)</th>
+<th style="text-align: right;">in tok</th>
+<th style="text-align: right;">out tok</th>
+<th style="text-align: right;">api fail</th>
+<th style="text-align: right;">schema fail</th>
+<th style="text-align: right;">completion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sonnet_46_case_only</td>
+<td style="text-align: right;">$0.1614</td>
+<td style="text-align: right;">127.8</td>
+<td style="text-align: right;">147.6</td>
+<td style="text-align: right;">7820</td>
+<td style="text-align: right;">9195</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+<tr>
+<td>careguard_full</td>
+<td style="text-align: right;">$0.0000</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+<tr>
+<td>careguard_no_critic</td>
+<td style="text-align: right;">$0.0000</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+<tr>
+<td>careguard_no_retrieval</td>
+<td style="text-align: right;">$0.0000</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+<tr>
+<td>careguard_no_multimorbidity</td>
+<td style="text-align: right;">$0.0000</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+<tr>
+<td>careguard_no_deterministic_conflict_engine</td>
+<td style="text-align: right;">$0.0000</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+</tbody>
+</table>
+<h2>Composite score — bootstrap 95% CI</h2>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th style="text-align: right;">composite mean</th>
+<th style="text-align: left;">95% CI</th>
+<th style="text-align: right;">med recall</th>
+<th style="text-align: left;">CI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sonnet_46_case_only</td>
+<td style="text-align: right;">0.683</td>
+<td style="text-align: left;">[0.611, 0.741]</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: left;">[100.0%, 100.0%]</td>
+</tr>
+<tr>
+<td>careguard_full</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: left;">[0.447, 0.468]</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: left;">[100.0%, 100.0%]</td>
+</tr>
+<tr>
+<td>careguard_no_critic</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: left;">[0.447, 0.468]</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: left;">[100.0%, 100.0%]</td>
+</tr>
+<tr>
+<td>careguard_no_retrieval</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: left;">[0.447, 0.468]</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: left;">[100.0%, 100.0%]</td>
+</tr>
+<tr>
+<td>careguard_no_multimorbidity</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: left;">[0.447, 0.468]</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: left;">[100.0%, 100.0%]</td>
+</tr>
+<tr>
+<td>careguard_no_deterministic_conflict_engine</td>
+<td style="text-align: right;">0.205</td>
+<td style="text-align: left;">[0.203, 0.206]</td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: left;">[100.0%, 100.0%]</td>
+</tr>
+</tbody>
+</table>
+<h2>Paired comparisons (Wilcoxon signed-rank on per-case composite)</h2>
+<table>
+<thead>
+<tr>
+<th>comparison</th>
+<th>arm A</th>
+<th>arm B</th>
+<th style="text-align: right;">mean A</th>
+<th style="text-align: right;">mean B</th>
+<th style="text-align: right;">Δ</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>system_vs_model_46</td>
+<td>careguard_full</td>
+<td>sonnet_46_case_only</td>
+<td style="text-align: right;">0.594</td>
+<td style="text-align: right;">0.683</td>
+<td style="text-align: right;">-0.090</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td>ablation_critic</td>
+<td>careguard_full</td>
+<td>careguard_no_critic</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td>ablation_retrieval</td>
+<td>careguard_full</td>
+<td>careguard_no_retrieval</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td>ablation_multimorbidity</td>
+<td>careguard_full</td>
+<td>careguard_no_multimorbidity</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td>ablation_conflict_engine</td>
+<td>careguard_full</td>
+<td>careguard_no_deterministic_conflict_engine</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.205</td>
+<td style="text-align: right;">0.253</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1.48e-121</td>
+</tr>
+</tbody>
+</table>
+<h2>Subgroup analysis (composite by medication burden)</h2>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th style="text-align: right;">few (≤10)</th>
+<th style="text-align: right;">many (11–40)</th>
+<th style="text-align: right;">polypharmacy (≥41)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sonnet_46_case_only</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">0.611 (n=1)</td>
+<td style="text-align: right;">0.720 (n=2)</td>
+</tr>
+<tr>
+<td>careguard_full</td>
+<td style="text-align: right;">0.353 (n=123)</td>
+<td style="text-align: right;">0.437 (n=490)</td>
+<td style="text-align: right;">0.517 (n=387)</td>
+</tr>
+<tr>
+<td>careguard_no_critic</td>
+<td style="text-align: right;">0.353 (n=123)</td>
+<td style="text-align: right;">0.437 (n=490)</td>
+<td style="text-align: right;">0.517 (n=387)</td>
+</tr>
+<tr>
+<td>careguard_no_retrieval</td>
+<td style="text-align: right;">0.353 (n=123)</td>
+<td style="text-align: right;">0.437 (n=490)</td>
+<td style="text-align: right;">0.517 (n=387)</td>
+</tr>
+<tr>
+<td>careguard_no_multimorbidity</td>
+<td style="text-align: right;">0.353 (n=123)</td>
+<td style="text-align: right;">0.437 (n=490)</td>
+<td style="text-align: right;">0.517 (n=387)</td>
+</tr>
+<tr>
+<td>careguard_no_deterministic_conflict_engine</td>
+<td style="text-align: right;">0.207 (n=123)</td>
+<td style="text-align: right;">0.203 (n=490)</td>
+<td style="text-align: right;">0.206 (n=387)</td>
+</tr>
+</tbody>
+</table>
+<h2>Failure analysis</h2>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th style="text-align: right;">ok</th>
+<th style="text-align: right;">repaired</th>
+<th style="text-align: right;">schema fail</th>
+<th style="text-align: right;">api fail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sonnet_46_case_only</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>careguard_full</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>careguard_no_critic</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>careguard_no_retrieval</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>careguard_no_multimorbidity</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>careguard_no_deterministic_conflict_engine</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<h2>Charts</h2>
+<p><img alt="composite" src="../charts/composite.png" />
+<img alt="contraindication_recall" src="../charts/contraindication_recall.png" />
+<img alt="cost_per_case" src="../charts/cost_per_case.png" />
+<img alt="grounding_rate" src="../charts/grounding_rate.png" />
+<img alt="latency_median" src="../charts/latency_median.png" />
+<img alt="medication_recall" src="../charts/medication_recall.png" />
+<img alt="preliminary_dashboard" src="../charts/preliminary_dashboard.png" />
+<img alt="unsupported_rate" src="../charts/unsupported_rate.png" /></p>
+<h2>Methodology &amp; limitations</h2>
+<p>See <code>METHODOLOGY.md</code>, <code>LIMITATIONS.md</code>, <code>CLAIMS_POLICY.md</code>, and <code>DATA_LINEAGE.md</code>. Primary scoring is deterministic against a source-derived (silver) reference set; no model grades itself and no system output is used as ground truth. A human-adjudicated gold subset is queued (<code>reference/adjudication_queue.csv</code>).</p></body></html>

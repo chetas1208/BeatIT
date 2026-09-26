@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "shape": [
+    512,
+    512,
+    20
+  ],
+  "spacing": [
+    0.9765625,
+    0.9765625,
+    2.0
+  ],
+  "affine": [
+    [
+      0.9765625,
+      0.0,
+      0.0,
+      -249.51171875
+    ],
+    [
+      0.0,
+      0.9765625,
+      0.0,
+      -437.51171875
+    ],
+    [
+      0.0,
+      0.0,
+      2.0,
+      -804.5
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "hu_min": -1024.0,
+  "hu_max": 1839.0,
+  "rescale_slope": 1.0,
+  "rescale_intercept": -1024.0,
+  "n_slices": 20,
+  "subject_id": "ts_example_dicom",
+  "dcm2niix_available": false,
+  "method": "pydicom+nibabel"
+}

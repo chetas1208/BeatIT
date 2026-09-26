@@ -1,0 +1,30 @@
+{
+  "name": "fixed-afterload-v1",
+  "version": "m5.5-golden-v1",
+  "base": {
+    "heart_rate_bpm": 70.0,
+    "preload_index": 1.0,
+    "afterload_index": 1.0,
+    "contractility_index": 1.0,
+    "systemic_vascular_resistance_index": 1.0,
+    "edv": 130.0,
+    "esv": 52.0,
+    "map": 93.33333333333333
+  },
+  "parameters": {
+    "heart_rate_bpm": 70.0,
+    "preload_index": 1.0,
+    "afterload_index": 1.2,
+    "contractility_index": 1.0,
+    "systemic_vascular_resistance_index": 1.0
+  },
+  "expected": {
+    "heart_rate_bpm": 70.0,
+    "edv": 130.0,
+    "esv": 58.5,
+    "stroke_volume_ml": 71.5,
+    "ejection_fraction_pct": 55.00000000000001,
+    "cardiac_output_l_min": 5.005,
+    "map": 92.55555555555556
+  }
+}

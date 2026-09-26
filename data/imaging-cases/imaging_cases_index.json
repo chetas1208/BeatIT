@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-07-18T22:50:16+00:00",
+  "count": 3,
+  "cases": [
+    {
+      "imaging_case_id": "imaging-case-000001",
+      "source_dataset": "totalsegmentator",
+      "source_subject_id": "ts_example_full",
+      "case_type": "imaging_only",
+      "linkage_status": "imaging_only",
+      "has_reference_mask": true,
+      "vista_eligible": true
+    },
+    {
+      "imaging_case_id": "imaging-case-000002",
+      "source_dataset": "totalsegmentator",
+      "source_subject_id": "ts_example_sm",
+      "case_type": "imaging_only",
+      "linkage_status": "imaging_only",
+      "has_reference_mask": true,
+      "vista_eligible": true
+    },
+    {
+      "imaging_case_id": "imaging-case-000003",
+      "source_dataset": "totalsegmentator",
+      "source_subject_id": "ts_example_dicom",
+      "case_type": "imaging_only",
+      "linkage_status": "imaging_only",
+      "has_reference_mask": true,
+      "vista_eligible": true
+    }
+  ]
+}

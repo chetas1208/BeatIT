@@ -1,0 +1,11 @@
+{
+  "subject_id": "ts_example_sm",
+  "source_dataset": "TotalSegmentator dataset",
+  "license": "CC BY 4.0 (open); example files under the Apache-2.0 repo",
+  "doi": "10.5281/zenodo.10047292",
+  "format": "nifti",
+  "sha256": "e50c00b2914e2cac0aaee8e7f3b5f57d44d9f21bfd5c0577271c54c0cb49e9fb",
+  "n_slices": null,
+  "has_reference_mask": true,
+  "modality": "CT"
+}

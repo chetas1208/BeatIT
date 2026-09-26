@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Source-derived reference label (silver)",
+  "description": "Deterministic reference labels derived ONLY from case facts, FHIR provenance, the case's own openFDA drug-label evidence, allergies, and RxNorm normalization. No system output; no LLM-as-ground-truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "label_tier", "provenance", "assertions"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "label_tier": {"type": "string", "enum": ["silver", "gold"]},
+    "provenance": {
+      "type": "object",
+      "description": "Every assertion traces to a deterministic source",
+      "additionalProperties": true
+    },
+    "expected_medications_normalized": {
+      "type": "array",
+      "description": "RxNorm-resolvable medications present in the case",
+      "items": {"type": "object"}
+    },
+    "expected_allergy_conflicts": {
+      "type": "array",
+      "description": "Documented allergy vs active medication ingredient matches",
+      "items": {"type": "object"}
+    },
+    "expected_contraindication_signals": {
+      "type": "array",
+      "description": "Medications whose openFDA label has_contraindications=true",
+      "items": {"type": "object"}
+    },
+    "expected_missing_information": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "expected_organ_systems": {"type": "array", "items": {"type": "string"}},
+    "expected_condition_count": {"type": "integer"},
+    "assertions": {
+      "type": "array",
+      "description": "Explicit graded benchmark assertions",
+      "items": {
+        "type": "object",
+        "required": ["assertion_id", "kind", "source"],
+        "properties": {
+          "assertion_id": {"type": "string"},
+          "kind": {"type": "string"},
+          "target": {},
+          "source": {"type": "string"},
+          "source_ref": {"type": "string"}
+        }
+      }
+    }
+  }
+}

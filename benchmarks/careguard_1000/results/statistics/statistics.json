@@ -1,0 +1,193 @@
+{
+  "bootstrap": {
+    "sonnet_46_case_only": {
+      "composite": {
+        "mean": 0.6834997246761952,
+        "lo": 0.611111111111111,
+        "hi": 0.7407326007326006,
+        "n": 3
+      },
+      "medication_recall": {
+        "mean": 1.0,
+        "lo": 1.0,
+        "hi": 1.0,
+        "n": 3
+      },
+      "contraindication_recall": {
+        "mean": 0.6549019607843137,
+        "lo": 0.5,
+        "hi": 0.7647058823529411,
+        "n": 3
+      }
+    },
+    "careguard_full": {
+      "composite": {
+        "mean": 0.4575309512576347,
+        "lo": 0.4470411701536624,
+        "hi": 0.4675330096047743,
+        "n": 1000
+      },
+      "medication_recall": {
+        "mean": 1.0,
+        "lo": 1.0,
+        "hi": 1.0,
+        "n": 999
+      },
+      "contraindication_recall": {
+        "mean": 0.008139076681984351,
+        "lo": 0.005945188605277957,
+        "hi": 0.010641136427621907,
+        "n": 948
+      }
+    },
+    "careguard_no_critic": {
+      "composite": {
+        "mean": 0.4575309512576347,
+        "lo": 0.4470411701536624,
+        "hi": 0.4675330096047743,
+        "n": 1000
+      },
+      "medication_recall": {
+        "mean": 1.0,
+        "lo": 1.0,
+        "hi": 1.0,
+        "n": 999
+      },
+      "contraindication_recall": {
+        "mean": 0.008139076681984351,
+        "lo": 0.005945188605277957,
+        "hi": 0.010641136427621907,
+        "n": 948
+      }
+    },
+    "careguard_no_retrieval": {
+      "composite": {
+        "mean": 0.4575309512576347,
+        "lo": 0.4470411701536624,
+        "hi": 0.4675330096047743,
+        "n": 1000
+      },
+      "medication_recall": {
+        "mean": 1.0,
+        "lo": 1.0,
+        "hi": 1.0,
+        "n": 999
+      },
+      "contraindication_recall": {
+        "mean": 0.008139076681984351,
+        "lo": 0.005945188605277957,
+        "hi": 0.010641136427621907,
+        "n": 948
+      }
+    },
+    "careguard_no_multimorbidity": {
+      "composite": {
+        "mean": 0.4575309512576347,
+        "lo": 0.4470411701536624,
+        "hi": 0.4675330096047743,
+        "n": 1000
+      },
+      "medication_recall": {
+        "mean": 1.0,
+        "lo": 1.0,
+        "hi": 1.0,
+        "n": 999
+      },
+      "contraindication_recall": {
+        "mean": 0.008139076681984351,
+        "lo": 0.005945188605277957,
+        "hi": 0.010641136427621907,
+        "n": 948
+      }
+    },
+    "careguard_no_deterministic_conflict_engine": {
+      "composite": {
+        "mean": 0.20471089887809701,
+        "lo": 0.20301652484899002,
+        "hi": 0.20644591555159666,
+        "n": 1000
+      },
+      "medication_recall": {
+        "mean": 1.0,
+        "lo": 1.0,
+        "hi": 1.0,
+        "n": 999
+      },
+      "contraindication_recall": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n": 948
+      }
+    }
+  },
+  "paired": {
+    "system_vs_model_46": {
+      "arm_a": "careguard_full",
+      "arm_b": "sonnet_46_case_only",
+      "composite": {
+        "n_paired": 3,
+        "n_nonzero": 3,
+        "mean_a": 0.5938461538461538,
+        "mean_b": 0.6834997246761952,
+        "mean_diff": -0.0896535708300414,
+        "p_value": null,
+        "test": "insufficient_nonzero_pairs"
+      }
+    },
+    "ablation_critic": {
+      "arm_a": "careguard_full",
+      "arm_b": "careguard_no_critic",
+      "composite": {
+        "n_paired": 1000,
+        "n_nonzero": 0,
+        "mean_a": 0.4575309512576347,
+        "mean_b": 0.4575309512576347,
+        "mean_diff": 0.0,
+        "p_value": null,
+        "test": "insufficient_nonzero_pairs"
+      }
+    },
+    "ablation_retrieval": {
+      "arm_a": "careguard_full",
+      "arm_b": "careguard_no_retrieval",
+      "composite": {
+        "n_paired": 1000,
+        "n_nonzero": 0,
+        "mean_a": 0.4575309512576347,
+        "mean_b": 0.4575309512576347,
+        "mean_diff": 0.0,
+        "p_value": null,
+        "test": "insufficient_nonzero_pairs"
+      }
+    },
+    "ablation_multimorbidity": {
+      "arm_a": "careguard_full",
+      "arm_b": "careguard_no_multimorbidity",
+      "composite": {
+        "n_paired": 1000,
+        "n_nonzero": 0,
+        "mean_a": 0.4575309512576347,
+        "mean_b": 0.4575309512576347,
+        "mean_diff": 0.0,
+        "p_value": null,
+        "test": "insufficient_nonzero_pairs"
+      }
+    },
+    "ablation_conflict_engine": {
+      "arm_a": "careguard_full",
+      "arm_b": "careguard_no_deterministic_conflict_engine",
+      "composite": {
+        "n_paired": 1000,
+        "n_nonzero": 710,
+        "mean_a": 0.4575309512576347,
+        "mean_b": 0.20471089887809701,
+        "mean_diff": 0.2528200523795377,
+        "statistic": 0.0,
+        "p_value": 1.484335754885141e-121,
+        "test": "wilcoxon_signed_rank",
+        "direction_positive_frac": 1.0
+      }
+    }
+  }
+}

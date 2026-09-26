@@ -1,0 +1,6 @@
+source,access_state,expected_max_cases
+multid4cad,access_pending,118
+imagecas,access_pending,1000
+totalsegmentator,access_verified,1228
+tcia,access_pending,0
+rad-chestct,access_pending,0

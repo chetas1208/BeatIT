@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-07-18T22:50:17+00:00",
+  "jobs": 3,
+  "valid_outputs": 0,
+  "note": "0 completed outputs is expected in gated mode (no live endpoint).",
+  "results": [
+    {
+      "imaging_case_id": "imaging-case-000001",
+      "job_id": "job-imaging-case-000001",
+      "state": "failed",
+      "output_valid": false,
+      "reason": "VISTA endpoint not configured/unreachable (gated mode): no live segmentation performed. No masks/volumes invented."
+    },
+    {
+      "imaging_case_id": "imaging-case-000002",
+      "job_id": "job-imaging-case-000002",
+      "state": "failed",
+      "output_valid": false,
+      "reason": "VISTA endpoint not configured/unreachable (gated mode): no live segmentation performed. No masks/volumes invented."
+    },
+    {
+      "imaging_case_id": "imaging-case-000003",
+      "job_id": "job-imaging-case-000003",
+      "state": "failed",
+      "output_valid": false,
+      "reason": "VISTA endpoint not configured/unreachable (gated mode): no live segmentation performed. No masks/volumes invented."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+# HeartTwin CareGuard — data acquisition/packaging pipeline dependencies.
+# Deliberately EXCLUDES PyTorch / TensorFlow / MONAI (not needed for packaging).
+pandas>=2.0
+numpy>=1.26
+pyarrow>=14.0
+pyyaml>=6.0
+requests>=2.31
+httpx>=0.27
+tqdm>=4.66
+wfdb>=4.1
+matplotlib>=3.8
+reportlab>=4.0
+lxml>=5.0
+pydicom>=2.4
+Pillow>=10.0
+jsonschema>=4.20
+pydantic>=2.5
+jinja2>=3.1
+duckdb>=0.10
+scipy>=1.12
+nibabel>=5.0

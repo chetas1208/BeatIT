@@ -1,0 +1,9 @@
+{
+  "total_cases": 1000,
+  "status_counts": {
+    "eligible_with_warning": 732,
+    "eligible": 268
+  },
+  "eligible_for_run": 1000,
+  "with_medication_evidence": 978
+}

@@ -1,0 +1,6 @@
+{
+  "subject_id": "ts_example_full",
+  "method": "passthrough_nifti",
+  "source": "/Users/shradha/hackathon/AbridgexClaude Hack/data/raw/totalsegmentator/nifti/ts_example_full/ct.nii.gz",
+  "converted_sha256": "dbd3ae6d614d1d7ef3a46925c30c70038ed52da6b37fdd6afdc7b9b71387e3e1"
+}

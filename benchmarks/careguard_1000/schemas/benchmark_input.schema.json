@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Canonical benchmark input packet",
+  "description": "Deterministic case representation sent to every direct-model arm. Deduplicated across formats (FHIR/CSV/PDF/report). No answer labels present.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "data_disclaimer", "cardiac_context", "conditions",
+               "medications", "allergies"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "data_disclaimer": {"type": "string"},
+    "cardiac_context": {"type": "array", "items": {"type": "string"}},
+    "conditions": {"type": "array", "items": {"type": "object"}},
+    "report_condition_mentions": {"type": "array", "items": {"type": "object"}},
+    "medications": {"type": "array", "items": {"type": "object"}},
+    "proposed_medication": {"type": ["object", "null"]},
+    "allergies": {"type": "array", "items": {"type": "object"}},
+    "labs": {"type": "array", "items": {"type": "object"}},
+    "vitals": {"type": "array", "items": {"type": "object"}},
+    "procedures": {"type": "array", "items": {"type": "object"}},
+    "missing_information": {"type": "array", "items": {"type": "string"}},
+    "source_provenance": {"type": "array", "items": {"type": "object"}},
+    "ecg_summary": {"type": ["object", "null"]}
+  }
+}

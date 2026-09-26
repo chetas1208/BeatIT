@@ -1,0 +1,128 @@
+{
+  "corpus_version": "0.1.0",
+  "notice": "OFFLINE DEMO CORPUS. Each passage is a short, clearly-labeled synthetic stand-in written for this hackathon so the pipeline can demonstrate evidence-grounded retrieval WITHOUT network access. Every entry carries its real canonical_source URL. These are NOT verbatim copyrighted guideline/label text and must be replaced with retrieved official passages (CAREGUARD_ALLOW_EXTERNAL_RESEARCH=true or a licensed local corpus) before any non-demo use.",
+  "entries": [
+    {
+      "source_id": "aha-acc-hfsa-2022-hfref",
+      "organization": "AHA/ACC/HFSA",
+      "title": "2022 Guideline for the Management of Heart Failure",
+      "version": "2022",
+      "publication_date": "2022-04-01",
+      "section": "GDMT for HFrEF",
+      "authority_level": 1,
+      "document_type": "clinical_guideline",
+      "canonical_source": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001063",
+      "synthetic_excerpt": true,
+      "topics": ["hfref", "heart failure", "gdmt", "mra", "beta-blocker", "acei", "arni"],
+      "passage": "Guideline-directed medical therapy for heart failure with reduced ejection fraction is described as combining a renin-angiotensin system inhibitor, an evidence-based beta blocker, a mineralocorticoid receptor antagonist, and an SGLT2 inhibitor, with titration individualized to tolerance, renal function, and serum potassium.",
+      "recommendation_class": "I",
+      "evidence_level": "A"
+    },
+    {
+      "source_id": "aha-acc-hfsa-2022-mra-monitoring",
+      "organization": "AHA/ACC/HFSA",
+      "title": "2022 Guideline for the Management of Heart Failure",
+      "version": "2022",
+      "publication_date": "2022-04-01",
+      "section": "MRA initiation and monitoring",
+      "authority_level": 1,
+      "document_type": "clinical_guideline",
+      "canonical_source": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001063",
+      "synthetic_excerpt": true,
+      "topics": ["mra", "spironolactone", "potassium", "renal", "egfr", "monitoring", "hyperkalemia"],
+      "passage": "Mineralocorticoid receptor antagonists are described as requiring a baseline serum potassium and an assessment of renal function before initiation, with caution when the estimated glomerular filtration rate is reduced, because the risk of hyperkalemia rises as renal function declines.",
+      "recommendation_class": "I",
+      "evidence_level": "A"
+    },
+    {
+      "source_id": "kdigo-2024-ckd",
+      "organization": "KDIGO",
+      "title": "2024 Clinical Practice Guideline for the Evaluation and Management of CKD",
+      "version": "2024",
+      "publication_date": "2024-03-01",
+      "section": "CKD and RAAS-acting therapy",
+      "authority_level": 1,
+      "document_type": "clinical_guideline",
+      "canonical_source": "https://kdigo.org/guidelines/ckd-evaluation-and-management/",
+      "synthetic_excerpt": true,
+      "topics": ["ckd", "egfr", "potassium", "raas", "renal", "monitoring"],
+      "passage": "In chronic kidney disease, agents acting on the renin-angiotensin-aldosterone system are described as warranting monitoring of serum potassium and kidney function after initiation or dose change, particularly at lower levels of estimated glomerular filtration rate.",
+      "recommendation_class": null,
+      "evidence_level": null
+    }
+  ],
+  "drug_labels": [
+    {
+      "source_id": "dailymed-spironolactone-spl",
+      "rxcui": "9997",
+      "medication": "spironolactone",
+      "organization": "DailyMed (FDA SPL)",
+      "title": "Spironolactone Tablets — Structured Product Labeling",
+      "label_version": "demo-2026-01",
+      "effective_date": "2026-01-15",
+      "authority_level": 1,
+      "canonical_source": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=spironolactone",
+      "synthetic_excerpt": true,
+      "sections": {
+        "contraindications": "Labeling for this potassium-sparing agent is described as contraindicating use in the setting of hyperkalemia, and as cautioning use with significant renal impairment.",
+        "warnings": "The labeling is described as warning that hyperkalemia can occur, that risk increases with renal impairment and with concomitant agents that raise potassium, and that serum potassium and renal function should be monitored.",
+        "boxed_warning": null
+      },
+      "topics": ["hyperkalemia", "potassium", "renal impairment", "potassium-sparing", "monitoring"]
+    },
+    {
+      "source_id": "dailymed-lisinopril-spl",
+      "rxcui": "29046",
+      "medication": "lisinopril",
+      "organization": "DailyMed (FDA SPL)",
+      "title": "Lisinopril Tablets — Structured Product Labeling",
+      "label_version": "demo-2026-01",
+      "effective_date": "2026-01-10",
+      "authority_level": 1,
+      "canonical_source": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=lisinopril",
+      "synthetic_excerpt": true,
+      "sections": {
+        "contraindications": "Labeling for this ACE inhibitor is described as contraindicating use with a history of angioedema and in pregnancy.",
+        "warnings": "The labeling is described as warning about hyperkalemia, especially with renal impairment, potassium-sparing diuretics, or potassium supplements, and about renal function changes.",
+        "boxed_warning": "The labeling is described as carrying a boxed warning to discontinue the drug when pregnancy is detected due to fetal toxicity."
+      },
+      "topics": ["hyperkalemia", "potassium", "renal", "pregnancy", "angioedema", "potassium-sparing"]
+    },
+    {
+      "source_id": "dailymed-eplerenone-spl",
+      "rxcui": "298869",
+      "medication": "eplerenone",
+      "organization": "DailyMed (FDA SPL)",
+      "title": "Eplerenone Tablets — Structured Product Labeling",
+      "label_version": "demo-2026-01",
+      "effective_date": "2026-01-12",
+      "authority_level": 1,
+      "canonical_source": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=eplerenone",
+      "synthetic_excerpt": true,
+      "sections": {
+        "contraindications": "Labeling for this mineralocorticoid receptor antagonist is described as contraindicating use with elevated serum potassium and with significant renal impairment.",
+        "warnings": "The labeling is described as warning that hyperkalemia risk increases with declining renal function and with concomitant potassium-raising agents, and that potassium and renal function require monitoring.",
+        "boxed_warning": null
+      },
+      "topics": ["hyperkalemia", "potassium", "renal impairment", "mineralocorticoid", "monitoring"]
+    },
+    {
+      "source_id": "dailymed-dapagliflozin-spl",
+      "rxcui": "1488564",
+      "medication": "dapagliflozin",
+      "organization": "DailyMed (FDA SPL)",
+      "title": "Dapagliflozin Tablets — Structured Product Labeling",
+      "label_version": "demo-2026-01",
+      "effective_date": "2026-01-20",
+      "authority_level": 1,
+      "canonical_source": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=dapagliflozin",
+      "synthetic_excerpt": true,
+      "sections": {
+        "contraindications": "Labeling for this SGLT2 inhibitor is described as contraindicating use in patients with serious hypersensitivity to the product.",
+        "warnings": "The labeling is described as noting genitourinary infection and volume-status considerations, and describing efficacy that depends on renal function.",
+        "boxed_warning": null
+      },
+      "topics": ["sglt2", "renal", "volume", "heart failure"]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "beatit",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm -C web dev",
+    "dev:api": "python -m uvicorn python.hearttwin.api:app --reload --port 8000",
+    "build": "pnpm -C web build",
+    "lint": "pnpm -C web lint",
+    "test:py": "python -m pytest python/hearttwin/tests",
+    "test:careguard": "python -m pytest python/hearttwin/tests/careguard",
+    "test:medication-safety": "python -m pytest python/hearttwin/tests/careguard/test_careguard_medication_safety.py",
+    "verify:careguard": "python scripts/verify_careguard.py",
+    "verify:medication-sources": "python scripts/careguard/validate_medication_sources.py",
+    "careguard:migrate-db": "python scripts/careguard/migrate_db.py",
+    "test": "pnpm test:py",
+    "verify:env": "python scripts/verify_env.py",
+    "verify:repo": "python scripts/verify_repo_structure.py",
+    "verify:vercel": "python scripts/verify_vercel_readiness.py",
+    "verify:all": "pnpm verify:env && pnpm verify:repo && pnpm verify:vercel && pnpm test:py && pnpm build",
+    "fixtures:gen": "python scripts/create_synthetic_fixtures.py",
+    "smoke:local": "python scripts/run_local_smoke.py"
+  }
+}

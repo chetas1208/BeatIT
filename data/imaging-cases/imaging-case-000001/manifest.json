@@ -1,0 +1,24 @@
+{
+  "imaging_case_id": "imaging-case-000001",
+  "case_type": "imaging_only",
+  "source_dataset": "totalsegmentator",
+  "source_subject_id": "ts_example_full",
+  "real_ct": true,
+  "ct_imaging": {
+    "status": "imaging_only",
+    "source_dataset": "totalsegmentator",
+    "source_subject_id": "ts_example_full",
+    "source_study_id": "ts_example_full",
+    "source_series_id": "ts_example_full",
+    "same_subject_as_clinical_record": false,
+    "linkage_evidence": [],
+    "linkage_manifest_path": null,
+    "linkage_confidence": "unavailable",
+    "vista_eligible": true,
+    "reason": "Real TotalSegmentator CT; no same-subject clinical record \u2014 segmentation-only."
+  },
+  "disclaimer": "This CT is an imaging benchmark record and is not linked to any clinical case. It is a real, deidentified scan used only for VISTA segmentation/anatomy benchmarking.",
+  "chatbot_contract": "This is a real coronary/thoracic CT used to demonstrate VISTA segmentation. It is not fused with an unrelated EHR patient because no verified same-subject clinical record is available.",
+  "license": "CC BY 4.0 (open); example files under the Apache-2.0 repo",
+  "has_reference_mask": true
+}

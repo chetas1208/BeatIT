@@ -1,0 +1,63 @@
+{
+  "verified_at": "2026-07-19T00:48:41.077280+00:00",
+  "endpoint": "GET /v1/models/{id} + GET /v1/models",
+  "required_models": {
+    "sonnet_45": "claude-sonnet-4-5-20250929",
+    "sonnet_46": "claude-sonnet-4-6"
+  },
+  "models": {
+    "sonnet_45": {
+      "model_id": "claude-sonnet-4-5-20250929",
+      "arm_key": "sonnet_45",
+      "available": true,
+      "retrieved": {
+        "id": "claude-sonnet-4-5-20250929",
+        "display_name": "Claude Sonnet 4.5",
+        "created_at": "2025-09-29 00:00:00+00:00",
+        "type": "model",
+        "max_input_tokens": 1000000,
+        "max_tokens": 64000,
+        "capabilities_probe": {
+          "structured_outputs": null,
+          "image_input": null,
+          "adaptive_thinking": null,
+          "tool_use": "assumed_true"
+        }
+      },
+      "id_matches_exactly": true
+    },
+    "sonnet_46": {
+      "model_id": "claude-sonnet-4-6",
+      "arm_key": "sonnet_46",
+      "available": true,
+      "retrieved": {
+        "id": "claude-sonnet-4-6",
+        "display_name": "Claude Sonnet 4.6",
+        "created_at": "2026-02-17 00:00:00+00:00",
+        "type": "model",
+        "max_input_tokens": 1000000,
+        "max_tokens": 128000,
+        "capabilities_probe": {
+          "structured_outputs": null,
+          "image_input": null,
+          "adaptive_thinking": null,
+          "tool_use": "assumed_true"
+        }
+      },
+      "id_matches_exactly": true
+    }
+  },
+  "all_listed_ids": [
+    "claude-sonnet-5",
+    "claude-fable-5",
+    "claude-opus-4-8",
+    "claude-opus-4-7",
+    "claude-sonnet-4-6",
+    "claude-opus-4-6",
+    "claude-opus-4-5-20251101",
+    "claude-haiku-4-5-20251001",
+    "claude-sonnet-4-5-20250929"
+  ],
+  "all_executable": true,
+  "notes": []
+}

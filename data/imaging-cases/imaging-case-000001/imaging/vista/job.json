@@ -1,0 +1,102 @@
+{
+  "job_id": "job-imaging-case-000001",
+  "imaging_case_id": "imaging-case-000001",
+  "source_dataset": "totalsegmentator",
+  "source_subject_id": "ts_example_full",
+  "input_uri": "imaging-cases/imaging-case-000001/imaging/normalized/ct.nii.gz",
+  "input_sha256": "dbd3ae6d614d1d7ef3a46925c30c70038ed52da6b37fdd6afdc7b9b71387e3e1",
+  "modality": "CT",
+  "requested_classes": [
+    "heart",
+    "aorta",
+    "pulmonary artery"
+  ],
+  "endpoint_model": "vista3d",
+  "endpoint_version": "unknown",
+  "created_at": "2026-07-18T22:50:17+00:00",
+  "linkage_status": "imaging_only",
+  "deidentified": true,
+  "state": "failed",
+  "accepted_classes": [
+    "heart",
+    "aorta",
+    "pulmonary artery"
+  ],
+  "rejected_classes": [
+    "myocardium",
+    "left atrium",
+    "right atrium",
+    "left ventricle",
+    "right ventricle",
+    "inferior vena cava",
+    "superior vena cava",
+    "lungs",
+    "liver",
+    "kidneys",
+    "spleen",
+    "pancreas",
+    "coronary arteries",
+    "epicardial adipose tissue",
+    "pericoronary adipose tissue"
+  ],
+  "warnings": [
+    "class 'myocardium' not in endpoint capabilities \u2014 not requested",
+    "class 'left atrium' not in endpoint capabilities \u2014 not requested",
+    "class 'right atrium' not in endpoint capabilities \u2014 not requested",
+    "class 'left ventricle' not in endpoint capabilities \u2014 not requested",
+    "class 'right ventricle' not in endpoint capabilities \u2014 not requested",
+    "class 'inferior vena cava' not in endpoint capabilities \u2014 not requested",
+    "class 'superior vena cava' not in endpoint capabilities \u2014 not requested",
+    "class 'lungs' not in endpoint capabilities \u2014 not requested",
+    "class 'liver' not in endpoint capabilities \u2014 not requested",
+    "class 'kidneys' not in endpoint capabilities \u2014 not requested",
+    "class 'spleen' not in endpoint capabilities \u2014 not requested",
+    "class 'pancreas' not in endpoint capabilities \u2014 not requested",
+    "class 'coronary arteries' not in endpoint capabilities \u2014 not requested",
+    "class 'epicardial adipose tissue' not in endpoint capabilities \u2014 not requested",
+    "class 'pericoronary adipose tissue' not in endpoint capabilities \u2014 not requested"
+  ],
+  "capability_source": "static_fallback",
+  "endpoint_reachable": false,
+  "retry_count": 0,
+  "submitted_at": "2026-07-18T22:50:17+00:00",
+  "endpoint_health": {
+    "healthy": false,
+    "warnings": [
+      "VISTA3D_ENABLED is not set or VISTA3D_API_BASE is missing"
+    ],
+    "checked_at": "2026-07-18T22:50:17+00:00"
+  },
+  "capabilities_snapshot": {
+    "service": "vista3d",
+    "version": "unknown",
+    "supported_modalities": [
+      "CT"
+    ],
+    "supported_classes": [
+      "heart",
+      "aorta",
+      "pulmonary artery"
+    ],
+    "input_formats": [
+      "nifti"
+    ],
+    "maximum_upload_bytes": null,
+    "supports_signed_urls": false,
+    "supports_batch": false,
+    "supports_async_jobs": true,
+    "returns_confidence": false,
+    "returns_masks": true,
+    "returns_measurements": false,
+    "reachable": false,
+    "source": "static_fallback",
+    "warnings": [
+      "VISTA endpoint is not configured (VISTA3D_ENABLED false / API base empty).",
+      "Capabilities are the conservatively verified set; unsupported on this deployment: coronary arteries, epicardial adipose tissue, pericoronary adipose tissue, left ventricle, right ventricle, myocardium."
+    ]
+  },
+  "failure_reason": "VISTA endpoint not configured/unreachable (gated mode): no live segmentation performed. No masks/volumes invented.",
+  "completed_at": "2026-07-18T22:50:17+00:00",
+  "response_status": null,
+  "output_paths": {}
+}

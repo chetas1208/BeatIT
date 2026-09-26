@@ -1,0 +1,104 @@
+# CareGuard research + evidence manifest.
+# Authority levels: 1 = clinical/regulatory, 2 = interoperability standard,
+# 3 = peer-reviewed research, 4 = internal implementation doc.
+#
+# HONESTY NOTE: No official guideline/label PDFs are present on this machine.
+# The offline corpus at fixtures/careguard/corpus/ contains short, clearly-labeled
+# SYNTHETIC stand-in passages so the pipeline can demonstrate evidence-grounded
+# retrieval without network access. Each entry records its real canonical_source.
+# When CAREGUARD_ALLOW_EXTERNAL_RESEARCH=true (or a licensed local corpus is
+# configured), replace the synthetic excerpts with retrieved official passages.
+
+version: 0.1.0
+external_retrieval_default: false
+require_source_version: true
+max_source_age_days: 730
+
+sources:
+  - id: aha-acc-hfsa-2022-hfref
+    title: 2022 AHA/ACC/HFSA Guideline for the Management of Heart Failure
+    organization: AHA/ACC/HFSA
+    document_type: clinical_guideline
+    local_path: fixtures/careguard/corpus/local_corpus.json
+    canonical_source: https://www.ahajournals.org/doi/10.1161/CIR.0000000000001063
+    publication_date: 2022-04-01
+    version: "2022"
+    authority_level: 1
+    clinical_use: care_plan_grounding
+    allowed_for_recommendation_grounding: true
+    notes: Synthetic demo excerpt bundled offline; replace with official passage before non-demo use.
+
+  - id: kdigo-2024-ckd
+    title: KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of CKD
+    organization: KDIGO
+    document_type: clinical_guideline
+    local_path: fixtures/careguard/corpus/local_corpus.json
+    canonical_source: https://kdigo.org/guidelines/ckd-evaluation-and-management/
+    publication_date: 2024-03-01
+    version: "2024"
+    authority_level: 1
+    clinical_use: care_plan_grounding
+    allowed_for_recommendation_grounding: true
+    notes: Synthetic demo excerpt bundled offline.
+
+  - id: dailymed-spl
+    title: DailyMed Structured Product Labeling (spironolactone, lisinopril, eplerenone, dapagliflozin)
+    organization: DailyMed (FDA SPL)
+    document_type: drug_label
+    local_path: fixtures/careguard/corpus/local_corpus.json
+    canonical_source: https://dailymed.nlm.nih.gov/dailymed/
+    authority_level: 1
+    clinical_use: contraindication_and_warning_grounding
+    allowed_for_recommendation_grounding: true
+    notes: Synthetic demo label excerpts; DailyMed is the preferred label source at runtime.
+
+  - id: ada-standards-2026
+    title: ADA Standards of Care in Diabetes — 2026
+    organization: ADA
+    document_type: clinical_guideline
+    local_path: null
+    canonical_source: https://diabetesjournals.org/care/issue/standards-of-care
+    authority_level: 1
+    clinical_use: care_plan_grounding
+    allowed_for_recommendation_grounding: true
+    notes: NOT locally available — retrieval requires external access or a licensed corpus.
+
+  - id: fda-cds-guidance-2026
+    title: FDA Clinical Decision Support Software Guidance
+    organization: FDA
+    document_type: regulatory_guidance
+    local_path: null
+    canonical_source: https://www.fda.gov/regulatory-information/search-fda-guidance-documents
+    publication_date: 2026-01-29
+    authority_level: 1
+    clinical_use: safety_boundary
+    allowed_for_recommendation_grounding: false
+    notes: Frames the non-device CDS posture; not locally bundled.
+
+interoperability:
+  - {id: fhir-r4, title: HL7 FHIR R4, authority_level: 2, canonical_source: https://hl7.org/fhir/R4/}
+  - {id: cds-hooks, title: CDS Hooks, authority_level: 2, canonical_source: https://cds-hooks.org/}
+  - {id: rxnorm, title: RxNorm / RxNav, authority_level: 1, canonical_source: https://rxnav.nlm.nih.gov/}
+  - {id: rxclass, title: RxClass, authority_level: 1, canonical_source: https://rxnav.nlm.nih.gov/RxClassAPIs.html}
+  - {id: orange-book, title: FDA Orange Book, authority_level: 1, canonical_source: https://www.fda.gov/drugs/drug-approvals-and-databases/approved-drug-products-therapeutic-equivalence-evaluations-orange-book}
+
+supplemental:
+  - {id: ddinter2, title: "DDInter 2.0", authority_level: 3, canonical_source: http://ddinter2.scbdd.com/, use: supplemental_only}
+  - {id: drugcentral, title: DrugCentral, authority_level: 3, canonical_source: https://drugcentral.org/, use: enrichment_only}
+  - {id: sider, title: SIDER 4.1, authority_level: 3, canonical_source: http://sideeffects.embl.de/, use: supplemental_only}
+
+licensed:
+  - {id: drugbank, title: DrugBank, authority_level: 3, canonical_source: https://go.drugbank.com/, use: disabled_without_license}
+
+technical_research:
+  - {id: echonet-dynamic, title: "EchoNet-Dynamic — video-based AI for beat-to-beat cardiac function", authority_level: 3}
+  - {id: ptb-xl, title: "PTB-XL, a large publicly available electrocardiography dataset", authority_level: 3}
+  - {id: pan-tompkins, title: "A Real-Time QRS Detection Algorithm (Pan & Tompkins)", authority_level: 3}
+  - {id: camus, title: "CAMUS echocardiography dataset", authority_level: 3}
+  - {id: vista3d, title: "MONAI VISTA-3D / TotalSegmentator segmentation research", authority_level: 3}
+
+prohibited_as_authority:
+  - random Kaggle medicine datasets (development fixtures only)
+  - scraped pharmacy / consumer interaction-checker pages
+  - blogs, Reddit, model memory, autocomplete guesses
+  - adverse-event reports without label/guideline support

@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-07-18T22:50:18+00:00",
+  "imaging_study_resources": 3,
+  "provenance_resources": 3,
+  "fused_into_clinical_cases": 0,
+  "note": "ImagingStudy resources are standalone (imaging subject), never attached to an eICU patient. Fusion into clinical bundles requires verified same-subject linkage (0 in gated mode)."
+}

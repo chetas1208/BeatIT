@@ -1,0 +1,11 @@
+{
+  "imaging_case_id": "imaging-case-000001",
+  "cohort": "vista_benchmark",
+  "subtype": "imaging_only",
+  "source_dataset": "totalsegmentator",
+  "source_subject_id": "ts_example_full",
+  "input_nifti": "imaging-cases/imaging-case-000001/imaging/normalized/ct.nii.gz",
+  "reference_mask": "imaging-cases/imaging-case-000001/imaging/references/reference_mask.nii.gz",
+  "vista_eligible": true,
+  "linkage_status": "imaging_only"
+}

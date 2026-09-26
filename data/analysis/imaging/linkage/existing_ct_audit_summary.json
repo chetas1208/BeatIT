@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-07-18T23:36:30+00:00",
+  "total_cases": 1000,
+  "with_actual_ct_volume": 0,
+  "verified_same_subject": 0,
+  "no_linked_ct": 1000,
+  "prohibited_cross_dataset": 0,
+  "status_counts": {
+    "no_linked_ct": 1000
+  }
+}

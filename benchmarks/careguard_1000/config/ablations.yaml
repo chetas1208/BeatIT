@@ -1,0 +1,35 @@
+# CareGuard ablation arms (spec §6). Each disables exactly one component so the
+# contribution of that component can be measured. Run on the stratified ablation
+# subset only. Mapping is to the deterministic CareGuard medication-safety engine
+# (build_multimorbidity_output) — see runners/run_careguard.py.
+
+arms:
+  careguard_full:
+    description: Full CareGuard engine, all components active.
+    disable: []
+
+  careguard_no_critic:
+    description: All stages active except the deterministic safety critic.
+    disable: [safety_critic]
+    measures: unsupported/unsafe outputs the critic removes.
+
+  careguard_no_retrieval:
+    description: >
+      Disable authoritative label + guideline evidence. Engine must abstain
+      rather than assert from model memory.
+    disable: [evidence_retrieval]
+    measures: value of authoritative evidence grounding.
+
+  careguard_no_multimorbidity:
+    description: >
+      Provide only primary cardiac context + medication list; strip cross-organ
+      condition signals.
+    disable: [multimorbidity]
+    measures: cross-organ conflicts missed when care is siloed per organ.
+
+  careguard_no_deterministic_conflict_engine:
+    description: >
+      Disable deterministic conflict assertions; retain reconciliation and
+      model-style structured review only.
+    disable: [conflict_engine]
+    measures: value of tool-driven checking vs model-only reasoning.

@@ -1,0 +1,94 @@
+# Node
+node_modules/
+.nuxt/
+.next/
+.output/
+dist/
+.vercel/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+*.egg-info/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Uploads (never commit patient data)
+uploads/
+*.pdf
+*.dcm
+*.nii
+
+# Environment
+.env
+.env.local
+*.env.local
+
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# AI tooling (not committed)
+.cursor/
+.claude/
+.copilot/
+
+# Logs
+*.log
+logs/
+
+# Lock files (keep pnpm-lock.yaml, skip others)
+package-lock.json
+yarn.lock
+next.md
+.vercel
+
+# Large data / raw patient-level datasets — never commit (public repo)
+data/cases/
+data/cache/
+data/staging/
+data/raw/
+data/logs/
+data/artifacts/
+data/beatit-ensembles.sqlite3
+data/beatit-ensembles.sqlite3-*
+
+# Old benchmark dir replaced by benchmarks/ (kept locally, out of git)
+/benchmark/
+
+# Local model weights never belong in the repository.
+models/
+!models/
+!models/manifest.json
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.engine
+*.plan
+*.gguf
+*.nemo
+
+# Local runtime state / generated artifacts (not source)
+data/beatit-ensembles.sqlite3
+archives/*.tar.gz

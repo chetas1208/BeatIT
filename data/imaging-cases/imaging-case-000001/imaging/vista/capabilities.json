@@ -1,0 +1,28 @@
+{
+  "service": "vista3d",
+  "version": "unknown",
+  "supported_modalities": [
+    "CT"
+  ],
+  "supported_classes": [
+    "heart",
+    "aorta",
+    "pulmonary artery"
+  ],
+  "input_formats": [
+    "nifti"
+  ],
+  "maximum_upload_bytes": null,
+  "supports_signed_urls": false,
+  "supports_batch": false,
+  "supports_async_jobs": true,
+  "returns_confidence": false,
+  "returns_masks": true,
+  "returns_measurements": false,
+  "reachable": false,
+  "source": "static_fallback",
+  "warnings": [
+    "VISTA endpoint is not configured (VISTA3D_ENABLED false / API base empty).",
+    "Capabilities are the conservatively verified set; unsupported on this deployment: coronary arteries, epicardial adipose tissue, pericoronary adipose tissue, left ventricle, right ventricle, myocardium."
+  ]
+}

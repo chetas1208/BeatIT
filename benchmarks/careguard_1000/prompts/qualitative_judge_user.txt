@@ -1,0 +1,10 @@
+CASE (de-identified):
+{case_packet_json}
+
+SOURCE-DERIVED REFERENCE SUMMARY (deterministic; not produced by any model):
+{reference_summary_json}
+
+REVIEW TO SCORE (arm id: {blinded_arm_id}):
+{arm_output_json}
+
+Return the JSON score object only.

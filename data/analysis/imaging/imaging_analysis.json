@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-07-18T23:36:47+00:00",
+  "linkage": {
+    "total_clinical_cases": 1000,
+    "cases_with_actual_ct": 0,
+    "verified_same_subject_ct": 0,
+    "no_linked_ct": 1000,
+    "prohibited_pairings": 0,
+    "imaging_native_cases": 0,
+    "imaging_only_benchmark": 3
+  },
+  "sources": {
+    "multid4cad": {
+      "access_state": "access_pending",
+      "can_ingest": false,
+      "expected_max_cases": 118
+    },
+    "imagecas": {
+      "access_state": "access_pending",
+      "can_ingest": false,
+      "expected_max_cases": 1000
+    },
+    "totalsegmentator": {
+      "access_state": "access_verified",
+      "can_ingest": true,
+      "expected_max_cases": 1228
+    },
+    "tcia": {
+      "access_state": "access_pending",
+      "can_ingest": false,
+      "expected_max_cases": 0
+    },
+    "rad-chestct": {
+      "access_state": "access_pending",
+      "can_ingest": false,
+      "expected_max_cases": 0
+    }
+  },
+  "vista": {
+    "endpoint_configured": false,
+    "endpoint_reachable": false,
+    "capability_source": "static_fallback",
+    "supported_classes": [
+      "heart",
+      "aorta",
+      "pulmonary artery"
+    ],
+    "jobs": 3,
+    "states": {
+      "failed": 3
+    }
+  },
+  "segmentation": {
+    "reference_masks_available": 3,
+    "structures_requested": [
+      "heart",
+      "aorta",
+      "pulmonary artery"
+    ],
+    "metrics_computed": 0,
+    "reason_not_computed": "gated: no live VISTA endpoint; no masks fabricated"
+  },
+  "dicom_validation": {
+    "series": 1,
+    "valid": 1
+  },
+  "fusion": {
+    "verified_fusions": 0,
+    "blocked_fusions": 3,
+    "prohibited_demo_status": "prohibited_cross_dataset_match"
+  }
+}

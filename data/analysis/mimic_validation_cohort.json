@@ -1,0 +1,49 @@
+{
+  "available": true,
+  "role": "separate_validation_cohort_NOT_counted_in_eicu_main_cohort",
+  "generated_at": "2026-07-18T22:15:20+00:00",
+  "n_patients": 100,
+  "sex_distribution": {
+    "M": 57,
+    "F": 43
+  },
+  "anchor_age_summary": {
+    "min": 21,
+    "max": 91,
+    "mean": 61.8
+  },
+  "n_diagnosis_rows": 4506,
+  "patients_with_cardiovascular_dx": 83,
+  "noncardiac_organ_diagnosis_counts": {
+    "endocrine_metabolic": 507,
+    "hematologic_coagulation": 316,
+    "infectious": 308,
+    "renal": 299,
+    "pulmonary": 249,
+    "neurologic": 217,
+    "oncologic": 191,
+    "gastrointestinal": 187,
+    "hepatic": 122,
+    "musculoskeletal": 113,
+    "psychiatric": 79,
+    "allergy_immunologic": 45
+  },
+  "top_diagnoses": {
+    "Unspecified essential hypertension": 68,
+    "Hyperlipidemia, unspecified": 57,
+    "Acute kidney failure, unspecified": 56,
+    "Other and unspecified hyperlipidemia": 55,
+    "Hypothyroidism, unspecified": 47,
+    "Obesity, unspecified": 43,
+    "Anemia, unspecified": 41,
+    "Long term (current) use of insulin": 37,
+    "Urinary tract infection, site not specified": 36,
+    "Personal history of nicotine dependence": 35,
+    "Atrial fibrillation": 34,
+    "Atherosclerotic heart disease of native coronary artery without angina pectoris": 33,
+    "Diabetes mellitus without mention of complication, type II or unspecified type, not stated as uncontrolled": 33,
+    "Essential (primary) hypertension": 32,
+    "Major depressive disorder, single episode, unspecified": 32
+  },
+  "note": "Real, deidentified MIMIC-IV Demo 1.0. Kept strictly separate from the eICU main cohort; used only to sanity-check classification."
+}

@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-07-18T22:42:00+00:00",
+  "series": [
+    {
+      "series": "ts_example_dicom",
+      "n_slices": 20,
+      "readable_slices": 20,
+      "modality": "CT",
+      "series_uids": 1,
+      "study_uids": 1,
+      "patients": 0,
+      "spacing": [
+        0.9765625,
+        0.9765625,
+        3.0
+      ],
+      "slice_thickness": 3.0,
+      "valid": true,
+      "n_issues": 0,
+      "issues": "",
+      "n_warnings": 1,
+      "warnings": "SOPInstanceUID blanked on all slices (deidentification) \u2014 verifying uniqueness/ordering via InstanceNumber instead"
+    }
+  ]
+}

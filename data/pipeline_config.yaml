@@ -1,0 +1,74 @@
+# HeartTwin CareGuard — data pipeline configuration.
+# Every script reads this file so behaviour is reproducible and centrally tunable.
+
+version: "1.0.0"
+mapping_rule_version: "careguard-data.v1"
+
+# Deterministic seed. Only used for tie-breaks / sampling where a stable order is
+# not otherwise defined. Selection is primarily deterministic (see 04_select_cohort).
+random_seed: 20260718
+
+cohort:
+  target_cases: 1000
+  # Allow Synthea (or, if the JRE is unavailable, a clearly-labelled deterministic
+  # synthetic fallback generator) to fill the shortfall below target_cases.
+  allow_synthetic_fallback: true
+  # Tier thresholds are documented in 04_select_cohort.py.
+
+sources:
+  eicu:
+    name: "eICU Collaborative Research Database Demo"
+    version: "2.0.1"
+    root: "https://physionet.org/files/eicu-crd-demo/2.0.1/"
+    sqlite_url: "https://physionet.org/files/eicu-crd-demo/2.0.1/sqlite/eicu_v2_0_1.sqlite3.gz"
+    license_url: "https://physionet.org/files/eicu-crd-demo/2.0.1/LICENSE.txt"
+    checksums_url: "https://physionet.org/files/eicu-crd-demo/2.0.1/SHA256SUMS.txt"
+    license: "Open Database License (ODbL) 1.0"
+    citation: "Pollard TJ, Johnson AEW, Raffa JD, Celi LA, Mark RG, Badawi O. eICU Collaborative Research Database Demo (version 2.0.1). PhysioNet (2019). https://doi.org/10.13026/gxmm-es70"
+  ptbxl:
+    name: "PTB-XL, a large publicly available electrocardiography dataset"
+    version: "1.0.1"
+    root: "https://physionet.org/files/ptb-xl/1.0.1/"
+    metadata_csv: "https://physionet.org/files/ptb-xl/1.0.1/ptbxl_database.csv"
+    scp_csv: "https://physionet.org/files/ptb-xl/1.0.1/scp_statements.csv"
+    records100_root: "https://physionet.org/files/ptb-xl/1.0.1/records100/"
+    license_url: "https://physionet.org/files/ptb-xl/1.0.1/LICENSE.txt"
+    checksums_url: "https://physionet.org/files/ptb-xl/1.0.1/SHA256SUMS.txt"
+    license: "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    citation: "Wagner P, Strodthoff N, Bousseljot RD, Kreiseler D, Lunze FI, Samek W, Schaeffter T. PTB-XL, a large publicly available electrocardiography dataset (version 1.0.1). PhysioNet (2020). https://doi.org/10.13026/x4td-x982"
+  mimic:
+    name: "MIMIC-IV Clinical Database Demo"
+    version: "1.0"
+    root: "https://physionet.org/files/mimic-iv-demo/1.0/"
+    license: "Open Data Commons Open Database License v1.0"
+    citation: "Johnson A, Bulgarelli L, Pollard T, Horng S, Celi LA, Mark R. MIMIC-IV Clinical Database Demo (version 1.0). PhysioNet (2021)."
+    role: "separate_validation_cohort"   # NEVER counted in the eICU main cohort
+  synthea:
+    name: "Synthea synthetic patient generator"
+    repo: "https://github.com/synthetichealth/synthea.git"
+    license: "Apache License 2.0"
+    role: "synthetic_fallback_only"
+
+# Medication normalization services.
+apis:
+  rxnorm_base: "https://rxnav.nlm.nih.gov/REST"
+  dailymed_base: "https://dailymed.nlm.nih.gov/dailymed/services/v2"
+  openfda_base: "https://api.fda.gov"
+  rate_limit_sleep_seconds: 0.1   # RxNorm allows ~20 req/s; openFDA burst-guarded via 429 backoff
+  request_timeout_seconds: 20
+  max_unique_normalizations: 4000  # safety cap; cache is authoritative
+  max_openfda_labels: 500          # openFDA ~1000/day unauthenticated cap
+
+ecg:
+  sampling_rate_hz: 100
+  leads: ["I", "II", "III", "aVR", "aVL", "aVF", "V1", "V2", "V3", "V4", "V5", "V6"]
+
+disk:
+  min_free_gb: 15
+
+# Mandatory disclaimers stamped into every human-readable artifact.
+disclaimers:
+  research_only: "Research and software-testing dataset. Not for diagnosis or treatment decisions."
+  composite: "Composite modalities may originate from different deidentified individuals."
+  ecg_donor: "The ECG is a matched external modality from PTB-XL and does not originate from the same individual as the eICU record."
+  synthetic: "This case was generated synthetically and is not a real patient record."

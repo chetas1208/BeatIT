@@ -1,0 +1,123 @@
+{
+  "resourceType": "Bundle",
+  "id": "imaging-imaging-case-000003",
+  "type": "collection",
+  "meta": {
+    "tag": [
+      {
+        "system": "https://hearttwin.local/careguard",
+        "code": "imaging-benchmark",
+        "display": "Standalone imaging benchmark \u2014 not linked to a clinical patient"
+      }
+    ]
+  },
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "imgstudy-imaging-case-000003",
+        "status": "available",
+        "subject": {
+          "reference": "Patient/imaging-subject-ts_example_dicom",
+          "display": "imaging benchmark subject (not an eICU patient)"
+        },
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "CT"
+          }
+        ],
+        "numberOfSeries": 1,
+        "numberOfInstances": null,
+        "description": "TotalSegmentator CT \u2014 imaging benchmark; not linked to any clinical case.",
+        "series": [
+          {
+            "uid": "series-ts_example_dicom",
+            "modality": {
+              "code": "CT"
+            },
+            "numberOfInstances": null,
+            "bodySite": {
+              "display": "thorax/abdomen"
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://hearttwin.local/careguard/imaging-linkage",
+            "extension": [
+              {
+                "url": "linkage_status",
+                "valueString": "imaging_only"
+              },
+              {
+                "url": "same_subject_as_clinical_record",
+                "valueBoolean": false
+              },
+              {
+                "url": "source_dataset",
+                "valueString": "totalsegmentator"
+              },
+              {
+                "url": "deidentified",
+                "valueBoolean": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Provenance",
+        "id": "prov-imaging-case-000003",
+        "target": [
+          {
+            "reference": "ImagingStudy/imgstudy-imaging-case-000003"
+          }
+        ],
+        "recorded": "2026-07-18T22:50:18+00:00",
+        "activity": {
+          "text": "Imported + normalized real TotalSegmentator CT; VISTA gated (no live run)"
+        },
+        "agent": [
+          {
+            "type": {
+              "text": "software"
+            },
+            "who": {
+              "display": "HeartTwin CareGuard imaging pipeline"
+            }
+          }
+        ],
+        "entity": [
+          {
+            "role": "source",
+            "what": {
+              "display": "TotalSegmentator dataset (CC BY 4.0), DOI 10.5281/zenodo.10047292"
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://hearttwin.local/careguard/provenance",
+            "extension": [
+              {
+                "url": "source_dataset",
+                "valueString": "totalsegmentator"
+              },
+              {
+                "url": "source_subject_id",
+                "valueString": "ts_example_dicom"
+              },
+              {
+                "url": "assertion_type",
+                "valueString": "model_derived_imaging_measurement"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

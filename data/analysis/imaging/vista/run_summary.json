@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-07-18T22:50:17+00:00",
+  "endpoint_configured": false,
+  "endpoint_reachable": false,
+  "capability_source": "static_fallback",
+  "jobs": 3,
+  "states": {
+    "failed": 3
+  },
+  "health": {
+    "healthy": false,
+    "warnings": [
+      "VISTA3D_ENABLED is not set or VISTA3D_API_BASE is missing"
+    ],
+    "checked_at": "2026-07-18T22:50:17+00:00"
+  }
+}

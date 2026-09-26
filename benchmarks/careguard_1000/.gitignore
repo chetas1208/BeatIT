@@ -1,0 +1,28 @@
+# Large / sensitive benchmark artifacts — do NOT commit.
+results/raw/
+results/normalized/
+results/graded/
+results/failures/
+results/examples/
+*.ndjson.tmp
+__pycache__/
+*.pyc
+
+# Large reference NDJSON — deterministically regenerable via
+# reference/build_reference_set.py (see REPRODUCIBILITY.md). Keep the compact
+# parquet + quality report + adjudication queue instead.
+reference/reference_labels.ndjson
+reference/reference_provenance.ndjson
+
+# Keep (commit): configs, schemas, prompts, docs, code, and small summarized
+# outputs. Explicitly un-ignore the summarized aggregates and charts/reports.
+!results/aggregate/
+!results/statistics/
+!results/charts/
+!results/reports/
+!reference/label_quality_report.json
+!reference/reference_labels.parquet
+!reference/adjudication_queue.csv
+!reference/adjudication_template.csv
+!results/model_verification.json
+!results/case_index.csv

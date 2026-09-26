@@ -1,0 +1,11 @@
+{
+  "subject_id": "ts_example_dicom",
+  "source_dataset": "TotalSegmentator dataset",
+  "license": "CC BY 4.0 (open); example files under the Apache-2.0 repo",
+  "doi": "10.5281/zenodo.10047292",
+  "format": "dicom",
+  "sha256": "4c5633409fa4d3edf6871e5684e9e1b10325b4d0949997582f43b23a684d0dc4",
+  "n_slices": 20,
+  "has_reference_mask": true,
+  "modality": "CT"
+}

@@ -1,0 +1,38 @@
+lab,cases_with,cases_missing,missing_fraction
+ALT,811,189,0.189
+AST,814,186,0.186
+Albumin,831,169,0.169
+Alkaline phosphatase,803,197,0.197
+Anion gap,769,231,0.231
+BNP,185,815,0.815
+BUN,994,6,0.006
+Base excess,475,525,0.525
+Bicarbonate,963,37,0.037
+Calcium,978,22,0.022
+Chloride,991,9,0.009
+Creatinine,992,8,0.008
+FiO2,482,518,0.518
+Glucose,982,18,0.018
+Glucose (bedside),680,320,0.32
+Hematocrit,989,11,0.011
+Hemoglobin,988,12,0.012
+INR,679,321,0.321
+Ionized calcium,193,807,0.807
+Lactate,427,573,0.573
+Magnesium,752,248,0.248
+Neutrophils %,768,232,0.232
+O2 saturation,451,549,0.549
+PT,659,341,0.341
+PaCO2,529,471,0.471
+PaO2,531,469,0.469
+Phosphate,533,467,0.467
+Platelets,983,17,0.017
+Potassium,993,7,0.007
+Sodium,992,8,0.008
+Total bilirubin,803,197,0.197
+Total protein,807,193,0.193
+Troponin I,340,660,0.66
+Troponin T,63,937,0.937
+WBC,989,11,0.011
+aPTT,493,507,0.507
+pH,929,71,0.071

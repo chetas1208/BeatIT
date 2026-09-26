@@ -1,0 +1,47 @@
+# CareGuard 1,000-case benchmark — master run configuration.
+# Values mirror the environment defaults in the benchmark spec; env vars of the
+# same name override at runtime.
+
+benchmark_id: careguard_1000
+data_root: null            # null -> repo data/ (BENCHMARK_DATA_ROOT overrides)
+
+# --- Execution knobs (spec §5) ---
+# 12000 chosen after piloting: 6000 truncated the forced-tool call on large
+# cases (35+ reconciled meds -> stop_reason max_tokens). 12000 completes the
+# contract, stays under both models' caps and the ~16k non-streaming timeout,
+# and is identical for both models so the comparison stays fair.
+max_tokens: 12000
+# 300s: large cases (35+ meds) emit ~10-12k output tokens at ~70 tok/s (~170s
+# generation) — 120s timed out and burned retries. Identical for both models.
+timeout_seconds: 300
+max_retries: 4
+concurrency: 4
+
+# --- Trial design ---
+full_trials: 1             # one full pass over eligible cases per arm
+repeat_subset_size: 200    # stratified subset for repeated-trial reliability
+repeat_trials: 3           # trials per case in the repeat subset
+ablation_subset_size: 150  # stratified subset for CareGuard ablation arms
+
+# --- Cost governance (spec §5) ---
+max_cost_usd: 500
+require_cost_confirmation: true
+use_batch_api: false       # interactive latency measured on Messages API
+
+# --- Optional graders ---
+run_optional_llm_judge: false
+blind_model_names: true    # judge/human review sees blinded arm ids
+
+# --- Sampling policy for the primary comparison (spec §5) ---
+# For the model-vs-model comparison the ONLY intended difference is model id.
+sampling:
+  temperature: omit
+  top_p: omit
+  top_k: omit
+  thinking: omit           # both 4.5 and 4.6 run thinking-off when omitted
+  structured_output: forced_tool   # identical JSON contract on both models
+
+seed_note: >
+  The Messages API is not seed-deterministic; reproducibility is achieved by
+  pinning model ids, request shape, input packets, and grader code — not by a
+  sampling seed.

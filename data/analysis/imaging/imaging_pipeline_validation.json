@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-07-18T23:36:48+00:00",
+  "all_pass": true,
+  "verdict": "VERIFIED CT/VISTA PIPELINE READY",
+  "checks": [
+    {
+      "check": "every clinical case has ct_imaging status",
+      "pass": true,
+      "detail": "1000/1000"
+    },
+    {
+      "check": "no clinical case claims unverified same-subject CT",
+      "pass": true,
+      "detail": "0 violations"
+    },
+    {
+      "check": "no prohibited cross-dataset pairings",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "imaging cases have subject id + checksum + provenance + correct label",
+      "pass": true,
+      "detail": "3/3"
+    },
+    {
+      "check": "MultiD4CAD access status recorded",
+      "pass": true,
+      "detail": "access_pending"
+    },
+    {
+      "check": "DICOM validation passed",
+      "pass": true,
+      "detail": "1/1"
+    },
+    {
+      "check": "NIfTI validation passed",
+      "pass": true,
+      "detail": "6/6"
+    },
+    {
+      "check": "VISTA capabilities queried",
+      "pass": true,
+      "detail": "static_fallback"
+    },
+    {
+      "check": "no unsupported class requested",
+      "pass": true,
+      "detail": "0 violations"
+    },
+    {
+      "check": "no invented VISTA confidence",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "no unverified fusion occurred",
+      "pass": true,
+      "detail": "3 blocked"
+    },
+    {
+      "check": "adversarial demographic match blocked as prohibited",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "FHIR ImagingStudy + Provenance valid",
+      "pass": true,
+      "detail": "3/3"
+    },
+    {
+      "check": "existing clinical pipeline still valid",
+      "pass": true,
+      "detail": "1000 valid cases"
+    }
+  ],
+  "note": "Readiness reflects the pipeline's linkage safety, real CT ingestion/validation, capability handshake, and fusion gating. Live VISTA segmentation is gated (no endpoint) and same-subject CT for eICU is unavailable \u2014 both are honestly reported, not faked."
+}

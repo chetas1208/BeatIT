@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Per-trial grader result",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["case_id", "arm_id", "trial_id", "metrics"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "arm_id": {"type": "string"},
+    "trial_id": {"type": "string"},
+    "gradable": {"type": "boolean"},
+    "metrics": {
+      "type": "object",
+      "description": "Named metric -> {tp,fp,fn,score,...} from deterministic graders",
+      "additionalProperties": true
+    },
+    "per_grader": {"type": "object", "additionalProperties": true},
+    "composite_score": {"type": "number"},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,25 @@
+# Subgroup axes for stratified analysis (spec §Question 3, subgroup analysis).
+# Each axis is computed from the case index; results/statistics reports metric
+# breakdowns per level.
+
+subgroups:
+  organ_system_count:
+    field: organ_system_count
+    bins: {low: "<=2", mid: "3-6", high: ">=7"}
+  medication_count:
+    field: medication_count
+    bins: {few: "<=10", many: "11-40", polypharmacy: ">=41"}
+  allergy_count:
+    field: allergy_count
+    bins: {none: "0", some: "1-5", many: ">=6"}
+  real_or_synthetic:
+    field: real_or_synthetic
+  cardiac_category:
+    field: cardiac_category
+  selection_tier:
+    field: selection_tier
+  has_medication_evidence:
+    field: has_medication_evidence
+  completeness_band:
+    field: completeness_score
+    bins: {low: "<0.6", mid: "0.6-0.85", high: ">=0.85"}

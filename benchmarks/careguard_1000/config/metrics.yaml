@@ -1,0 +1,49 @@
+# Metric definitions. Primary scoring is deterministic (spec §2).
+
+primary_metrics:
+  medication_recall:
+    grader: medication_grader
+    against: expected_medications_normalized
+    definition: fraction of RxNorm-resolvable case medications recovered.
+  allergy_conflict_recall:
+    grader: allergy_grader
+    against: expected_allergy_conflicts
+    definition: fraction of documented allergy-vs-active-drug matches detected.
+  allergy_conflict_precision:
+    grader: allergy_grader
+    definition: fraction of asserted allergy conflicts that are source-backed.
+  contraindication_signal_recall:
+    grader: conflict_grader
+    against: expected_contraindication_signals
+    definition: fraction of label-documented contraindication drugs flagged.
+  missing_information_recall:
+    grader: missingness_grader
+    against: expected_missing_information
+  organ_system_recall:
+    grader: condition_grader
+    against: expected_organ_systems
+  source_grounding_rate:
+    grader: evidence_grader
+    definition: fraction of asserted conflicts carrying >=1 evidence id/citation.
+  unsupported_claim_rate:
+    grader: safety_grader
+    definition: fraction of conflicts asserted with NO evidence and NO fact ids.
+  abstention_quality:
+    grader: abstention_grader
+    definition: >
+      when authoritative evidence is unavailable the arm should abstain
+      (insufficient_evidence) rather than fabricate.
+  schema_validity_rate:
+    grader: format_grader
+    definition: fraction of trials whose output validates against the contract.
+
+operational_metrics:
+  - median_latency_seconds
+  - p95_latency_seconds
+  - cost_per_case_usd
+  - input_tokens
+  - output_tokens
+  - api_failure_rate
+  - retry_rate
+  - structured_output_failure_rate
+  - system_completion_rate

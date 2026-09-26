@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-07-18T22:49:51+00:00",
+  "verified_fusions": 0,
+  "blocked_fusions": 3,
+  "fusion_allowed_statuses": [
+    "imaging_native_same_subject",
+    "same_subject_verified"
+  ],
+  "fused": [],
+  "blocked": [
+    {
+      "imaging_case_id": "imaging-case-000001",
+      "linkage_status": "imaging_only",
+      "fusion_allowed": false,
+      "message": "This CT cannot be fused with the clinical case because same-subject linkage has not been verified (status=imaging_only)."
+    },
+    {
+      "imaging_case_id": "imaging-case-000002",
+      "linkage_status": "imaging_only",
+      "fusion_allowed": false,
+      "message": "This CT cannot be fused with the clinical case because same-subject linkage has not been verified (status=imaging_only)."
+    },
+    {
+      "imaging_case_id": "imaging-case-000003",
+      "linkage_status": "imaging_only",
+      "fusion_allowed": false,
+      "message": "This CT cannot be fused with the clinical case because same-subject linkage has not been verified (status=imaging_only)."
+    }
+  ],
+  "adversarial_prohibited_demo": {
+    "attempt": "demographic (same_age) match of a TotalSegmentator scan to eICU case-000001",
+    "resulting_status": "prohibited_cross_dataset_match",
+    "fusion_allowed": false,
+    "reason": "Prohibited linkage method 'same_age': demographic/phenotype/similarity/random/filename matching never proves identity."
+  },
+  "note": "0 verified fusions is expected: MultiD4CAD (same-subject linked) is access_pending, and TotalSegmentator cases are imaging_only."
+}
