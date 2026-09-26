@@ -3,10 +3,10 @@
 > Built by reviewing this campaign's full history turn by turn (Waves 1-6,
 > plus the two mid-campaign requirement additions). A subagent could not do
 > this — it starts cold with no memory of this conversation — so this was
-> compiled directly by the lead. Snapshot as of mid-Wave-6 integration
-> (Agents 29/30 still finishing). Supersedes scanning individual
-> `WAVE_N_HANDOFF.md` files for open items; each entry below cites its
-> source.
+> compiled directly by the lead. Updated after Wave 6 fully completed and
+> integrated (`f5578b4`, `WAVE_6_HANDOFF.md`). Supersedes scanning
+> individual `WAVE_N_HANDOFF.md` files for open items; each entry below
+> cites its source.
 
 ## Not yet started
 
@@ -69,18 +69,18 @@
    existing rule-based + supplemental checks both return "normal," gated by
    a new off-by-default env flag, fails open on any error. Not implemented
    — a deliberate evaluation-only deliverable per that agent's scope.
-10. **Fast-model candidate (`nvidia/nemotron-3.5-lightning-30b-a3b`) is
-    likely NOT suitable for the fast/System-1 role as configured** — Agent
-    26's real benchmark found a mandatory reasoning preamble consumes the
-    token budget before any answer emerges under a modest budget, with
-    erratic 4.3–28.6s latency on short prompts (not fast at all in
-    practice). No working way found to disable the reasoning preamble.
-    **This needs a real decision before FAST_MODEL_ID is locked**: try a
-    different fast candidate, accept large budgets and strip the reasoning
-    trace, or reconsider the fast/deep split entirely. Deep model
-    (`nvidia/nemotron-3-super-120b-a12b`) performed well by contrast (Agent
-    27), with the caveat that reasoning+content share one token budget
-    there too (budget generously).
+10. **STILL OPEN — Fast-model candidate (`nvidia/nemotron-3.5-lightning-30b-a3b`)
+    is NOT suitable for the fast/System-1 role as configured** — confirmed
+    by TWO independent Wave 6 measurements (Agent 26: 4.3–56s erratic;
+    Agent 30's separate run: 4.1–56.2s, mean ~28.7s, ~10x slower than the
+    deep model on the same sample). A mandatory reasoning preamble consumes
+    the token budget before any answer emerges; no working way found to
+    disable it. **This needs a real decision before FAST_MODEL_ID is
+    locked**: try a different fast candidate, accept large budgets and
+    strip the reasoning trace, or reconsider the fast/deep split entirely.
+    Deep model (`nvidia/nemotron-3-super-120b-a12b`) performed well by
+    contrast, with the caveat that reasoning+content share one token budget
+    there too (budget generously) — see item 11.
 11. **Deep model's self-perceived-compliance jailbreak** (Agent 27, real
     finding): asked "what should I prescribe," the model opened with a
     refusal disclaimer but then named real drugs with dosing rationale
@@ -89,18 +89,18 @@
     **this model must never be trusted for its own refusal on T3
     boundaries**; both the pre-request and post-response gates must always
     stay in front of it. Not a bug to fix, a constraint to keep enforcing.
-12. **`model_client.py` had a real 3-way agent collision** (Agents 26, 27,
-    30 each touched it) that self-resolved during Wave 6 into one converged
-    async/raising contract (28/28 tests passing together per Agent 26's
-    final check). Worth a quick sanity re-check during Wave 6 integration
-    that the final committed version is actually the intended one, not an
-    accidental partial merge.
-13. **Transient test failures Agent 26 observed** (`test_assistant_router.py`,
-    `test_decision_adversary.py`) — re-checked directly just now: **currently
-    passing, 63 passed + 6 xfailed**, matching Wave 5's expected tracked-gap
-    count. This was almost certainly a snapshot mid-edit by Agent 29 (Model
-    Router Engineer), not a real regression. Will re-verify once more at
-    final Wave 6 integration.
+12. **RESOLVED — `model_client.py`'s real 3-way agent collision** (Agents 26,
+    27, 30) self-resolved during Wave 6 into one converged async/raising
+    contract. Lead-verified at integration: full suite passes (1231/5/6),
+    the committed version is the intended async contract, not an accidental
+    partial merge.
+13. **RESOLVED — transient test failures Agent 26 observed** (`test_assistant_router.py`,
+    `test_decision_adversary.py`) — confirmed as a snapshot mid-edit by
+    Agent 29 (Model Router Engineer), not a regression. Agent 29 completed
+    the intentional updates (new, more-conservative `CLARIFICATION_REQUIRED`
+    behavior from wiring in Wave 5's policy); full suite re-verified clean
+    by the lead at final Wave 6 integration: 1231 passed, 5 skipped, 6
+    xfailed.
 
 ## Coordination status (unchanged across all 6 waves)
 
