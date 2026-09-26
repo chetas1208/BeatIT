@@ -311,11 +311,30 @@ flowchart TB
 
 ### What is actually deployed
 
-- **AWS hosting:** not deployed. The inspected AWS workshop role permits
-  Bedrock and CloudWatch but denies the hosting, registry, storage, and secret
-  services required for application deployment.
-- **Amazon Bedrock:** smoke-tested in `us-east-1`; one minimal inference
-  succeeded. It is optional and is not numerical authority.
+#### Verified AWS status
+
+| AWS service | BeatIT status | Verified evidence |
+|---|---|---|
+| Amazon Bedrock | **Runtime smoke verified** | Model discovery and one minimal inference succeeded in `us-east-1`; optional and never a numerical authority |
+| Amazon CloudWatch Logs | **Probe verified; no BeatIT log group deployed** | Account read probe succeeded |
+| Amazon S3 | **Adapter implemented; not deployed** | Workshop IAM denied bucket discovery; no BeatIT bucket or upload exists |
+| Amazon ECR | **Not deployed** | Workshop IAM denied repository discovery |
+| Amazon ECS / Fargate | **Not deployed** | Workshop IAM denied cluster discovery |
+| AWS App Runner | **Not deployed** | Workshop IAM denied service discovery |
+| AWS Amplify Hosting | **Not deployed** | Workshop IAM denied application discovery |
+| Amazon EC2 | **Not deployed** | Workshop IAM denied instance discovery |
+| AWS Lambda | **Not deployed** | Workshop IAM denied function discovery |
+| Amazon Lightsail | **Not deployed** | Workshop IAM denied instance discovery |
+| AWS Secrets Manager | **Not deployed** | Workshop IAM denied secret discovery |
+| AWS Systems Manager Parameter Store | **Not deployed** | Workshop IAM denied parameter discovery |
+| AWS CloudFormation | **Not deployed** | Workshop IAM denied stack discovery |
+| Amazon RDS | **Not selected or deployed** | Current local experiment persistence uses SQLite |
+
+**AWS application hosting status: not deployed.** The authenticated workshop
+role permits Bedrock inference and limited CloudWatch access but does not grant
+the hosting, registry, storage, or secret permissions required to deploy
+BeatIT. The audit found zero BeatIT AWS resources and zero AWS public URLs.
+
 - **Vercel:** a `beatit` project and GitHub connection exist, but the first
   deployment failed because of an incorrect root-directory combination. No
   working Vercel frontend is claimed.
