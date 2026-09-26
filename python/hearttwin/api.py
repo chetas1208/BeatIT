@@ -208,7 +208,6 @@ async def get_config() -> dict:
     """
     import os
 
-    wandb_key = os.environ.get("WANDB_API_KEY", "")
     redis_url = os.environ.get("REDIS_URL", "")
     vista_enabled = os.environ.get("VISTA3D_ENABLED", "false").lower() == "true"
     vista_base = os.environ.get("VISTA3D_API_BASE", "")
@@ -217,10 +216,14 @@ async def get_config() -> dict:
     return {
         "app_name": "BeatIT",
         "api_base": "/api/v1",
+        "trace": {
+            "backend": "local",
+            "storage_dir": os.environ.get("BEATIT_TRACE_DIR") or "~/.local/share/beatit/traces",
+        },
         "weave": {
-            "configured": bool(wandb_key),
-            "project": os.environ.get("WANDB_PROJECT", "hearttwin-weavehacks"),
-            "entity": os.environ.get("WANDB_ENTITY", ""),
+            "configured": True,
+            "backend": "local",
+            "project": "local-traces",
         },
         "redis": {
             "configured": bool(redis_url),
@@ -300,8 +303,9 @@ def _integration_status() -> dict[str, str]:
     intelligence_provider = configured_provider_or_disabled()
     openai_status = "configured" if intelligence_provider.name == "openai" else "fallback"
 
-    weave_configured = bool(os.environ.get("WANDB_API_KEY"))
-    weave_status_str = "configured" if weave_configured else "local_fallback"
+    from python.hearttwin.tools.env_config import local_trace_enabled
+
+    weave_status_str = "local" if local_trace_enabled() else "disabled"
 
     redis_configured = bool(os.environ.get("REDIS_URL"))
     redis_status_str = "configured" if redis_configured else "memory_fallback"
@@ -474,9 +478,9 @@ async def system_check() -> dict:
 
     # --- 3. Trace / integrations (honest fallback reporting) ---
     integrations = _integration_status()
-    _add("trace", "ok", f"weave={integrations['weave']}")
-    if integrations["weave"] == "local_fallback":
-        warnings.append("Weave not configured; using local trace fallback")
+    _add("trace", "ok", f"backend={integrations['weave']}")
+    if integrations["weave"] == "disabled":
+        warnings.append("Local tracing disabled (HEARTTWIN_TRACE_MODE=off)")
     if integrations["redis"] == "memory_fallback":
         warnings.append("Redis not configured; using in-memory fallback")
     if integrations["openai"] == "fallback":
@@ -587,7 +591,7 @@ async def get_trace(case_id: str) -> dict:
 #
 # The web frontend (useTraceStream) opens an EventSource here to render the
 # agent pipeline live. DualBeat keeps traces in-process via
-# weave_trace.get_traces (the same source as GET /trace), so the stream polls
+# weave_trace.get_traces (local in-process + disk; same source as GET /trace), so the stream polls
 # that list and emits each new entry. Every event is sent under the SSE event
 # name "trace"; the real kind travels in the JSON payload so a single browser
 # listener receives all of them. There is no polling fallback — this endpoint

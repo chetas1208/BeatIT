@@ -1,4 +1,4 @@
-# BeatIT Three-Minute Demo
+# BeatIT Healthcare Demo
 
 ## Preflight
 
@@ -10,36 +10,48 @@
 Use the synthetic demo fixture. If an optional expensive path is unavailable,
 say **PRECOMPUTED DEMO RESULT** before showing it.
 
+## Demo premise
+
+“A cardiologist opens BeatIT before a recovery conversation because the
+patient's evidence, physiological assumptions, and possible recovery scenarios
+are otherwise difficult to connect and explain.”
+
 ## Run of show
 
-**0:00–0:20 — TWIN.** Show the beating heart and say: “Medical records tell
-us what happened. BeatIT builds an auditable computational heart so we can
-inspect what is happening, explore bounded hypotheses, and see what remains
-unknown.”
+**CASE — establish the user and evidence.** Open the labeled synthetic or
+de-identified case. Show the supplied measurements and their source/provenance.
+Say: “This is where the cardiologist starts before a supervised recovery
+conversation.”
 
-**0:20–0:45 — history and anatomy.** Scrub the timeline, select the left
-ventricle, and open its source/provenance context. Keep OBSERVED and SYNTHETIC
-labels visible.
+**BASELINE — establish trust.** Generate the baseline and identify one measured
+value, one derived value, and one prior-filled or unavailable value. State that
+the same inputs produce the same baseline.
 
-**0:45–1:10 — EXPERIMENT.** Change one bounded parameter and run the causal
-branch. State explicitly that this is a hypothetical deterministic simulation.
+**QUESTION — establish relevance.** Ask one educational physiology question the
+cardiologist could need to explain. Do not ask for diagnosis, treatment, or a
+patient outcome prediction.
 
-**1:10–1:35 — Shadow Trial.** Run or select the same-sample paired experiment
-over the plausible twins. Show valid/invalid pair counts and limitations.
+**SCENARIO — demonstrate the capability.** Change one bounded parameter. Show
+its baseline value, scenario value, units, allowed range, and assumptions before
+running the deterministic simulation.
 
-**1:35–2:05 — COMPARE.** Open Split Heart, show baseline versus counterfactual,
-phase controls, and one metric delta. Do not call the direction a clinical
-benefit or harm.
+**COMPARE — show the result.** Compare baseline and simulated trajectory
+visually. Explain which deterministic relationship drove one visible difference.
+Call it a hypothetical simulated change, not a predicted benefit or harm.
 
-**2:05–2:30 — EVIDENCE.** Open Missing Piece, ask “Why is this uncertain?” and
-“What would help?” Show the bounded sensitivity/evidence-priority boundary.
+**LIMITS — show what cannot be concluded.** Ask “Why is this uncertain?” Show
+missing evidence, accepted-input spread where available, and model limitations.
+Do not describe simulation spread as patient probability or a confidence
+interval.
 
-**2:30–2:50 — REPORT.** Show provenance, unavailable sections, limitations, and
-the educational disclaimer.
+**SUMMARY — complete the workflow.** Show or export the summary with provenance,
+scenario assumptions, unavailable sections, limitations, and the persistent
+safety boundary.
 
-**2:50–3:00 — close.** “BeatIT does not ask an LLM to guess what happens to the
-heart. It builds an auditable computational twin, explores plausible inputs,
-and shows both what the simulation says and what the evidence cannot support.”
+**CLOSE.** “BeatIT does not ask an LLM to predict what happens to a patient's
+heart. It lets a cardiologist operate a deterministic cardiovascular model and
+shows both what the bounded simulation says and what the evidence cannot
+support.”
 
 ## Recovery line
 

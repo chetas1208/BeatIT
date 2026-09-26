@@ -63,3 +63,13 @@ M5.5 Probabilistic Twin Closure is **INCOMPLETE**; its detailed gate record is [
 3. Keep the legacy frontend runner quarantined or remove it in a separately reviewed cleanup; it is not active product behavior.
 4. Re-run the production build and update `docs/hackathon/M5_5_COMPLETION.md` with final evidence.
 5. Keep M5.5 incomplete and do not start M6/M7/M8 until the remaining gates are deliberately accepted.
+
+## Real demo case campaign (2026-09-26)
+
+- Strategy shift for **real** demos: MIMIC-IV + MIMIC-IV-ECG + MIMIC-IV-ECHO on one
+  `subject_id`; PTB-XL / EchoNet as separate cases only.
+- Wave 1 docs: `docs/data/REAL_DATA_*`, ledger `REAL_DEMO_CAMPAIGN_LEDGER.md`.
+- **All waves executed:** `./scripts/run_real_demo_campaign.sh` — PTB-XL + MIMIC-IV Demo
+  open data; **5 real cases** + hero `REAL-DEMO-PTB-000008`; artifacts under
+  `data/real/` (gitignored). Multimodal MIMIC hero **blocked** (no credentialed access).
+  See `docs/data/REAL_DEMO_CAMPAIGN_FINAL.md`.

@@ -13,4 +13,3 @@ mangum>=0.17.0
 python-dotenv>=1.0.0
 redis>=5.0.0
 copilotkit>=0.1.0
-weave>=0.51.0

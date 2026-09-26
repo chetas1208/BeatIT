@@ -19,10 +19,10 @@
   "returns_confidence": false,
   "returns_masks": true,
   "returns_measurements": false,
-  "reachable": false,
-  "source": "static_fallback",
+  "reachable": true,
+  "source": "live",
   "warnings": [
-    "VISTA endpoint is not configured (VISTA3D_ENABLED false / API base empty).",
+    "/capabilities returned HTTP 404; using verified fallback class set.",
     "Capabilities are the conservatively verified set; unsupported on this deployment: coronary arteries, epicardial adipose tissue, pericoronary adipose tissue, left ventricle, right ventricle, myocardium."
   ]
 }

@@ -47,6 +47,7 @@ export interface ConversationContext {
   scenario_id?: string | null
   ensemble_id?: string | null
   shadow_trial_id?: string | null
+  missing_piece_id?: string | null
   pair_id?: string | null
   target_metric?: string | null
   synthetic_status?: string | null

@@ -2,7 +2,12 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-chetas1208%2FBeatIT-181717?logo=github)](https://github.com/chetas1208/BeatIT)
 
-**An auditable, multi-agent cardiac digital twin.** Upload the cardiac evidence you already have — a discharge PDF, an ECG image or CSV, an echo/MRI still, or just structured vitals — and BeatIT builds an explainable physiological model of the heart: a canonical cardiac state, a beating 3D twin with anatomically-localized findings, a pressure–volume simulation, bounded recovery forecasts, and explicit plausible-twin ensembles. DualBeat remains the underlying engine/research lineage. Every number shows where it came from.
+**BeatIT helps cardiologists explain and explore bounded recovery scenarios using
+patient data and deterministic cardiovascular modeling—without allowing an LLM
+to invent clinical calculations.** It connects supplied cardiac evidence to a
+reproducible baseline, inspectable scenario assumptions, and a visual comparison.
+Every displayed value should show where it came from and whether it was measured,
+extracted, derived, inferred, prior-filled, or simulated.
 
 > **Educational simulation only.** DualBeat is **not a medical device**. It does not diagnose, prescribe, triage, or recommend treatment. Every output is a simulated, educational estimate.
 
@@ -10,12 +15,21 @@
 
 ## Why this matters
 
-Clinicians and trainees are surrounded by numbers (EF, QTc, CO, MAP) and by tools that produce more numbers — but almost none of those tools let you see *where a number came from*, *what it implies physiologically*, or *what happens next under a different load*. Two failure modes dominate:
+Recovery planning after a cardiac event is difficult to personalize and explain
+because patient evidence, physiological models, uncertainty, and care-team
+reasoning remain disconnected. During a supervised follow-up conversation,
+clinicians need to show what is known, what is assumed, and how a bounded
+hypothetical change affects the model without presenting it as a predicted
+patient outcome. Two failure modes dominate:
 
 1. **Static calculators** give you one formula in isolation. They can't relate EF to afterload, localize a regional change to a coronary territory, or project a recovery trajectory.
-2. **Black-box medical LLMs** will happily *invent* an ejection fraction, hide their reasoning, and drift into diagnostic language. Nothing about the output is auditable, and that is exactly what makes it unusable in a clinical setting.
+2. **Black-box medical LLMs** can invent numerical results, hide assumptions, and
+   drift into unsupported clinical language.
 
-DualBeat is built around the conviction that **a model is only useful to a clinician if its every value is traceable, its math is deterministic, and its limits are stated out loud.** It turns scattered cardiac evidence into a single, inspectable physiological state — and then makes that state *do something*: localize to anatomy, beat in 3D, simulate a cardiac cycle, and forecast bounded recovery scenarios. It is a teaching and exploration instrument with the rigor that makes its output worth reading.
+BeatIT is built around the conviction that **a simulation is only trustworthy
+when every value is traceable, its math is reproducible, and its limits are
+explicit.** It is a clinician-supervised education and exploration instrument,
+not a clinical prediction system.
 
 ---
 
@@ -30,11 +44,16 @@ Core numeric outputs (SV, EF, CO, MAP, RR, QTc, BSA) come from **pure, tested de
 ### 3. Anatomically-localized, code-tagged findings (for radiologists & cardiologists)
 DualBeat doesn't stop at scalars. A deterministic **findings layer** localizes the simulated state to anatomy using the standard **AHA 17-segment left-ventricle model** and **coronary artery territories (LAD / RCA / LCx)**, and renders them as **numbered callouts on the 3D twin** with a matching clinical readout: region, a brief observation, the driving metric, and **reference codes**. Reduced EF → global LV; a regional wall change + scar fraction → the right segments and territory; widened QRS / prolonged QTc → conduction and repolarization observations. Every finding is framed as an **educational simulation observation with reference terminology — never a diagnosis** — so it is legible to a clinician without crossing the safety line.
 
-### 4. An observable multi-agent harness — not one opaque prompt
-Eight staged agents (intake & safety → extraction → validation → state builder → electrophysiology ∥ hemodynamics → recovery → evaluator) run as a transparent pipeline with a **live trace** and structured **evaluation scores** (extraction completeness, physiological plausibility, safety compliance, hallucination risk, visualization readiness, recovery stability). You can watch each agent settle and read *why* any warning was raised. Warnings never appear without their reason.
+### 4. An observable processing pipeline
+The staged pipeline keeps intake, extraction, validation, deterministic modeling,
+explanation, and evaluation inspectable. Its architecture supports the product;
+it is not the product claim.
 
-### 5. A twin you can run scenarios on
-Beyond a static snapshot, BeatIT produces **2–4 bounded recovery trajectories**, deterministic causal scenarios, and M5 plausible-twin ensembles with explicit input uncertainty. It is a digital twin you can interrogate ("what if afterload falls?"), not a report you read once.
+### 5. A model you can run bounded scenarios on
+Beyond a static snapshot, BeatIT produces bounded simulated trajectories,
+deterministic causal scenarios, and plausible-twin ensembles with explicit input
+uncertainty. These are hypothetical model outputs, not forecasts of an
+individual patient's outcome.
 
 ### 6. Degrades, never bluffs
 Missing data is filled from conservative population priors **and flagged**, with elevated uncertainty — never silently guessed. On valid input, no agent hard-fails: the pipeline degrades with explained warnings (covered by an adversarial no-fail test). The only blocking paths are intentional safety gates, and each states its reason.
@@ -46,11 +65,13 @@ Diagnostic / treatment / emergency language is blocked at **both** the request (
 
 ## Who it's for
 
-- **Cardiology / radiology trainees & educators** — see how measurements drive function, how a regional change maps to a coronary territory and AHA segments, and how recovery bounds behave.
-- **Clinician-facing tool builders** — a reference implementation of an *auditable* clinical AI pipeline: sourced state, deterministic math, visible evals, hard safety boundaries.
-- **Researchers** — a sandbox for cardiac physiology and bounded what-if simulation with reproducible numerics.
+- **Primary:** cardiologists preparing for or conducting supervised recovery and
+  follow-up conversations.
+- **Secondary:** cardiac rehabilitation educators, trainees, and researchers
+  exploring bounded cardiovascular simulations.
 
-It is **not** for clinical decision-making, and it does not try to be.
+It is **not** for diagnosis, treatment selection, emergency triage, autonomous
+clinical decision-making, or validated outcome prediction.
 
 ## What it produces
 

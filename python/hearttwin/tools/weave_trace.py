@@ -1,21 +1,21 @@
-"""Safe W&B Weave tracing with local JSON fallback."""
+"""Local agent trace storage (in-process + on-disk). No W&B / Weave."""
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import time
 import uuid
+from pathlib import Path
 from typing import Any, Optional
 
 from python.hearttwin.safety import redact_pii
-from python.hearttwin.tools.env_config import DEFAULT_WANDB_PROJECT, weave_enabled
+from python.hearttwin.tools.env_config import local_trace_enabled
 
 _LOCAL_TRACES: dict[str, list[dict[str, Any]]] = {}
 _LOCAL_RUNS: dict[str, dict[str, Any]] = {}
-_WEAVE_CLIENT: Any | None = None
-_WEAVE_INITIALIZED = False
-_WEAVE_WARNINGS: list[str] = []
+_TRACE_WARNINGS: list[str] = []
 
 _PII_KEYS = {
     "patient_name",
@@ -36,6 +36,13 @@ _PII_KEYS = {
 }
 
 
+def trace_dir() -> Path:
+    raw = os.environ.get("BEATIT_TRACE_DIR", "").strip()
+    root = Path(raw).expanduser() if raw else Path.home() / ".local" / "share" / "beatit" / "traces"
+    root.mkdir(parents=True, exist_ok=True)
+    return root
+
+
 class TraceSink:
     """Trace wrapper that never lets tracing errors affect the app."""
 
@@ -43,9 +50,11 @@ class TraceSink:
         self.warnings: list[str] = []
 
     def enabled(self) -> bool:
-        return _init_weave()
+        return local_trace_enabled()
 
     def start_run(self, case_id: str, run_type: str, metadata: dict) -> str | None:
+        if not self.enabled():
+            return None
         try:
             run_id = str(uuid.uuid4())
             run = {
@@ -60,23 +69,23 @@ class TraceSink:
                 "tool_calls": [],
                 "eval_scores": None,
                 "warnings": [],
-                "weave": self.weave_info(run_id),
+                "trace": self.trace_info(run_id),
             }
             _LOCAL_RUNS[run_id] = run
             _LOCAL_TRACES.setdefault(case_id, []).append(
                 {"kind": "run_start", "run_id": run_id, "run_type": run_type, "metadata": run["metadata"]}
             )
-            self._publish({"event": "start_run", **run})
             return run_id
         except Exception as exc:
             self._warn(f"Trace start failed: {exc}")
             return None
 
     def log_agent_stage(self, run_id: str | None, stage: dict) -> None:
+        if not self.enabled():
+            return
         try:
             payload = {"kind": "agent_stage", **_sanitize(stage), "timestamp": time.time()}
             self._append(run_id, "stages", payload)
-            self._publish({"event": "agent_stage", "run_id": run_id, **payload})
         except Exception as exc:
             self._warn(f"Agent trace failed: {exc}")
 
@@ -88,6 +97,8 @@ class TraceSink:
         outputs: dict,
         metrics: dict | None = None,
     ) -> None:
+        if not self.enabled():
+            return
         try:
             payload = {
                 "kind": "tool_call",
@@ -98,11 +109,12 @@ class TraceSink:
                 "timestamp": time.time(),
             }
             self._append(run_id, "tool_calls", payload)
-            self._publish({"event": "tool_call", "run_id": run_id, **payload})
         except Exception as exc:
             self._warn(f"Tool trace failed: {exc}")
 
     def log_eval_scores(self, run_id: str | None, scores: dict, warnings: list[str]) -> None:
+        if not self.enabled():
+            return
         try:
             payload = {
                 "kind": "eval_scores",
@@ -113,11 +125,12 @@ class TraceSink:
             if run_id and run_id in _LOCAL_RUNS:
                 _LOCAL_RUNS[run_id]["eval_scores"] = payload
             self._append_case_event(run_id, payload)
-            self._publish({"event": "eval_scores", "run_id": run_id, **payload})
         except Exception as exc:
             self._warn(f"Eval trace failed: {exc}")
 
     def finish_run(self, run_id: str | None, status: str, summary: dict) -> None:
+        if not self.enabled():
+            return
         try:
             payload = {
                 "kind": "run_finish",
@@ -130,30 +143,43 @@ class TraceSink:
                 _LOCAL_RUNS[run_id]["status"] = status
                 _LOCAL_RUNS[run_id]["summary"] = payload["summary"]
                 _LOCAL_RUNS[run_id]["finished_at"] = time.time()
-                _LOCAL_RUNS[run_id]["warnings"] = self.weave_warnings()
+                _LOCAL_RUNS[run_id]["warnings"] = self.trace_warnings()
+                _LOCAL_RUNS[run_id]["trace"] = self.trace_info(run_id)
+                _persist_run(run_id)
             self._append_case_event(run_id, payload)
-            self._publish({"event": "finish_run", **payload})
         except Exception as exc:
             self._warn(f"Trace finish failed: {exc}")
 
+    def trace_warnings(self) -> list[str]:
+        return _dedupe([*self.warnings, *_TRACE_WARNINGS])
+
+    def trace_info(self, run_id: str | None = None) -> dict[str, Any]:
+        case_id = None
+        storage_path = None
+        if run_id and run_id in _LOCAL_RUNS:
+            case_id = _LOCAL_RUNS[run_id].get("case_id")
+            storage_path = _run_file_path(case_id or "unknown", run_id)
+            if storage_path and not storage_path.exists():
+                storage_path = None
+        enabled = self.enabled()
+        return {
+            "backend": "local",
+            "enabled": enabled,
+            "status": "local" if enabled else "disabled",
+            "project": "local-traces",
+            "project_url": get_project_url(case_id),
+            "run_id": run_id,
+            "run_url": get_run_url(run_id, case_id),
+            "storage_path": str(storage_path) if storage_path else None,
+            "warnings": self.trace_warnings(),
+        }
+
     def weave_warnings(self) -> list[str]:
-        return _dedupe([*self.warnings, *_WEAVE_WARNINGS])
+        return self.trace_warnings()
 
     def weave_info(self, run_id: str | None = None) -> dict[str, Any]:
-        configured = bool(os.environ.get("WANDB_API_KEY"))
-        enabled = self.enabled()
-        status = "connected" if enabled else "not_configured"
-        if configured and not enabled:
-            status = "error"
-        return {
-            "enabled": enabled,
-            "status": status,
-            "project": os.environ.get("WANDB_PROJECT", DEFAULT_WANDB_PROJECT),
-            "project_url": get_project_url(),
-            "run_id": run_id,
-            "run_url": get_run_url(run_id),
-            "warnings": self.weave_warnings(),
-        }
+        """Backward-compatible alias for API responses still keyed as ``weave``."""
+        return self.trace_info(run_id)
 
     def _append(self, run_id: str | None, key: str, payload: dict[str, Any]) -> None:
         if run_id and run_id in _LOCAL_RUNS:
@@ -165,20 +191,9 @@ class TraceSink:
         if case_id:
             _LOCAL_TRACES.setdefault(case_id, []).append(payload)
 
-    def _publish(self, payload: dict[str, Any]) -> None:
-        if not self.enabled():
-            return
-        try:
-            # Weave's public API has evolved across versions. publish() is
-            # best-effort only; local trace storage remains the durable fallback.
-            if hasattr(_WEAVE_CLIENT, "publish"):
-                _WEAVE_CLIENT.publish(payload)
-        except Exception as exc:
-            self._warn(f"Weave publish failed: {exc}")
-
     def _warn(self, message: str) -> None:
         self.warnings.append(message)
-        _WEAVE_WARNINGS.append(message)
+        _TRACE_WARNINGS.append(message)
 
 
 class TraceContext:
@@ -228,68 +243,123 @@ def get_trace_sink() -> TraceSink:
     return TraceSink()
 
 
+def _run_file_path(case_id: str, run_id: str) -> Path:
+    return trace_dir() / case_id / f"{run_id}.json"
+
+
+def _persist_run(run_id: str) -> None:
+    run = _LOCAL_RUNS.get(run_id)
+    if not run:
+        return
+    case_id = str(run.get("case_id") or "unknown")
+    path = _run_file_path(case_id, run_id)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(run, indent=2, default=str), encoding="utf-8")
+
+
+def _load_case_traces_from_disk(case_id: str) -> list[dict[str, Any]]:
+    case_dir = trace_dir() / case_id
+    if not case_dir.is_dir():
+        return []
+    events: list[dict[str, Any]] = []
+    for path in sorted(case_dir.glob("*.json")):
+        try:
+            run = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        run_id = run.get("run_id")
+        events.append(
+            {
+                "kind": "run_start",
+                "run_id": run_id,
+                "run_type": run.get("run_type"),
+                "metadata": run.get("metadata"),
+            }
+        )
+        for stage in run.get("stages") or []:
+            events.append({**stage, "run_id": run_id})
+        for tool in run.get("tool_calls") or []:
+            events.append({**tool, "run_id": run_id})
+        if run.get("eval_scores"):
+            events.append({**run["eval_scores"], "run_id": run_id})
+        events.append(
+            {
+                "kind": "run_finish",
+                "run_id": run_id,
+                "status": run.get("status"),
+                "summary": run.get("summary"),
+            }
+        )
+        if run_id:
+            _LOCAL_RUNS.setdefault(run_id, run)
+    return events
+
+
 def get_traces(case_id: str) -> list[dict[str, Any]]:
-    """Return local fallback traces for a case."""
+    if case_id not in _LOCAL_TRACES:
+        _LOCAL_TRACES[case_id] = _load_case_traces_from_disk(case_id)
     return _LOCAL_TRACES.get(case_id, [])
 
 
 def get_run(run_id: str | None) -> dict[str, Any] | None:
     if not run_id:
         return None
-    return _LOCAL_RUNS.get(run_id)
+    if run_id in _LOCAL_RUNS:
+        return _LOCAL_RUNS[run_id]
+    for path in trace_dir().rglob(f"{run_id}.json"):
+        try:
+            run = json.loads(path.read_text(encoding="utf-8"))
+            _LOCAL_RUNS[run_id] = run
+            return run
+        except (OSError, json.JSONDecodeError):
+            continue
+    return None
 
 
 def get_latest_run(case_id: str) -> dict[str, Any] | None:
     runs = [r for r in _LOCAL_RUNS.values() if r.get("case_id") == case_id]
     if not runs:
+        for path in sorted((trace_dir() / case_id).glob("*.json"), reverse=True) if (trace_dir() / case_id).is_dir() else []:
+            try:
+                run = json.loads(path.read_text(encoding="utf-8"))
+                runs.append(run)
+                _LOCAL_RUNS[run["run_id"]] = run
+            except (OSError, json.JSONDecodeError, KeyError):
+                continue
+    if not runs:
         return None
     return sorted(runs, key=lambda r: r.get("started_at", 0), reverse=True)[0]
 
 
-def get_project_url() -> str | None:
-    explicit = os.environ.get("NEXT_PUBLIC_WEAVE_PROJECT_URL")
+def get_project_url(case_id: str | None = None) -> str | None:
+    explicit = os.environ.get("NEXT_PUBLIC_TRACE_VIEWER_URL", "").strip()
     if explicit:
-        return explicit
-    entity = os.environ.get("WANDB_ENTITY")
-    project = os.environ.get("WANDB_PROJECT", DEFAULT_WANDB_PROJECT)
-    if entity and project:
-        return f"https://wandb.ai/{entity}/{project}/weave"
+        return explicit.rstrip("/")
+    base = os.environ.get("NEXT_PUBLIC_API_BASE", "http://localhost:8000/api/v1").rstrip("/")
+    if case_id:
+        return f"{base}/cases/{case_id}/trace"
+    return f"{base}/health"
+
+
+def get_run_url(run_id: str | None, case_id: str | None = None) -> str | None:
+    if case_id:
+        return get_project_url(case_id)
+    if run_id:
+        run = get_run(run_id)
+        if run and run.get("case_id"):
+            return get_project_url(str(run["case_id"]))
     return None
 
 
-def get_run_url(run_id: str | None) -> str | None:
-    project_url = get_project_url()
-    if not project_url or not run_id:
-        return None
-    return f"{project_url}/runs/{run_id}"
+def trace_status(run_id: str | None = None) -> dict[str, Any]:
+    return TraceSink().trace_info(run_id)
 
 
 def weave_status(run_id: str | None = None) -> dict[str, Any]:
-    return TraceSink().weave_info(run_id)
-
-
-def _init_weave() -> bool:
-    global _WEAVE_CLIENT, _WEAVE_INITIALIZED
-    if _WEAVE_INITIALIZED:
-        return True
-    if not weave_enabled():
-        return False
-    if not os.environ.get("WANDB_API_KEY"):
-        return False
-    project = os.environ.get("WANDB_PROJECT", DEFAULT_WANDB_PROJECT)
-    try:
-        import weave
-
-        _WEAVE_CLIENT = weave.init(project)
-        _WEAVE_INITIALIZED = True
-        return True
-    except Exception as exc:
-        _WEAVE_WARNINGS.append(f"Weave init failed: {exc}")
-        return False
+    return trace_status(run_id)
 
 
 def _sanitize(obj: Any, max_list_len: int = 40, depth: int = 0) -> Any:
-    """Redact PII, trim arrays, and avoid raw uploaded content in traces."""
     if depth > 5:
         return "[truncated-depth]"
     if isinstance(obj, dict):
@@ -336,7 +406,6 @@ def _file_metadata(item: Any) -> dict[str, Any]:
 
 
 def utc_now() -> str:
-    """Return the current UTC time as an ISO-8601 string (shared utility)."""
     from datetime import datetime, timezone
 
     return datetime.now(timezone.utc).isoformat()
@@ -352,7 +421,6 @@ def _dedupe(values: list[str]) -> list[str]:
     return out
 
 
-# Backward-compatible scoring imports.
 def score_extraction_completeness(extracted: dict) -> float:
     from python.hearttwin.tools.scoring import score_extraction_completeness as score
 

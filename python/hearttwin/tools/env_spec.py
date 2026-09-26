@@ -100,15 +100,11 @@ ENV_SPEC: list[EnvVarSpec] = [
                description="Fast/utility model for cheap tasks."),
     EnvVarSpec("OPENAI_EMBEDDING_MODEL", "openai", default="text-embedding-3-small",
                description="Embedding model for case memory vectors."),
-    # --- W&B / Weave ---
-    EnvVarSpec("WANDB_API_KEY", "weave", secret=True,
-               description="W&B key; missing → local trace fallback."),
-    EnvVarSpec("WANDB_ENTITY", "weave",
-               description="W&B entity (optional)."),
-    EnvVarSpec("WANDB_PROJECT", "weave", default="hearttwin-weavehacks",
-               description="W&B project; should be hearttwin-weavehacks."),
-    EnvVarSpec("NEXT_PUBLIC_WEAVE_PROJECT_URL", "weave",
-               description="Public Weave project URL (safe to expose)."),
+    # --- Local traces (replaces W&B Weave) ---
+    EnvVarSpec("BEATIT_TRACE_DIR", "trace",
+               description="Directory for persisted run JSON (~/.local/share/beatit/traces if unset)."),
+    EnvVarSpec("NEXT_PUBLIC_TRACE_VIEWER_URL", "trace",
+               description="Optional UI link for trace viewer (defaults to case trace API URL)."),
     # --- Storage ---
     EnvVarSpec("BLOB_READ_WRITE_TOKEN", "storage", secret=True,
                description="Vercel Blob token; missing → local metadata fallback."),
@@ -152,8 +148,8 @@ ENV_SPEC: list[EnvVarSpec] = [
                description="Public app name."),
     EnvVarSpec("HEARTTWIN_SAFETY_MODE", "app", default="strict",
                description="Safety mode; expected strict."),
-    EnvVarSpec("HEARTTWIN_TRACE_MODE", "app", default="weave_with_local_fallback",
-               description="Trace mode."),
+    EnvVarSpec("HEARTTWIN_TRACE_MODE", "app", default="local",
+               description="Trace mode: local (default) or off/disabled."),
     EnvVarSpec("HEARTTWIN_REDIS_MEMORY_ENABLED", "app", default="true", validator=_is_bool,
                description="Whether Redis memory is enabled (boolean)."),
 ]
@@ -208,13 +204,6 @@ def validate_env(mode: str = "local-dev") -> dict:
             else:
                 missing_optional.append(spec.name)
                 warnings.append(f"{spec.name}: not set ({spec.category}) — {spec.description}")
-
-    # WANDB_PROJECT sanity
-    wandb_project = os.environ.get("WANDB_PROJECT")
-    if wandb_project and wandb_project != "hearttwin-weavehacks":
-        warnings.append(
-            f"WANDB_PROJECT is '{wandb_project}', expected 'hearttwin-weavehacks'"
-        )
 
     return {
         "mode": mode,

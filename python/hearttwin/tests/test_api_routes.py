@@ -39,8 +39,22 @@ def test_intelligence_status_is_safe(monkeypatch: pytest.MonkeyPatch) -> None:
     response = client.get("/api/intelligence/status")
     assert response.status_code == 200
     body = response.json()
-    assert {"enabled", "protocol", "reachable", "model_configured", "provider", "safety_disclaimer"} == set(body)
+    required = {
+        "enabled",
+        "protocol",
+        "reachable",
+        "model_configured",
+        "provider",
+        "safety_disclaimer",
+        "fast",
+        "balanced",
+        "deep",
+        "safety",
+    }
+    assert required == set(body)
     assert body["enabled"] is False
+    for role in ("fast", "balanced", "deep", "safety"):
+        assert set(body[role]) == {"model_id", "configured"}
     assert "API_KEY" not in response.text
     assert "Authorization" not in response.text
 
@@ -83,7 +97,7 @@ def test_system_check_shape() -> None:
     assert {"sv_ml", "ef_pct", "co_l_min", "map_mmhg", "rr_interval_ms"} <= set(body["metrics"].keys())
     assert set(body["integrations"].keys()) == {"openai", "intelligence", "weave", "redis", "vista3d"}
     # Honest fallback reporting (not faked success).
-    assert body["integrations"]["weave"] in {"configured", "local_fallback", "error"}
+    assert body["integrations"]["weave"] in {"local", "disabled", "configured", "local_fallback", "error"}
     assert body["integrations"]["redis"] in {"configured", "memory_fallback", "error"}
 
 

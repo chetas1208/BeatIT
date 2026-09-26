@@ -95,6 +95,19 @@ class OpenAIProvider(IntelligenceProvider):
                         await result
 
     async def health(self) -> ProviderHealth:
+        from python.hearttwin.intelligence.bedrock.health import bedrock_openai_reachable
+
+        if os.environ.get("OPENAI_BASE_URL", "").find("bedrock-runtime") >= 0 or os.environ.get(
+            "MODEL_BASE_URL", ""
+        ).find("bedrock-runtime") >= 0:
+            reachable = await bedrock_openai_reachable(timeout_seconds=min(self.timeout_seconds, 8.0))
+            return ProviderHealth(
+                enabled=True,
+                protocol=self.protocol,
+                reachable=reachable,
+                model_configured=True,
+                provider=self.name,
+            )
         reachable = False
         try:
             from openai import AsyncOpenAI
@@ -120,3 +133,60 @@ class OpenAIProvider(IntelligenceProvider):
         except Exception:  # noqa: BLE001 - missing SDK/network reports unreachable
             reachable = False
         return ProviderHealth(enabled=True, protocol=self.protocol, reachable=reachable, model_configured=True, provider=self.name)
+
+
+class BedrockOpenAIProvider(OpenAIProvider):
+    name = "bedrock_openai"
+
+    async def complete(
+        self,
+        messages,
+        *,
+        model: str | None = None,
+        response_format: Mapping[str, Any] | None = None,
+        max_tokens: int | None = None,
+        temperature: float | None = None,
+        timeout_seconds: float | None = None,
+        extra: Mapping[str, Any] | None = None,
+    ) -> ProviderResponse:
+        from python.hearttwin.intelligence.bedrock.chat_completions import complete_via_chat_completions
+        from python.hearttwin.intelligence.bedrock.responses import (
+            complete_via_responses,
+            model_supports_responses_api,
+        )
+
+        effective_model = model or self.default_model
+        protocol = os.environ.get("MODEL_API_PROTOCOL", "openai-compatible").strip().lower()
+        timeout = timeout_seconds or self.timeout_seconds
+        if protocol == "responses" and model_supports_responses_api(effective_model):
+            content, resolved = await complete_via_responses(
+                model=effective_model,
+                messages=messages,
+                max_tokens=max_tokens,
+                extra=extra,
+                timeout_seconds=timeout,
+            )
+            return ProviderResponse(content=content, model=resolved, provider=self.name)
+        content, resolved = await complete_via_chat_completions(
+            model=effective_model,
+            messages=messages,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            response_format=response_format,
+            extra=extra,
+            timeout_seconds=timeout,
+        )
+        return ProviderResponse(content=content, model=resolved, provider=self.name)
+
+    async def health(self) -> ProviderHealth:
+        from python.hearttwin.intelligence.bedrock.health import bedrock_openai_reachable
+
+        protocol = os.environ.get("MODEL_API_PROTOCOL", "openai-compatible").strip().lower()
+        reachable = await bedrock_openai_reachable(timeout_seconds=min(self.timeout_seconds, 8.0))
+        return ProviderHealth(
+            enabled=True,
+            protocol=protocol,
+            reachable=reachable,
+            model_configured=True,
+            provider=self.name,
+        )

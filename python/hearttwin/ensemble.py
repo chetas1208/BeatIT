@@ -196,6 +196,7 @@ class EnsembleSample(BaseModel):
     origin_snapshot_id: str = Field(min_length=1)
     origin_quality: Literal["observed", "derived", "interpolated", "synthetic"]
     parameters: dict[str, float]
+    projection_base: dict[str, float] | None = None
     outputs: dict[str, float]
     state: CardiacTwinState
     valid: bool
@@ -205,6 +206,10 @@ class EnsembleSample(BaseModel):
     def validate_sample(self) -> "EnsembleSample":
         if any(not math.isfinite(value) for value in self.parameters.values()):
             raise ValueError("sample parameters must be finite")
+        if self.projection_base is not None and any(
+            not math.isfinite(value) for value in self.projection_base.values()
+        ):
+            raise ValueError("sample projection base values must be finite")
         if any(not math.isfinite(value) for value in self.outputs.values()):
             raise ValueError("sample outputs must be finite")
         if self.valid and self.rejection_reasons:
@@ -422,7 +427,7 @@ def run_ensemble(request: EnsembleRequest) -> dict[str, Any]:
             if outputs["edv"] <= outputs["esv"] or outputs["stroke_volume_ml"] <= 0 or not 0 <= outputs["ejection_fraction_pct"] <= 100:
                 reasons.append("physiological invariant failed")
         state = _derived_state(request.state, outputs) if not reasons else request.state
-        sample = {"id": f"{ensemble_id}-sample-{index}", "index": index, "seed": request.seed, "origin_snapshot_id": request.origin_snapshot_id, "origin_quality": request.origin_quality, "parameters": parameters, "outputs": outputs, "state": state, "valid": not reasons, "rejection_reasons": reasons}
+        sample = {"id": f"{ensemble_id}-sample-{index}", "index": index, "seed": request.seed, "origin_snapshot_id": request.origin_snapshot_id, "origin_quality": request.origin_quality, "parameters": parameters, "projection_base": dict(base), "outputs": outputs, "state": state, "valid": not reasons, "rejection_reasons": reasons}
         samples.append(sample)
     accepted = [sample for sample in samples if sample["valid"]]
     if not accepted:

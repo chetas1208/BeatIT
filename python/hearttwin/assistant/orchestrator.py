@@ -40,7 +40,7 @@ Concretely, ``handle_message`` runs:
       (d) found no matching real tool, i.e. exactly
       docs/assistant/GLOBAL_ARCHITECTURE.md's "MODEL ROUTER" first branch
       ("Can deterministic tool answer completely? NO -> ..."). This is the
-      first wave that makes a real, billed NVIDIA chat-completion call:
+      first wave that makes a real Bedrock/OpenAI chat-completion call:
         1. Wave 5's ``laya_policy.should_defer_to_clarification`` is
            consulted for the ``classify_intent`` decision already made in
            (c) — its own measured accuracy (58.6%, below its 70% trust
@@ -50,8 +50,7 @@ Concretely, ``handle_message`` runs:
            is deliberate: it is the first real production wiring of that
            policy module, and Wave 5's own numbers are what it acts on.
         2. Otherwise, ``LayaAdapter.is_complex_reasoning_required`` (System-1)
-           picks FAST_MODEL vs DEEP_MODEL (GLOBAL_ARCHITECTURE.md "simple
-           explanation? -> FAST" / "complex synthesis? -> DEEP").
+           picks FAST / BALANCED / DEEP models (GLOBAL_ARCHITECTURE.md).
         3. The prompt is tool-grounded whenever a real ``ToolResult`` is
            available at this call site; otherwise the model is explicitly
            instructed to give only general orientation/clarifying language,
@@ -212,11 +211,16 @@ async def _generate_model_response(
     if should_defer_to_clarification("classify_intent", intent_decision.source):
         return _clarification_response()
 
-    # Step 2: FAST vs DEEP, per GLOBAL_ARCHITECTURE.md's MODEL ROUTER.
+    # Step 2: FAST / BALANCED / DEEP via Bedrock model registry.
     complexity_decision = await laya.is_complex_reasoning_required(
         request.message, request.context.model_dump()
     )
-    role = ModelRole.DEEP if complexity_decision.answer else ModelRole.FAST
+    if complexity_decision.answer:
+        role = ModelRole.DEEP
+    elif request.context.audience == "physician":
+        role = ModelRole.BALANCED
+    else:
+        role = ModelRole.FAST
     generated_execution_class = (
         ExecutionClass.COMPLEX_SYNTHESIS if role is ModelRole.DEEP else ExecutionClass.GENERATIVE_EXPLANATION
     )
@@ -225,7 +229,7 @@ async def _generate_model_response(
     # Step 3: tool-grounded (or explicitly not) prompt.
     messages = _build_model_messages(request.message, request.context, tool_result)
 
-    # Step 4a: the real, billed NVIDIA call. Any failure (no healthy key,
+    # Step 4a: Bedrock call via canonical intelligence provider.
     # every key's HTTP call failing, timeout, malformed body) raises a typed
     # ModelClientError — caught here and degraded to the deterministic
     # fallback, per the FALLBACK TREE ("All NVIDIA unavailable -> canonical

@@ -13,8 +13,7 @@ Design rules (production-grade, no silent fallbacks):
     its INPUT and OUTPUT are both safety-checked. A clinical / diagnostic /
     treatment answer is blocked by raising ``SafetyViolation`` — it is never
     returned to the caller.
-  * OpenAI calls are autopatched by Weave (``weave.init`` in
-    ``tools.weave_trace``), so every model call is traced.
+  * Pipeline stages emit traces via ``tools.weave_trace`` (local storage only).
 
 The actions mirror the HTTP pipeline so the same deterministic outputs are
 produced regardless of whether the frontend calls REST or the copilot.

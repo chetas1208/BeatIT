@@ -13,10 +13,10 @@
   ],
   "endpoint_model": "vista3d",
   "endpoint_version": "unknown",
-  "created_at": "2026-07-18T22:50:17+00:00",
+  "created_at": "2026-09-26T20:01:36+00:00",
   "linkage_status": "imaging_only",
   "deidentified": true,
-  "state": "failed",
+  "state": "completed",
   "accepted_classes": [
     "heart",
     "aorta",
@@ -56,16 +56,14 @@
     "class 'epicardial adipose tissue' not in endpoint capabilities \u2014 not requested",
     "class 'pericoronary adipose tissue' not in endpoint capabilities \u2014 not requested"
   ],
-  "capability_source": "static_fallback",
-  "endpoint_reachable": false,
+  "capability_source": "live",
+  "endpoint_reachable": true,
   "retry_count": 0,
-  "submitted_at": "2026-07-18T22:50:17+00:00",
+  "submitted_at": "2026-09-26T20:01:59+00:00",
   "endpoint_health": {
-    "healthy": false,
-    "warnings": [
-      "VISTA3D_ENABLED is not set or VISTA3D_API_BASE is missing"
-    ],
-    "checked_at": "2026-07-18T22:50:17+00:00"
+    "healthy": true,
+    "warnings": [],
+    "checked_at": "2026-09-26T20:01:52+00:00"
   },
   "capabilities_snapshot": {
     "service": "vista3d",
@@ -88,15 +86,152 @@
     "returns_confidence": false,
     "returns_masks": true,
     "returns_measurements": false,
-    "reachable": false,
-    "source": "static_fallback",
+    "reachable": true,
+    "source": "live",
     "warnings": [
-      "VISTA endpoint is not configured (VISTA3D_ENABLED false / API base empty).",
+      "/capabilities returned HTTP 404; using verified fallback class set.",
       "Capabilities are the conservatively verified set; unsupported on this deployment: coronary arteries, epicardial adipose tissue, pericoronary adipose tissue, left ventricle, right ventricle, myocardium."
     ]
   },
-  "failure_reason": "VISTA endpoint not configured/unreachable (gated mode): no live segmentation performed. No masks/volumes invented.",
-  "completed_at": "2026-07-18T22:50:17+00:00",
-  "response_status": null,
-  "output_paths": {}
+  "response_status": 202,
+  "vista_result": {
+    "source": "vista3d",
+    "method": "ct_segmentation",
+    "filename": "ct.nii.gz",
+    "file_id": "job-imaging-case-000003",
+    "job_id": "e7d98867-b594-47be-a6ab-3aad5bca7de2",
+    "requested_classes": [
+      "heart",
+      "aorta",
+      "pulmonary artery"
+    ],
+    "submit_status": "queued",
+    "warnings": [
+      "'pulmonary artery': No verified 'pulmonary artery' class; using 'pulmonary vein' (119) as the closest verified proxy."
+    ],
+    "status": "analyzed",
+    "volumes": {
+      "aorta": {
+        "label_id": 6,
+        "voxel_count": 5396,
+        "volume_ml": 10.29,
+        "formula": "voxel_count \u00d7 \u220f spacing / 1000"
+      },
+      "heart": {
+        "label_id": 115,
+        "voxel_count": 179,
+        "volume_ml": 0.34,
+        "formula": "voxel_count \u00d7 \u220f spacing / 1000"
+      }
+    },
+    "abnormalities": [
+      {
+        "id": "ct_heart_within_reference",
+        "title": "Whole-heart CT volume within educational reference (0 mL)",
+        "region": "Heart (global)",
+        "severity": "info",
+        "summary": "Simulation: segmented whole-heart CT volume (0 mL) is within the educational reference range (\u2264 900.0 mL).",
+        "metric": "whole-heart CT volume 0 mL",
+        "codes": [
+          {
+            "system": "VISTA-3D label",
+            "code": "115",
+            "label": "heart"
+          }
+        ],
+        "educational": true,
+        "provenance": {
+          "source": "vista3d",
+          "method": "ct_segmentation",
+          "model": "MONAI VISTA-3D 0.5.8",
+          "spacing_mm": [
+            0.9765625,
+            0.9765625,
+            2.0
+          ],
+          "shape": [
+            512,
+            512,
+            20
+          ],
+          "job_id": "e7d98867-b594-47be-a6ab-3aad5bca7de2",
+          "label": "heart (115)"
+        }
+      },
+      {
+        "id": "ct_aorta_present",
+        "title": "Aorta segmented (10 mL in FOV)",
+        "region": "Aorta",
+        "severity": "info",
+        "summary": "Simulation: aorta segmented from CT. Volume depends on how much of the aorta is in the scan field of view, so it is reported for context, not used as an abnormality threshold.",
+        "metric": "aorta CT volume 10 mL (FOV-dependent)",
+        "codes": [
+          {
+            "system": "VISTA-3D label",
+            "code": "6",
+            "label": "aorta"
+          }
+        ],
+        "educational": true,
+        "provenance": {
+          "source": "vista3d",
+          "method": "ct_segmentation",
+          "model": "MONAI VISTA-3D 0.5.8",
+          "spacing_mm": [
+            0.9765625,
+            0.9765625,
+            2.0
+          ],
+          "shape": [
+            512,
+            512,
+            20
+          ],
+          "job_id": "e7d98867-b594-47be-a6ab-3aad5bca7de2",
+          "label": "aorta (6)"
+        }
+      }
+    ],
+    "output_labels": [
+      6,
+      115
+    ],
+    "provenance": {
+      "source": "vista3d",
+      "method": "ct_segmentation",
+      "model": "MONAI VISTA-3D 0.5.8",
+      "spacing_mm": [
+        0.9765625,
+        0.9765625,
+        2.0
+      ],
+      "shape": [
+        512,
+        512,
+        20
+      ],
+      "job_id": "e7d98867-b594-47be-a6ab-3aad5bca7de2"
+    },
+    "metadata": {
+      "model_name": "MONAI VISTA-3D",
+      "model_version": "0.5.8",
+      "input_spacing": [
+        0.9765625,
+        0.9765625,
+        2.0
+      ],
+      "input_shape": [
+        512,
+        512,
+        20
+      ],
+      "output_labels": [
+        6,
+        115
+      ],
+      "runtime_seconds": 3.0490284729748964
+    }
+  },
+  "label": "Model-derived research segmentation requiring clinician review.",
+  "completed_at": "2026-09-26T20:02:05+00:00"
 }

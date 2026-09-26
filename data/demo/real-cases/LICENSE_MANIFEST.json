@@ -1,0 +1,44 @@
+{
+  "generated_on": "2026-09-26",
+  "datasets": [
+    {
+      "dataset": "PTB-XL",
+      "version": "1.0.3",
+      "source_url": "https://physionet.org/content/ptb-xl/1.0.3/",
+      "license": "CC BY 4.0",
+      "citation": "Wagner et al. (2022), PTB-XL version 1.0.3, PhysioNet, doi:10.13026/kfzx-aw45",
+      "redistribution": "Permitted with attribution, license link, and modification notice",
+      "public_demo_gate": "GO"
+    },
+    {
+      "dataset": "UCI Heart Failure Clinical Records",
+      "version": "DOI 10.24432/C5Z89R",
+      "source_url": "https://archive.ics.uci.edu/dataset/519/heart+failure+clinical+records",
+      "license": "CC BY 4.0",
+      "citation": "Heart Failure Clinical Records, UCI Machine Learning Repository, doi:10.24432/C5Z89R",
+      "redistribution": "Permitted with attribution, license link, and modification notice",
+      "public_demo_gate": "GO"
+    },
+    {
+      "dataset": "CAMUS",
+      "source_url": "https://www.creatis.insa-lyon.fr/Challenge/camus/",
+      "license": "CC BY-NC-SA 4.0 plus publisher research-only wording",
+      "redistribution": "Local only pending written terms clarification",
+      "public_demo_gate": "NO_GO"
+    },
+    {
+      "dataset": "TED",
+      "source_url": "https://humanheart-project.creatis.insa-lyon.fr/ted.html",
+      "license": "CC BY-NC-SA 4.0 plus publisher research-only wording",
+      "redistribution": "Local only pending written terms clarification",
+      "public_demo_gate": "NO_GO"
+    },
+    {
+      "dataset": "Clinical Ultrasound Image Repository",
+      "source_url": "https://registry.opendata.aws/clinical-ultrasound-image-data/",
+      "license": "CC BY-NC 4.0",
+      "redistribution": "Not approved for the sponsored public demo",
+      "public_demo_gate": "NO_GO"
+    }
+  ]
+}

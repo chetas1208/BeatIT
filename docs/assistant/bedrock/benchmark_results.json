@@ -1,0 +1,188 @@
+{
+  "MODEL_FAST": {
+    "clarify_missing_ef": {
+      "ok": true,
+      "latency_s": 1.622,
+      "chars": 212
+    },
+    "physician_brief_outline": {
+      "ok": true,
+      "latency_s": 2.855,
+      "chars": 71
+    },
+    "ensemble_assumptions": {
+      "ok": true,
+      "latency_s": 3.244,
+      "chars": 866
+    },
+    "recovery_scenario": {
+      "ok": true,
+      "latency_s": 3.807,
+      "chars": 1038
+    },
+    "evidence_citation": {
+      "ok": true,
+      "latency_s": 3.351,
+      "chars": 189
+    },
+    "safety_refusal": {
+      "ok": true,
+      "latency_s": 1.949,
+      "chars": 469
+    },
+    "compare_runs": {
+      "ok": false,
+      "latency_s": 3.265,
+      "error": "ProviderResponseError: chat completion returned empty content"
+    },
+    "intake_followup": {
+      "ok": true,
+      "latency_s": 3.796,
+      "chars": 947
+    },
+    "tool_plan": {
+      "ok": true,
+      "latency_s": 1.252,
+      "chars": 125
+    },
+    "laya_routing": {
+      "ok": true,
+      "latency_s": 4.369,
+      "chars": 998
+    },
+    "numeric_guard": {
+      "ok": true,
+      "latency_s": 2.533,
+      "chars": 179
+    },
+    "plain_language": {
+      "ok": true,
+      "latency_s": 2.737,
+      "chars": 1265
+    }
+  },
+  "MODEL_BALANCED": {
+    "clarify_missing_ef": {
+      "ok": true,
+      "latency_s": 0.995,
+      "chars": 122
+    },
+    "physician_brief_outline": {
+      "ok": true,
+      "latency_s": 1.168,
+      "chars": 66
+    },
+    "ensemble_assumptions": {
+      "ok": true,
+      "latency_s": 3.355,
+      "chars": 844
+    },
+    "recovery_scenario": {
+      "ok": true,
+      "latency_s": 3.882,
+      "chars": 999
+    },
+    "evidence_citation": {
+      "ok": true,
+      "latency_s": 1.167,
+      "chars": 184
+    },
+    "safety_refusal": {
+      "ok": true,
+      "latency_s": 1.806,
+      "chars": 466
+    },
+    "compare_runs": {
+      "ok": true,
+      "latency_s": 3.424,
+      "chars": 1016
+    },
+    "intake_followup": {
+      "ok": true,
+      "latency_s": 3.669,
+      "chars": 944
+    },
+    "tool_plan": {
+      "ok": true,
+      "latency_s": 1.536,
+      "chars": 62
+    },
+    "laya_routing": {
+      "ok": true,
+      "latency_s": 3.299,
+      "chars": 908
+    },
+    "numeric_guard": {
+      "ok": true,
+      "latency_s": 0.888,
+      "chars": 117
+    },
+    "plain_language": {
+      "ok": true,
+      "latency_s": 4.163,
+      "chars": 1067
+    }
+  },
+  "MODEL_DEEP": {
+    "clarify_missing_ef": {
+      "ok": true,
+      "latency_s": 0.922,
+      "chars": 103
+    },
+    "physician_brief_outline": {
+      "ok": true,
+      "latency_s": 1.159,
+      "chars": 61
+    },
+    "ensemble_assumptions": {
+      "ok": true,
+      "latency_s": 3.884,
+      "chars": 884
+    },
+    "recovery_scenario": {
+      "ok": true,
+      "latency_s": 3.592,
+      "chars": 998
+    },
+    "evidence_citation": {
+      "ok": true,
+      "latency_s": 2.067,
+      "chars": 380
+    },
+    "safety_refusal": {
+      "ok": true,
+      "latency_s": 2.096,
+      "chars": 367
+    },
+    "compare_runs": {
+      "ok": true,
+      "latency_s": 3.255,
+      "chars": 974
+    },
+    "intake_followup": {
+      "ok": true,
+      "latency_s": 3.338,
+      "chars": 909
+    },
+    "tool_plan": {
+      "ok": true,
+      "latency_s": 1.523,
+      "chars": 47
+    },
+    "laya_routing": {
+      "ok": true,
+      "latency_s": 3.679,
+      "chars": 316
+    },
+    "numeric_guard": {
+      "ok": true,
+      "latency_s": 1.484,
+      "chars": 111
+    },
+    "plain_language": {
+      "ok": true,
+      "latency_s": 3.224,
+      "chars": 1071
+    }
+  }
+}

@@ -27,6 +27,8 @@ import type {
 } from "@/types/api";
 import type { CaseRecord } from "@/types/api";
 import type { EnsembleApiRequest, EnsembleApiResponse } from "@/types/ensemble";
+import type { MissingPieceRequest, MissingPieceResponse } from "@/types/missing-piece";
+import type { ShadowTrialRequest, ShadowTrialResponse } from "@/types/shadow-trial";
 
 function resolveApiBase(): string {
   const base = process.env.NEXT_PUBLIC_API_BASE;
@@ -208,6 +210,20 @@ export function getTwinEnsemble(ensembleId: string): Promise<EnsembleApiResponse
   return request<EnsembleApiResponse>(`/twin/ensemble/${encodeURIComponent(ensembleId)}`);
 }
 
+export function createShadowTrial(body: ShadowTrialRequest): Promise<ShadowTrialResponse> {
+  return request<ShadowTrialResponse>("/shadow-trials", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export function createMissingPiece(body: MissingPieceRequest): Promise<MissingPieceResponse> {
+  return request<MissingPieceResponse>("/missing-piece", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Trace
 // ---------------------------------------------------------------------------
@@ -278,6 +294,8 @@ export const api = {
   selfImprove,
   createTwinEnsemble,
   getTwinEnsemble,
+  createShadowTrial,
+  createMissingPiece,
   getTrace,
   traceStreamUrl,
   systemCheck,

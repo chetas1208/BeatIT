@@ -1,18 +1,8 @@
-# BeatIT M10.5 Release Demo Golden Fixture
+# Release demo golden (metadata)
 
-This directory is a compact, secret-free manifest of the canonical synthetic
-demo inputs used by final verification. It references checked-in fixtures
-rather than duplicating their contents. Every source is synthetic and
-non-PHI; no value is an observed patient measurement.
+Hackathon **synthetic** spine: `fixtures/golden/` + `data/demo/`.
 
-Generate or refresh the manifest with:
+**Real** de-identified cases (PTB-XL / MIMIC-Demo): metadata and normalized JSON only —
+see `data/real/manifest.json` and `docs/data/REAL_DEMO_CAMPAIGN_FINAL.md`.
 
-```bash
-python scripts/build_release_golden.py
-```
-
-Validate it with:
-
-```bash
-./scripts/verify-demo.sh
-```
+Do not commit WFDB or credentialed MIMIC rows to Git.

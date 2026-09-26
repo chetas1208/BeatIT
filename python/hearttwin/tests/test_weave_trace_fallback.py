@@ -1,12 +1,12 @@
-"""Weave tracing fallback tests."""
+"""Local trace storage tests (no W&B Weave)."""
 
 from __future__ import annotations
 
-from python.hearttwin.tools.weave_trace import get_trace_sink, get_traces
+from python.hearttwin.tools.weave_trace import get_trace_sink, get_traces, trace_dir
 
 
-def test_weave_wrapper_does_not_throw_when_env_missing(monkeypatch):
-    monkeypatch.delenv("WANDB_API_KEY", raising=False)
+def test_local_trace_records_pipeline_events(monkeypatch, tmp_path) -> None:
+    monkeypatch.setenv("BEATIT_TRACE_DIR", str(tmp_path / "traces"))
     sink = get_trace_sink()
     run_id = sink.start_run("case-fallback", "test", {"patient_name": "Jane Doe"})
     sink.log_agent_stage(run_id, {"stage": "extract_evidence", "status": "success"})
@@ -16,11 +16,14 @@ def test_weave_wrapper_does_not_throw_when_env_missing(monkeypatch):
 
     traces = get_traces("case-fallback")
     assert traces
-    assert sink.weave_info(run_id)["status"] == "not_configured"
+    info = sink.trace_info(run_id)
+    assert info["status"] == "local"
+    assert info["backend"] == "local"
+    assert (tmp_path / "traces" / "case-fallback" / f"{run_id}.json").is_file()
 
 
-def test_weave_trace_redacts_obvious_pii(monkeypatch):
-    monkeypatch.delenv("WANDB_API_KEY", raising=False)
+def test_weave_trace_redacts_obvious_pii(monkeypatch, tmp_path) -> None:
+    monkeypatch.setenv("BEATIT_TRACE_DIR", str(tmp_path / "traces"))
     sink = get_trace_sink()
     run_id = sink.start_run(
         "case-redact",
@@ -31,3 +34,8 @@ def test_weave_trace_redacts_obvious_pii(monkeypatch):
     text = str(get_traces("case-redact"))
     assert "person@example.com" not in text
     assert "secret" not in text
+
+
+def test_trace_dir_default_expandable() -> None:
+    path = trace_dir()
+    assert path.name == "traces"

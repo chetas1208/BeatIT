@@ -67,6 +67,9 @@ data/cases/
 data/cache/
 data/staging/
 data/raw/
+data/real/
+!data/real/README.md
+data/open-real/
 data/logs/
 data/artifacts/
 data/beatit-ensembles.sqlite3

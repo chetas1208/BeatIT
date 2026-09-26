@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 
 import { createMissingPiece } from "@/lib/api";
 import { shouldApplyMissingPieceResult } from "@/lib/twin/missing-piece/requestIdentity";
@@ -28,7 +28,11 @@ function formatScore(value: number): string {
   return Number.isFinite(value) ? value.toFixed(3) : "Unavailable";
 }
 
-export function MissingPiecePanel({ ensembleId, initialMetric = "stroke_volume_ml" }: Props) {
+export function MissingPiecePanel(props: Props) {
+  return <MissingPiecePanelContent key={props.ensembleId ?? "no-ensemble"} {...props} />;
+}
+
+function MissingPiecePanelContent({ ensembleId, initialMetric = "stroke_volume_ml" }: Props) {
   const panelId = useId();
   const titleId = `${panelId}-title`;
   const descriptionId = `${panelId}-description`;
@@ -42,13 +46,6 @@ export function MissingPiecePanel({ ensembleId, initialMetric = "stroke_volume_m
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const requestSeq = useRef(0);
-
-  useEffect(() => {
-    requestSeq.current += 1;
-    setResult(null);
-    setError(null);
-    setLoading(false);
-  }, [ensembleId]);
 
   async function analyze() {
     if (!ensembleId) return;

@@ -32,9 +32,18 @@ class ClinicalEvidenceCandidate(BaseModel):
     confidence: float | None = Field(default=None, ge=0, le=1)
 
 
+class ModelRoleHealth(BaseModel):
+    model_id: str
+    configured: bool
+
+
 class ProviderHealth(BaseModel):
     enabled: bool
     protocol: str
     reachable: bool
     model_configured: bool
     provider: str
+    fast: ModelRoleHealth | None = None
+    balanced: ModelRoleHealth | None = None
+    deep: ModelRoleHealth | None = None
+    safety: ModelRoleHealth | None = None

@@ -1,0 +1,129 @@
+{
+  "source": "vista3d",
+  "method": "ct_segmentation",
+  "filename": "ct.nii.gz",
+  "file_id": "job-imaging-case-000002",
+  "job_id": "a3a6e27c-fd35-4d1f-9d23-dab52819a502",
+  "requested_classes": [
+    "heart",
+    "aorta",
+    "pulmonary artery"
+  ],
+  "submit_status": "queued",
+  "warnings": [
+    "'pulmonary artery': No verified 'pulmonary artery' class; using 'pulmonary vein' (119) as the closest verified proxy."
+  ],
+  "status": "analyzed",
+  "volumes": {
+    "aorta": {
+      "label_id": 6,
+      "voxel_count": 1262,
+      "volume_ml": 34.07,
+      "formula": "voxel_count \u00d7 \u220f spacing / 1000"
+    }
+  },
+  "abnormalities": [
+    {
+      "id": "ct_heart_absent",
+      "title": "Heart not segmented from CT",
+      "region": "Heart",
+      "severity": "info",
+      "summary": "CT segmentation returned no heart label (115) \u2014 the heart was likely outside the scan field of view. No CT-derived cardiac volume is available; no value invented.",
+      "metric": null,
+      "codes": [
+        {
+          "system": "VISTA-3D label",
+          "code": "115",
+          "label": "heart (absent)"
+        }
+      ],
+      "educational": true,
+      "provenance": {
+        "source": "vista3d",
+        "method": "ct_segmentation",
+        "model": "MONAI VISTA-3D 0.5.8",
+        "spacing_mm": [
+          3.0,
+          3.0,
+          3.0
+        ],
+        "shape": [
+          122,
+          101,
+          30
+        ],
+        "job_id": "a3a6e27c-fd35-4d1f-9d23-dab52819a502"
+      }
+    },
+    {
+      "id": "ct_aorta_present",
+      "title": "Aorta segmented (34 mL in FOV)",
+      "region": "Aorta",
+      "severity": "info",
+      "summary": "Simulation: aorta segmented from CT. Volume depends on how much of the aorta is in the scan field of view, so it is reported for context, not used as an abnormality threshold.",
+      "metric": "aorta CT volume 34 mL (FOV-dependent)",
+      "codes": [
+        {
+          "system": "VISTA-3D label",
+          "code": "6",
+          "label": "aorta"
+        }
+      ],
+      "educational": true,
+      "provenance": {
+        "source": "vista3d",
+        "method": "ct_segmentation",
+        "model": "MONAI VISTA-3D 0.5.8",
+        "spacing_mm": [
+          3.0,
+          3.0,
+          3.0
+        ],
+        "shape": [
+          122,
+          101,
+          30
+        ],
+        "job_id": "a3a6e27c-fd35-4d1f-9d23-dab52819a502",
+        "label": "aorta (6)"
+      }
+    }
+  ],
+  "output_labels": [
+    6
+  ],
+  "provenance": {
+    "source": "vista3d",
+    "method": "ct_segmentation",
+    "model": "MONAI VISTA-3D 0.5.8",
+    "spacing_mm": [
+      3.0,
+      3.0,
+      3.0
+    ],
+    "shape": [
+      122,
+      101,
+      30
+    ],
+    "job_id": "a3a6e27c-fd35-4d1f-9d23-dab52819a502"
+  },
+  "metadata": {
+    "model_name": "MONAI VISTA-3D",
+    "model_version": "0.5.8",
+    "input_spacing": [
+      3.0,
+      3.0,
+      3.0
+    ],
+    "input_shape": [
+      122,
+      101,
+      30
+    ],
+    "output_labels": [
+      6
+    ],
+    "runtime_seconds": 0.9937276630662382
+  }
+}

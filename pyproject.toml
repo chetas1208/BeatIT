@@ -28,7 +28,6 @@ aws = [
     "boto3>=1.35.0",
 ]
 tracing = [
-    "weave>=0.51.0",
 ]
 careguard = [
     "anthropic>=0.40.0",

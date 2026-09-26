@@ -832,9 +832,22 @@ function SceneContents(inputs: BeatInputs) {
 /*  The client-only Canvas. Exported via next/dynamic(ssr:false).      */
 /* ------------------------------------------------------------------ */
 
-function HeartCanvas({ selectedId, hoveredId, focusedId, onHover, onSelect, onClear, stateOverride, visualizationOverride, liveOverride }: Pick<BeatInputs, "selectedId" | "hoveredId" | "focusedId" | "onHover" | "onSelect"> & { onClear: () => void; stateOverride?: CardiacTwinState | null; visualizationOverride?: SimulationVisualization | null; liveOverride?: boolean }) {
+interface HeartCanvasProps extends Pick<BeatInputs, "selectedId" | "hoveredId" | "focusedId" | "onHover" | "onSelect"> {
+  onClear: () => void;
+  stateOverride?: CardiacTwinState | null;
+  visualizationOverride?: SimulationVisualization | null;
+  liveOverride?: boolean;
+  phaseOverride?: number;
+  playingOverride?: boolean;
+}
+
+function HeartCanvas({ selectedId, hoveredId, focusedId, onHover, onSelect, onClear, stateOverride, visualizationOverride, liveOverride, phaseOverride, playingOverride }: HeartCanvasProps) {
   const reduce = useReducedMotion();
   const clock = useMemo(() => createCardiacClock(72), []);
+
+  useEffect(() => {
+    if (phaseOverride !== undefined) clock.seek(phaseOverride);
+  }, [clock, phaseOverride]);
 
   // Store-derived values. Selectors keep re-renders to genuine changes.
   const status = useDualBeatStore((s) => s.status);
@@ -900,7 +913,7 @@ function HeartCanvas({ selectedId, hoveredId, focusedId, onHover, onSelect, onCl
         damage={damage}
         damageDir={damageDir}
         live={live}
-        animate={!reduce}
+        animate={phaseOverride === undefined ? !reduce : Boolean(playingOverride)}
         clock={clock}
         selectedId={selectedId}
         hoveredId={hoveredId}
@@ -919,6 +932,47 @@ const HeartCanvasClient = dynamic(() => Promise.resolve(HeartCanvas), {
   ssr: false,
   loading: () => <CanvasFallback />,
 });
+
+interface HeartTwinInstanceProps {
+  instanceId: string;
+  state: CardiacTwinState;
+  visualization: SimulationVisualization;
+  selectedComponentId: string | null;
+  phaseOverride: number;
+  playingOverride: boolean;
+  onComponentSelect: (id: string) => void;
+  onComponentClear: () => void;
+}
+
+export function HeartTwinInstance({
+  instanceId,
+  state,
+  visualization,
+  selectedComponentId,
+  phaseOverride,
+  playingOverride,
+  onComponentSelect,
+  onComponentClear,
+}: HeartTwinInstanceProps) {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  return (
+    <div className="relative h-full w-full" data-heart-instance={instanceId}>
+      <HeartCanvasClient
+        selectedId={selectedComponentId}
+        hoveredId={hoveredId}
+        focusedId={selectedComponentId}
+        onHover={setHoveredId}
+        onSelect={onComponentSelect}
+        onClear={onComponentClear}
+        stateOverride={state}
+        visualizationOverride={visualization}
+        liveOverride
+        phaseOverride={phaseOverride}
+        playingOverride={playingOverride}
+      />
+    </div>
+  );
+}
 
 /** On-brand standby while the client-only canvas hydrates. */
 function CanvasFallback() {

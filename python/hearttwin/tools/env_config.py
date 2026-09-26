@@ -26,8 +26,7 @@ from python.hearttwin.intelligence.factory import configured_provider_or_disable
 TRUE_VALUES = {"1", "true", "yes", "on", "enabled"}
 FALSE_VALUES = {"0", "false", "no", "off", "disabled"}
 
-DEFAULT_WANDB_PROJECT = "hearttwin-weavehacks"
-DEFAULT_TRACE_MODE = "weave_with_local_fallback"
+DEFAULT_TRACE_MODE = "local"
 DEFAULT_SAFETY_MODE = "strict"
 
 
@@ -51,8 +50,13 @@ def trace_mode() -> str:
     return os.environ.get("HEARTTWIN_TRACE_MODE", DEFAULT_TRACE_MODE).strip() or DEFAULT_TRACE_MODE
 
 
+def local_trace_enabled() -> bool:
+    return trace_mode() not in {"disabled", "off"}
+
+
 def weave_enabled() -> bool:
-    return trace_mode() not in {"disabled", "local_only", "off"}
+    """Deprecated alias — local traces only (no W&B Weave)."""
+    return local_trace_enabled()
 
 
 def vista3d_enabled() -> bool:
@@ -65,16 +69,13 @@ def validate_environment() -> dict[str, Any]:
     vista_configured = bool(os.environ.get("VISTA3D_API_BASE") and os.environ.get("VISTA3D_API_KEY"))
     redis_enabled = redis_memory_enabled()
     redis_configured = bool(os.environ.get("REDIS_URL"))
-    weave_is_enabled = weave_enabled()
-    weave_configured = bool(os.environ.get("WANDB_API_KEY"))
+    trace_on = local_trace_enabled()
 
     warnings: list[str] = []
     if vista_enabled and not vista_configured:
         warnings.append("VISTA3D_ENABLED=true but VISTA3D_API_BASE or VISTA3D_API_KEY is missing")
     if redis_enabled and not redis_configured:
         warnings.append("Redis memory is enabled but REDIS_URL is missing; using local memory fallback")
-    if weave_is_enabled and not weave_configured:
-        warnings.append("Weave tracing is enabled but WANDB_API_KEY is missing; using local trace fallback")
     provider = configured_provider_or_disabled()
     provider_configured = provider.name != "disabled"
     if not provider_configured:
@@ -96,12 +97,18 @@ def validate_environment() -> dict[str, Any]:
                 "embedding": get_embedding_model(),
             },
         },
-        "weave": {
-            "enabled": weave_is_enabled,
-            "configured": weave_configured,
+        "trace": {
+            "backend": "local",
+            "enabled": trace_on,
             "trace_mode": trace_mode(),
-            "project": os.environ.get("WANDB_PROJECT", DEFAULT_WANDB_PROJECT),
-            "entity_configured": bool(os.environ.get("WANDB_ENTITY")),
+            "storage_dir": os.environ.get("BEATIT_TRACE_DIR") or "~/.local/share/beatit/traces",
+        },
+        # API compat — same local trace metadata (no cloud Weave).
+        "weave": {
+            "enabled": trace_on,
+            "configured": trace_on,
+            "trace_mode": trace_mode(),
+            "backend": "local",
         },
         "redis": {
             "enabled": redis_enabled,

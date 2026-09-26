@@ -10,8 +10,8 @@ from typing import Any
 from python.hearttwin.intelligence.base import IntelligenceProvider
 from python.hearttwin.intelligence.errors import ProviderConfigurationError
 from python.hearttwin.intelligence.generic_openai import GenericOpenAICompatibleProvider
-from python.hearttwin.intelligence.openai_provider import OpenAIProvider
-from python.hearttwin.intelligence.schemas import ChatMessage, ProviderHealth
+from python.hearttwin.intelligence.openai_provider import BedrockOpenAIProvider, OpenAIProvider
+from python.hearttwin.intelligence.schemas import ChatMessage, ModelRoleHealth, ProviderHealth
 from python.hearttwin.tools.model_config import get_fast_model
 
 
@@ -91,14 +91,21 @@ def create_intelligence_provider(settings: IntelligenceSettings | None = None) -
     config = settings or IntelligenceSettings.from_env()
     if not config.enabled or config.provider == "disabled":
         return DisabledIntelligenceProvider()
-    if config.provider == "openai":
-        if not config.openai_enabled:
+    if config.provider in {"openai", "bedrock_openai"}:
+        if config.provider == "openai" and not config.openai_enabled:
             raise ProviderConfigurationError("INTELLIGENCE_PROVIDER=openai requires OPENAI_ENABLED=true")
-        if _is_placeholder(config.openai_api_key) or _is_placeholder(config.openai_model):
-            raise ProviderConfigurationError("OpenAI provider requires real OPENAI_API_KEY and OPENAI_MODEL values")
-        return OpenAIProvider(
-            api_key=config.openai_api_key,
-            model=config.openai_model,
+        api_key = (
+            config.openai_api_key
+            or config.api_key
+            or os.environ.get("AWS_BEARER_TOKEN_BEDROCK", "")
+        ).strip()
+        model = (config.openai_model or config.model).strip()
+        if _is_placeholder(api_key) or _is_placeholder(model):
+            raise ProviderConfigurationError("Bedrock OpenAI provider requires bearer token and default model")
+        provider_cls = BedrockOpenAIProvider if config.provider == "bedrock_openai" else OpenAIProvider
+        return provider_cls(
+            api_key=api_key,
+            model=model,
             timeout_seconds=config.timeout_seconds,
             max_retries=config.max_retries,
         )
@@ -141,9 +148,8 @@ async def complete_text(
 ) -> str:
     """Shared low-level seam used by legacy agents during provider migration."""
     provider = configured_provider_or_disabled()
-    # Legacy agents still pass OPENAI_MODEL_* selections. A generic runtime
-    # must use its deployment-selected MODEL_NAME instead of those vendor-era
-    # defaults, so provider switching never changes the model layer contract.
+    # Legacy agents still pass OPENAI_MODEL_* selections. Generic and Bedrock paths
+    # honor explicit per-call model IDs from the registry/router.
     effective_model = None if provider.name == "generic" else model
     response = await provider.complete(
         messages,
@@ -158,5 +164,34 @@ async def complete_text(
 
 
 async def intelligence_status() -> ProviderHealth:
+    from python.hearttwin.intelligence.bedrock.models import ModelRole, get_model_id
+
     provider = configured_provider_or_disabled()
-    return await provider.health()
+    config = IntelligenceSettings.from_env()
+    base = await provider.health()
+
+    def _role(role: ModelRole) -> ModelRoleHealth:
+        env_name = {
+            ModelRole.FAST: "MODEL_FAST",
+            ModelRole.BALANCED: "MODEL_BALANCED",
+            ModelRole.DEEP: "MODEL_DEEP",
+            ModelRole.SAFETY: "MODEL_SAFETY",
+        }[role]
+        raw = os.environ.get(env_name, "").strip()
+        configured = bool(raw and not _is_placeholder(raw))
+        return ModelRoleHealth(model_id=get_model_id(role), configured=configured)
+
+    role_update = {
+        "fast": _role(ModelRole.FAST),
+        "balanced": _role(ModelRole.BALANCED),
+        "deep": _role(ModelRole.DEEP),
+        "safety": _role(ModelRole.SAFETY),
+    }
+    if isinstance(provider, DisabledIntelligenceProvider):
+        return base.model_copy(update=role_update)
+    return base.model_copy(
+        update={
+            "protocol": config.protocol or base.protocol,
+            **role_update,
+        }
+    )

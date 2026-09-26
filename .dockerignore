@@ -28,6 +28,8 @@ data/staging
 data/logs
 data/artifacts
 data/beatit-ensembles.sqlite3*
+data/real
+data/open-real
 uploads
 archives
 models/*

@@ -14,7 +14,7 @@ Two tiers, per this wave's task brief:
     selection, the Wave 5 policy-deferral wiring, the safety/numeric
     fallback, and the model-call-failure fallback.
   * A small number of REAL, opt-in integration tests that make genuine HTTP
-    calls to the configured NVIDIA endpoint through the actual
+    calls to the configured Bedrock OpenAI endpoint through the actual
     ``model_client.chat_completion``. Gated behind ``RUN_EXTERNAL_
     INTEGRATION_TESTS`` (the same env var ``test_weave_integration.py``
     already uses for this repo's other real-external-API tests — reused here
@@ -339,20 +339,18 @@ async def test_unexpected_exception_during_model_call_never_crashes(monkeypatch:
 
 
 # ---------------------------------------------------------------------------
-# REAL, opt-in integration tests — genuine NVIDIA API calls.
+# REAL, opt-in integration tests — genuine Bedrock OpenAI API calls.
 #
 # Disabled by default; enable with:
 #   RUN_EXTERNAL_INTEGRATION_TESTS=true pytest python/hearttwin/tests/test_orchestrator_model_routing.py
-# and MODEL_API_KEY_1 (or _2/_3) set to a real NVIDIA Build key in the
-# environment (this repo's existing convention for real-external-API tests —
-# see test_weave_integration.py — is that credentials come from the
-# environment, never loaded by the test itself).
+# and MODEL_API_KEY / AWS_BEARER_TOKEN_BEDROCK plus Bedrock base URL in the
+# environment (same convention as test_weave_integration.py).
 # ---------------------------------------------------------------------------
 
 EXTERNAL = os.environ.get("RUN_EXTERNAL_INTEGRATION_TESTS", "").lower() in {"1", "true", "yes"}
 _EXTERNAL_REASON = (
-    "real NVIDIA model-router integration disabled "
-    "(set RUN_EXTERNAL_INTEGRATION_TESTS=true and configure MODEL_API_KEY_1..3)"
+    "real Bedrock model-router integration disabled "
+    "(set RUN_EXTERNAL_INTEGRATION_TESTS=true and configure Bedrock bearer + base URL)"
 )
 
 
@@ -419,7 +417,7 @@ def persisted_ensemble(baseline_vitals: dict, tmp_path, monkeypatch) -> dict:
 
 @pytest.mark.skipif(not EXTERNAL, reason=_EXTERNAL_REASON)
 class TestRealModelRouterIntegration:
-    """Genuine, billed calls to the configured NVIDIA endpoint.
+    """Genuine, billed calls to the configured Bedrock OpenAI endpoint.
 
     Each test forces `should_defer_to_clarification` open (see module
     docstring "IMPORTANT" note above): with today's measured classify_intent
@@ -507,11 +505,11 @@ class TestRealModelRouterIntegration:
     ) -> None:
         """Forces a genuine API failure (an invalid model id against the real
         endpoint, not a mock) to prove the FALLBACK TREE against a real
-        NVIDIA error response, not a simulated one."""
+        Bedrock error response, not a simulated one."""
         monkeypatch.setattr(f"{_ORCH}.should_defer_to_clarification", lambda *a, **k: False)
         monkeypatch.setattr(
             f"{_ORCH}.get_model_id",
-            lambda role: "nvidia/this-model-id-does-not-exist-beatit-wave6-test",
+            lambda role: "global.openai.this-model-id-does-not-exist-beatit-test",
         )
 
         context = _context()

@@ -61,8 +61,8 @@ _DOCUMENTED = {
     "OPENAI_MODEL_VALIDATOR", "OPENAI_MODEL_STATE_BUILDER",
     "OPENAI_MODEL_ELECTROPHYSIOLOGY", "OPENAI_MODEL_HEMODYNAMICS",
     "OPENAI_MODEL_RECOVERY", "OPENAI_MODEL_EVALUATOR", "OPENAI_MODEL_FAST",
-    "OPENAI_EMBEDDING_MODEL", "WANDB_API_KEY", "WANDB_ENTITY", "WANDB_PROJECT",
-    "NEXT_PUBLIC_WEAVE_PROJECT_URL", "BLOB_READ_WRITE_TOKEN",
+    "OPENAI_EMBEDDING_MODEL", "BEATIT_TRACE_DIR", "NEXT_PUBLIC_TRACE_VIEWER_URL",
+    "BLOB_READ_WRITE_TOKEN",
     "REDIS_URL",
     "API_BASE", "NEXT_PUBLIC_API_BASE", "VISTA3D_API_BASE", "VISTA3D_API_KEY",
     "VISTA3D_TIMEOUT_SECONDS", "VISTA3D_ENABLED", "NEXT_PUBLIC_APP_NAME",
@@ -83,7 +83,7 @@ def test_spec_has_no_unexpected_extras() -> None:
 
 def test_secret_vars_marked() -> None:
     expected_secrets = {
-        "MODEL_API_KEY", "OPENAI_API_KEY", "WANDB_API_KEY", "REDIS_URL",
+        "MODEL_API_KEY", "OPENAI_API_KEY", "REDIS_URL",
         "BLOB_READ_WRITE_TOKEN", "VISTA3D_API_KEY", "AWS_ACCESS_KEY_ID",
         "AWS_SECRET_ACCESS_KEY", "DATABASE_URL",
     }
@@ -104,7 +104,7 @@ def test_validate_env_returns_report(mode: str) -> None:
 
 
 def test_missing_optional_envs_are_warnings_not_errors() -> None:
-    with env(BLOB_READ_WRITE_TOKEN=None, VISTA3D_API_KEY=None, WANDB_API_KEY=None):
+    with env(BLOB_READ_WRITE_TOKEN=None, VISTA3D_API_KEY=None):
         report = validate_env("local-dev")
         # No structural errors just because optional secrets are missing.
         assert report["ok"] is True
@@ -136,18 +136,6 @@ def test_valid_bool_values_ok(val: str) -> None:
     with env(VISTA3D_ENABLED=val):
         report = validate_env("local-dev")
         assert not any("VISTA3D_ENABLED" in e for e in report["errors"])
-
-
-def test_wandb_project_warns_when_unexpected() -> None:
-    with env(WANDB_PROJECT="some-other-project"):
-        report = validate_env("local-dev")
-        assert any("WANDB_PROJECT" in w for w in report["warnings"])
-
-
-def test_wandb_project_default_is_expected() -> None:
-    with env(WANDB_PROJECT=None):
-        report = validate_env("local-dev")
-        assert not any("WANDB_PROJECT" in w for w in report["warnings"])
 
 
 # ---------------------------------------------------------------------------
@@ -214,7 +202,6 @@ async def test_config_endpoint_exposes_no_secrets() -> None:
 
     fake_secrets = {
         "OPENAI_API_KEY": "sk-fake-openai-key-1234567890",
-        "WANDB_API_KEY": "wandb-fake-key-1234567890",
         "REDIS_URL": "redis://default:fake-redis-pw-1234567890@example.com:6379",
         "BLOB_READ_WRITE_TOKEN": "blob-fake-token-1234567890",
         "VISTA3D_API_KEY": "vista-fake-key-1234567890",
@@ -262,6 +249,10 @@ def test_redis_memory_enabled_honored_but_safe_without_creds() -> None:
 def test_trace_mode_honored() -> None:
     from python.hearttwin.tools.env_config import trace_mode, weave_enabled
 
-    with env(HEARTTWIN_TRACE_MODE="weave_with_local_fallback"):
-        assert trace_mode() == "weave_with_local_fallback"
+    with env(HEARTTWIN_TRACE_MODE="local"):
+        assert trace_mode() == "local"
         assert weave_enabled() is True
+    with env(HEARTTWIN_TRACE_MODE="off"):
+        from python.hearttwin.tools.env_config import local_trace_enabled
+
+        assert local_trace_enabled() is False

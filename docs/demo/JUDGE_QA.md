@@ -1,5 +1,63 @@
 # Judge Q&A
 
+## Who is the primary user?
+
+A cardiologist preparing for or conducting a supervised recovery or follow-up
+conversation. Secondary users include cardiac rehabilitation educators,
+trainees, and researchers.
+
+## What painful workflow does it improve?
+
+Clinicians currently reconcile measurements, reports, assumptions, and
+physiology explanations across disconnected tools. BeatIT creates one
+inspectable baseline-to-scenario comparison for supervised education.
+
+## Who pays?
+
+The initial buyer hypothesis is a cardiac rehabilitation program, cardiology
+service line, or clinical education organization. This must be tested through
+workflow pilots and buyer interviews.
+
+## Why would they adopt it?
+
+The hypothesis is reduced preparation/explanation burden and clearer,
+reproducible patient education. A pilot should measure time, comprehension, and
+safe workflow completion. We do not yet claim proven clinical or economic
+benefit.
+
+## What does it replace?
+
+Initially, it consolidates manual explanation work spread across reports,
+calculators, diagrams, and ad hoc educational materials. It does not replace
+clinical judgment or a diagnostic system.
+
+## Is it decision support, education, or research software?
+
+The present intended use is clinician-supervised education and research
+simulation. It is not clinical decision support for diagnosis or treatment.
+
+## What integrations are required?
+
+The demo accepts structured input and supported uploads. A production pilot
+would likely require governed FHIR/SMART integration, identity and access
+management, terminology mapping, audit logging, and explicit data-retention
+controls.
+
+## How is protected health information secured?
+
+The public demo must use synthetic, de-identified, or appropriately licensed
+data. The current local/demo system is not an authenticated multi-user PHI
+platform. Production use requires encryption, tenant isolation, least-privilege
+access, audit logs, retention/deletion controls, vendor agreements, consent/data
+governance, and a security review.
+
+## What is the regulatory path?
+
+Claims and intended use determine the path. The current product is limited to
+supervised education/research simulation. Patient-specific recommendations or
+outcome prediction would require formal regulatory analysis and substantially
+more clinical validation before release.
+
 ## Is this clinically validated?
 
 No. BeatIT is educational simulation software. It borrows verification,
