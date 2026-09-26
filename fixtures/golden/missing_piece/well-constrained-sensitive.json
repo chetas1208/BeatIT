@@ -1,0 +1,6 @@
+{
+  "case": "well-constrained-sensitive",
+  "expected_top_driver": "preload_index",
+  "fixture_version": "m8-golden-v1",
+  "top_driver": "preload_index"
+}

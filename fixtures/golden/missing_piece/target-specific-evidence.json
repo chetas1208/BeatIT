@@ -1,0 +1,8 @@
+{
+  "case": "target-specific-evidence",
+  "co_top_evidence": "echocardiographic_measurement",
+  "ensemble_seed": 91,
+  "fixture_version": "m8-golden-v1",
+  "rankings_differ": true,
+  "sv_top_evidence": "echocardiographic_measurement"
+}

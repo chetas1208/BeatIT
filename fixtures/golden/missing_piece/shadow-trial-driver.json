@@ -1,0 +1,7 @@
+{
+  "case": "shadow-trial-driver",
+  "fixture_version": "m8-golden-v1",
+  "has_sensitivities": true,
+  "target_metric": "stroke_volume_ml",
+  "top_driver": "afterload_index"
+}

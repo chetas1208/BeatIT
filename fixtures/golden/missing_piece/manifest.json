@@ -1,0 +1,14 @@
+{
+  "cases": [
+    "missing-structural-evidence",
+    "no-missing-evidence",
+    "shadow-trial-driver",
+    "single-dominant-parameter",
+    "target-specific-evidence",
+    "two-competing-parameters",
+    "uncertain-insensitive",
+    "well-constrained-sensitive",
+    "zero-sensitivity-high-uncertainty"
+  ],
+  "fixture_version": "m8-golden-v1"
+}

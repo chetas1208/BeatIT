@@ -1,0 +1,14 @@
+{
+  "available_evidence_types": [
+    "repeat_ecg"
+  ],
+  "case": "missing-structural-evidence",
+  "expected_includes_contractility": true,
+  "fixture_version": "m8-golden-v1",
+  "unavailable_evidence_parameters": [
+    "afterload_index",
+    "contractility_index",
+    "preload_index",
+    "systemic_vascular_resistance_index"
+  ]
+}

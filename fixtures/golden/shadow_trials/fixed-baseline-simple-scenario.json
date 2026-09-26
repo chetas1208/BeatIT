@@ -1,0 +1,12 @@
+{
+  "name": "fixed-baseline-simple-scenario",
+  "version": "m6-golden-v1",
+  "baseline_fixture": "probabilistic/fixed-only.json",
+  "scenario": {
+    "id": "afterload-120",
+    "label": "Bounded afterload hypothetical",
+    "origin_snapshot_id": "golden-fixed-only",
+    "parameters": [{"parameter": "afterload_index", "baseline": 1.0, "value": 1.2, "delta": 0.2, "unit": "index"}]
+  },
+  "expected": {"pairing": "same_sample_id", "resampling": false, "status": "complete"}
+}

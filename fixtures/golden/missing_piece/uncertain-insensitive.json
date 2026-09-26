@@ -1,0 +1,10 @@
+{
+  "case": "uncertain-insensitive",
+  "drivers": [
+    "afterload_index"
+  ],
+  "expected_drivers": [
+    "afterload_index"
+  ],
+  "fixture_version": "m8-golden-v1"
+}

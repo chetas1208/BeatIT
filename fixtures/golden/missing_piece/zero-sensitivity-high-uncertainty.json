@@ -1,0 +1,6 @@
+{
+  "case": "zero-sensitivity-high-uncertainty",
+  "expected_top_driver": "contractility_index",
+  "fixture_version": "m8-golden-v1",
+  "top_driver": "contractility_index"
+}

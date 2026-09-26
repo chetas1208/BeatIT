@@ -1,0 +1,7 @@
+{
+  "name": "zero-delta-scenario",
+  "version": "m6-golden-v1",
+  "baseline_fixture": "probabilistic/fixed-only.json",
+  "scenario": {"id": "identity", "label": "Identity hypothetical", "origin_snapshot_id": "golden-fixed-only", "parameters": []},
+  "expected": {"all_deltas": 0.0, "all_categories": {"positive": 0, "near_zero": "all", "negative": 0}}
+}

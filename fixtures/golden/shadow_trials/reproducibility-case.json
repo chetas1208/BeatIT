@@ -1,0 +1,7 @@
+{
+  "name": "reproducibility-case",
+  "version": "m6-golden-v1",
+  "baseline_fixture": "probabilistic/fixed-afterload.json",
+  "scenario": {"id": "svr-090", "label": "Bounded resistance hypothetical", "origin_snapshot_id": "golden-fixed-afterload", "parameters": [{"parameter": "systemic_vascular_resistance_index", "baseline": 1.0, "value": 0.9, "delta": -0.1, "unit": "index"}]},
+  "expected": {"same_input_same_fingerprint": true, "reversed_input_same_result": true, "tolerance": "explicit_metric_tolerance"}
+}

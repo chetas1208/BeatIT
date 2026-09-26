@@ -1,0 +1,12 @@
+{
+  "case": "two-competing-parameters",
+  "expected_order": [
+    "afterload_index",
+    "preload_index"
+  ],
+  "fixture_version": "m8-golden-v1",
+  "ordered_drivers": [
+    "afterload_index",
+    "preload_index"
+  ]
+}

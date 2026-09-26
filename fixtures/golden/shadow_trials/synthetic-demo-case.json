@@ -1,0 +1,7 @@
+{
+  "name": "synthetic-demo-case",
+  "version": "m6-golden-v1",
+  "baseline_fixture": "probabilistic/synthetic-replay.json",
+  "scenario": {"id": "demo-afterload", "label": "Synthetic educational hypothetical", "origin_snapshot_id": "golden-synthetic-replay", "parameters": [{"parameter": "afterload_index", "baseline": 1.0, "value": 1.2, "delta": 0.2, "unit": "index"}]},
+  "expected": {"origin_quality": "synthetic", "patient_evidence": false, "safety_disclaimer_required": true}
+}

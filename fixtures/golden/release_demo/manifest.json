@@ -1,0 +1,37 @@
+{
+  "dataset_version": "m10.5-release-demo-v1",
+  "patient_id": "BeatIT-Demo-Patient-001",
+  "synthetic": true,
+  "provenance_classification": "synthetic_demo",
+  "safety_boundary": "educational simulation only; not diagnosis or treatment",
+  "source_files": {
+    "patient": "fixtures/hearttwin/manual_baseline.json",
+    "events": "fixtures/hearttwin/ecg_synthetic_normal.csv",
+    "snapshot": "fixtures/golden/probabilistic/synthetic-replay.json",
+    "ensemble": "fixtures/golden/probabilistic/synthetic-replay.json",
+    "scenario": "fixtures/golden/shadow_trials/synthetic-demo-case.json",
+    "shadow_trial": "fixtures/golden/shadow_trials/synthetic-demo-case.json",
+    "report": "fixtures/hearttwin/report_baseline.txt",
+    "echo": "fixtures/hearttwin/echo_metadata_baseline.json"
+  },
+  "checksums": {
+    "patient": "1e448677700a64058df5038dd60f8f5a6516dc2df9bff5eb5e71f6fbd335b5ca",
+    "events": "2430db5eba469b43d2a556f80606e417546c457c28839130885751ca5c30711e",
+    "snapshot": "e101c80bc9ee5522c79d45ecc913a1604495fc274168928198b6a3bb9eb6c1f0",
+    "ensemble": "e101c80bc9ee5522c79d45ecc913a1604495fc274168928198b6a3bb9eb6c1f0",
+    "scenario": "6ab9a8c62f80e1a373ee01ce8d6b8eca8b87041abe694331f5a913b081406530",
+    "shadow_trial": "6ab9a8c62f80e1a373ee01ce8d6b8eca8b87041abe694331f5a913b081406530",
+    "report": "f5ad390645ce5a8aadefec17a627cf8e0786559e0f82f6eacd202c222882f8c5",
+    "echo": "7d25820f6b298432a3e2c148be5b21550a7a456c520ec74506ce4f03903feb8c"
+  },
+  "capabilities": [
+    "temporal_twin",
+    "deterministic_physiology",
+    "probabilistic_ensemble",
+    "shadow_trial",
+    "split_heart",
+    "missing_piece",
+    "report",
+    "provenance"
+  ]
+}

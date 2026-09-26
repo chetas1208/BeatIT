@@ -1,0 +1,11 @@
+{
+  "available_evidence_types": [
+    "echocardiographic_measurement",
+    "blood_pressure_series",
+    "repeat_ecg"
+  ],
+  "case": "no-missing-evidence",
+  "ensemble_seed": 91,
+  "evidence_ranking_nonempty": true,
+  "fixture_version": "m8-golden-v1"
+}

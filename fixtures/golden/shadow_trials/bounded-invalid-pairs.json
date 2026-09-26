@@ -1,0 +1,12 @@
+{
+  "name": "bounded-invalid-pairs",
+  "version": "m6-golden-v1",
+  "baseline_fixture": "probabilistic/bounded-rejection.json",
+  "scenario": {
+    "id": "afterload-110",
+    "label": "Bounded afterload hypothetical",
+    "origin_snapshot_id": "golden-bounded-rejection",
+    "parameters": [{"parameter": "afterload_index", "baseline": 1.0, "value": 1.1, "delta": 0.1, "unit": "index"}]
+  },
+  "expected": {"invalid_pairs_retained": true, "rejection_reasons_required": true, "effect_population": "valid_pairs_only"}
+}

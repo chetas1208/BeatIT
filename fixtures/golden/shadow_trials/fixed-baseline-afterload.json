@@ -1,0 +1,34 @@
+{
+  "baseline_fixture": "../probabilistic/fixed-only.json",
+  "scenario": {
+    "id": "afterload-plus-15",
+    "label": "Afterload experiment +15%",
+    "origin_snapshot_id": "golden-fixed-only",
+    "parameters": [
+      {
+        "parameter": "afterload_index",
+        "baseline": 1.0,
+        "value": 1.15,
+        "delta": 0.15,
+        "unit": "index"
+      }
+    ]
+  },
+  "metrics": ["ejection_fraction_pct", "stroke_volume_ml", "cardiac_output_l_min"],
+  "engine_version": "m6-shadow-trial-v1",
+  "expected": {
+    "trial_id": "shadow-trial-b7c89ab1a9ee",
+    "fingerprint": "b7c89ab1a9ee0f353a519790ae732347f873f0534b472241a0811c5dc88a0ed5",
+    "valid_pairs": 2,
+    "invalid_pairs": 0,
+    "pair_deltas": [
+      {"ejection_fraction_pct": -1.249999999999993, "stroke_volume_ml": -1.625, "cardiac_output_l_min": -0.11375000000000046},
+      {"ejection_fraction_pct": -1.249999999999993, "stroke_volume_ml": -1.625, "cardiac_output_l_min": -0.11375000000000046}
+    ],
+    "effect_medians": {
+      "ejection_fraction_pct": -1.249999999999993,
+      "stroke_volume_ml": -1.625,
+      "cardiac_output_l_min": -0.11375000000000046
+    }
+  }
+}

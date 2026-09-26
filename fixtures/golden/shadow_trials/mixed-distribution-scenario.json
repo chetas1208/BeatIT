@@ -1,0 +1,15 @@
+{
+  "name": "mixed-distribution-scenario",
+  "version": "m6-golden-v1",
+  "baseline_fixture": "probabilistic/mixed-distributions.json",
+  "scenario": {
+    "id": "preload-contractility",
+    "label": "Bounded preload and contractility hypothetical",
+    "origin_snapshot_id": "golden-mixed-family",
+    "parameters": [
+      {"parameter": "preload_index", "baseline": 1.0, "value": 1.1, "delta": 0.1, "unit": "index"},
+      {"parameter": "contractility_index", "baseline": 1.0, "value": 1.1, "delta": 0.1, "unit": "index"}
+    ]
+  },
+  "expected": {"pairing": "same_sample_id", "resampling": false, "effect_categories": ["positive", "near_zero", "negative"]}
+}
