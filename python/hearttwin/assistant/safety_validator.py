@@ -48,6 +48,7 @@ from typing import Literal, Optional
 from pydantic import BaseModel, Field
 
 from python.hearttwin.agents.intake_agent import IntentDecision, _classify_intent_with_rules
+from python.hearttwin.assistant.language_integrity import narrow_can_i_take_check
 from python.hearttwin.careguard.copilot_agent import _BLOCK as _CAREGUARD_BLOCK
 from python.hearttwin.copilot import _OUTPUT_RED_FLAGS
 from python.hearttwin.safety import (
@@ -138,7 +139,6 @@ _SUPPLEMENTAL_TREATMENT_PATTERNS = [
     r"\bskip (?:a |my )?dose\b",
     r"\bdouble (?:my |the )?dose\b",
     r"\bis it safe to take\b",
-    r"\bcan i take\b",
     r"\bover[- ]the[- ]counter\b",
 ]
 
@@ -170,7 +170,7 @@ def _supplemental_category(normalized: str) -> tuple[RequestSafetyCategory, str]
             "cardiac simulation and report organization. If this is a real emergency, "
             "contact local emergency services."
         )
-    if _contains_any(normalized, _SUPPLEMENTAL_TREATMENT_PATTERNS):
+    if _contains_any(normalized, _SUPPLEMENTAL_TREATMENT_PATTERNS) or narrow_can_i_take_check(normalized):
         return "treatment_request", (
             "DualBeat cannot provide medication or treatment guidance. Use it only "
             "for educational cardiac simulation and report organization."

@@ -307,11 +307,11 @@ def _fallback_select_tool_family(text: str, context: dict[str, Any] | None) -> C
         chosen = "EVIDENCE"
     elif _contains_any(normalized, [r"\bpv loop\b", r"\becg\b", r"\bcausal\b", r"\bhemodynamic"]):
         chosen = "PHYSIOLOGY"
-    elif _contains_any(normalized, [r"\bscenario\b", r"\bsimulat", r"\bensemble\b", r"\bshadow trial\b", r"\bwhat if\b"]):
+    elif _contains_any(normalized, [r"\bscenario\b", r"\bsimulat", r"\bshadow trial\b", r"\bwhat if\b"]):
         chosen = "EXPERIMENT"
     elif _contains_any(normalized, [r"\bcompare\b", r"\bpair\b", r"\bversus\b", r"\bvs\.?\b"]):
         chosen = "COMPARE"
-    elif _contains_any(normalized, [r"\buncertain", r"\bmissing piece\b", r"\bwhat evidence would\b", r"\bdominant assumption"]):
+    elif _contains_any(normalized, [r"\buncertain", r"\bmissing piece\b", r"\bwhat evidence would\b", r"\bdominant assumption", r"\bensemble\b"]):
         chosen = "UNCERTAINTY"
     elif _contains_any(normalized, [r"\breport\b", r"\bbrief\b", r"\bsummary\b"]):
         chosen = "REPORT"
