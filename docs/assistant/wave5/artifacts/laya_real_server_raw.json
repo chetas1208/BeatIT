@@ -1,0 +1,2785 @@
+[
+  {
+    "fixture_id": "F01_direct_state_read_ef",
+    "text": "What is the current ejection fraction?",
+    "context": null,
+    "expected": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "What is the current ejection fraction?"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "direct_state_read",
+          "probabilities": {
+            "direct_state_read": 0.656,
+            "evidence_retrieval": 0.0271,
+            "deterministic_computation": 0.093,
+            "simulation": 0.0725,
+            "artifact_generation": 0.0148,
+            "generative_explanation": 0.0726,
+            "complex_synthesis": 0.0262,
+            "clarification_required": 0.0378
+          },
+          "confidence": 0.3952,
+          "answer_confidence": 0.656,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "EVIDENCE",
+          "probabilities": {
+            "TWIN": 0.2099,
+            "EVIDENCE": 0.3122,
+            "PHYSIOLOGY": 0.0459,
+            "EXPERIMENT": 0.0052,
+            "COMPARE": 0.0132,
+            "UNCERTAINTY": 0.1272,
+            "REPORT": 0.0075,
+            "NONE": 0.2789
+          },
+          "confidence": 0.2438,
+          "answer_confidence": 0.3122,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.0473,
+          "confidence": 0.9527,
+          "answer_confidence": 0.9527,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.0917,
+          "confidence": 0.9083,
+          "answer_confidence": 0.9083,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0797,
+          "confidence": 0.9203,
+          "answer_confidence": 0.9203,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1655,
+          "confidence": 0.8345,
+          "answer_confidence": 0.8345,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0255,
+          "confidence": 0.9745,
+          "answer_confidence": 0.9745,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 650,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1006.0899509117007
+  },
+  {
+    "fixture_id": "F02_simulation_request",
+    "text": "What if the patient goes on a beta blocker regimen, run the recovery scenario",
+    "context": null,
+    "expected": {
+      "classify_intent": "simulation",
+      "select_tool_family": "EXPERIMENT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": true,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "What if the patient goes on a beta blocker regimen, run the recovery scenario"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "simulation",
+          "probabilities": {
+            "direct_state_read": 0.0017,
+            "evidence_retrieval": 0.0005,
+            "deterministic_computation": 0.0045,
+            "simulation": 0.9858,
+            "artifact_generation": 0.0008,
+            "generative_explanation": 0.0031,
+            "complex_synthesis": 0.0011,
+            "clarification_required": 0.0025
+          },
+          "confidence": 0.9524,
+          "answer_confidence": 0.9858,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "EXPERIMENT",
+          "probabilities": {
+            "TWIN": 0.0125,
+            "EVIDENCE": 0.0077,
+            "PHYSIOLOGY": 0.0099,
+            "EXPERIMENT": 0.7702,
+            "COMPARE": 0.0037,
+            "UNCERTAINTY": 0.0079,
+            "REPORT": 0.0051,
+            "NONE": 0.183
+          },
+          "confidence": 0.6463,
+          "answer_confidence": 0.7702,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.1184,
+          "confidence": 0.8816,
+          "answer_confidence": 0.8816,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.2422,
+          "confidence": 0.7578,
+          "answer_confidence": 0.7578,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0253,
+          "confidence": 0.9747,
+          "answer_confidence": 0.9747,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1151,
+          "confidence": 0.8849,
+          "answer_confidence": 0.8849,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0791,
+          "confidence": 0.9209,
+          "answer_confidence": 0.9209,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 706,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1158.647040138021
+  },
+  {
+    "fixture_id": "F03_evidence_with_resolving_context",
+    "text": "Where does this ejection fraction number come from?",
+    "context": {
+      "snapshot_id": "snap_1"
+    },
+    "expected": {
+      "classify_intent": "evidence_retrieval",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": true,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "Where does this ejection fraction number come from?",
+        "snapshot_id": "snap_1"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "evidence_retrieval",
+          "probabilities": {
+            "direct_state_read": 0.0387,
+            "evidence_retrieval": 0.3957,
+            "deterministic_computation": 0.0526,
+            "simulation": 0.1614,
+            "artifact_generation": 0.0218,
+            "generative_explanation": 0.1355,
+            "complex_synthesis": 0.0521,
+            "clarification_required": 0.142
+          },
+          "confidence": 0.1692,
+          "answer_confidence": 0.3957,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "EVIDENCE",
+          "probabilities": {
+            "TWIN": 0.0672,
+            "EVIDENCE": 0.5902,
+            "PHYSIOLOGY": 0.0768,
+            "EXPERIMENT": 0.0126,
+            "COMPARE": 0.008,
+            "UNCERTAINTY": 0.027,
+            "REPORT": 0.0175,
+            "NONE": 0.2008
+          },
+          "confidence": 0.3874,
+          "answer_confidence": 0.5902,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.5954,
+          "confidence": 0.5954,
+          "answer_confidence": 0.5954,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.1269,
+          "confidence": 0.8731,
+          "answer_confidence": 0.8731,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.377,
+          "confidence": 0.623,
+          "answer_confidence": 0.623,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.2465,
+          "confidence": 0.7535,
+          "answer_confidence": 0.7535,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.1578,
+          "confidence": 0.8422,
+          "answer_confidence": 0.8422,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 734,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1158.902928000316
+  },
+  {
+    "fixture_id": "F04_bare_ambiguous",
+    "text": "this",
+    "context": null,
+    "expected": {
+      "classify_intent": "clarification_required",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": true,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "this"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "generative_explanation",
+          "probabilities": {
+            "direct_state_read": 0.1978,
+            "evidence_retrieval": 0.0544,
+            "deterministic_computation": 0.1147,
+            "simulation": 0.0776,
+            "artifact_generation": 0.0781,
+            "generative_explanation": 0.2342,
+            "complex_synthesis": 0.0959,
+            "clarification_required": 0.1473
+          },
+          "confidence": 0.0518,
+          "answer_confidence": 0.2342,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "NONE",
+          "probabilities": {
+            "TWIN": 0.0213,
+            "EVIDENCE": 0.0246,
+            "PHYSIOLOGY": 0.0277,
+            "EXPERIMENT": 0.0215,
+            "COMPARE": 0.0088,
+            "UNCERTAINTY": 0.0199,
+            "REPORT": 0.0126,
+            "NONE": 0.8636
+          },
+          "confidence": 0.6844,
+          "answer_confidence": 0.8636,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.075,
+          "confidence": 0.925,
+          "answer_confidence": 0.925,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.064,
+          "confidence": 0.936,
+          "answer_confidence": 0.936,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0245,
+          "confidence": 0.9755,
+          "answer_confidence": 0.9755,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.5398,
+          "confidence": 0.5398,
+          "answer_confidence": 0.5398,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0301,
+          "confidence": 0.9699,
+          "answer_confidence": 0.9699,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 608,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "Latin script, language not identified and no non-English letters; using default (english)",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": null,
+          "is_english": true,
+          "language_undecided": true,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 917.0282480772585
+  },
+  {
+    "fixture_id": "F05_comparison_with_simulated_data",
+    "text": "Compare the directly observed versus the simulated ejection fraction over the last month",
+    "context": null,
+    "expected": {
+      "classify_intent": "complex_synthesis",
+      "select_tool_family": "COMPARE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": true
+    },
+    "request": {
+      "state": {
+        "text": "Compare the directly observed versus the simulated ejection fraction over the last month"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "simulation",
+          "probabilities": {
+            "direct_state_read": 0.0525,
+            "evidence_retrieval": 0.0094,
+            "deterministic_computation": 0.1214,
+            "simulation": 0.6668,
+            "artifact_generation": 0.0104,
+            "generative_explanation": 0.0172,
+            "complex_synthesis": 0.1103,
+            "clarification_required": 0.0119
+          },
+          "confidence": 0.4526,
+          "answer_confidence": 0.6668,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "COMPARE",
+          "probabilities": {
+            "TWIN": 0.0034,
+            "EVIDENCE": 0.0092,
+            "PHYSIOLOGY": 0.0024,
+            "EXPERIMENT": 0.0317,
+            "COMPARE": 0.9333,
+            "UNCERTAINTY": 0.0013,
+            "REPORT": 0.0028,
+            "NONE": 0.0159
+          },
+          "confidence": 0.8356,
+          "answer_confidence": 0.9333,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.094,
+          "confidence": 0.906,
+          "answer_confidence": 0.906,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.4461,
+          "confidence": 0.5539,
+          "answer_confidence": 0.5539,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0458,
+          "confidence": 0.9542,
+          "answer_confidence": 0.9542,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1099,
+          "confidence": 0.8901,
+          "answer_confidence": 0.8901,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.1102,
+          "confidence": 0.8898,
+          "answer_confidence": 0.8898,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 692,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1119.7108179330826
+  },
+  {
+    "fixture_id": "F06_artifact_report_with_recovery_word",
+    "text": "Generate a PDF report summarizing this week's recovery trajectory",
+    "context": {
+      "scenario_id": "scn_9"
+    },
+    "expected": {
+      "classify_intent": "artifact_generation",
+      "select_tool_family": "REPORT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "Generate a PDF report summarizing this week's recovery trajectory",
+        "scenario_id": "scn_9"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "artifact_generation",
+          "probabilities": {
+            "direct_state_read": 0.0007,
+            "evidence_retrieval": 0.0003,
+            "deterministic_computation": 0.0006,
+            "simulation": 0.0092,
+            "artifact_generation": 0.9882,
+            "generative_explanation": 0.0005,
+            "complex_synthesis": 0.0003,
+            "clarification_required": 0.0003
+          },
+          "confidence": 0.964,
+          "answer_confidence": 0.9882,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "REPORT",
+          "probabilities": {
+            "TWIN": 0.0013,
+            "EVIDENCE": 0.001,
+            "PHYSIOLOGY": 0.0009,
+            "EXPERIMENT": 0.056,
+            "COMPARE": 0.0006,
+            "UNCERTAINTY": 0.0005,
+            "REPORT": 0.9347,
+            "NONE": 0.0049
+          },
+          "confidence": 0.8648,
+          "answer_confidence": 0.9347,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.1239,
+          "confidence": 0.8761,
+          "answer_confidence": 0.8761,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.4744,
+          "confidence": 0.5256,
+          "answer_confidence": 0.5256,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0944,
+          "confidence": 0.9056,
+          "answer_confidence": 0.9056,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1222,
+          "confidence": 0.8778,
+          "answer_confidence": 0.8778,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0615,
+          "confidence": 0.9385,
+          "answer_confidence": 0.9385,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 762,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1625.202514929697
+  },
+  {
+    "fixture_id": "F07_why_causal_ef",
+    "text": "Why does the ejection fraction drop after the beta blocker dose?",
+    "context": null,
+    "expected": {
+      "classify_intent": "generative_explanation",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "Why does the ejection fraction drop after the beta blocker dose?"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "generative_explanation",
+          "probabilities": {
+            "direct_state_read": 0.0086,
+            "evidence_retrieval": 0.0061,
+            "deterministic_computation": 0.008,
+            "simulation": 0.0275,
+            "artifact_generation": 0.0024,
+            "generative_explanation": 0.9232,
+            "complex_synthesis": 0.0047,
+            "clarification_required": 0.0196
+          },
+          "confidence": 0.8077,
+          "answer_confidence": 0.9232,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "NONE",
+          "probabilities": {
+            "TWIN": 0.039,
+            "EVIDENCE": 0.2499,
+            "PHYSIOLOGY": 0.1669,
+            "EXPERIMENT": 0.0104,
+            "COMPARE": 0.0135,
+            "UNCERTAINTY": 0.0373,
+            "REPORT": 0.017,
+            "NONE": 0.4659
+          },
+          "confidence": 0.3145,
+          "answer_confidence": 0.4659,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.2989,
+          "confidence": 0.7011,
+          "answer_confidence": 0.7011,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.1034,
+          "confidence": 0.8966,
+          "answer_confidence": 0.8966,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0799,
+          "confidence": 0.9201,
+          "answer_confidence": 0.9201,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1865,
+          "confidence": 0.8135,
+          "answer_confidence": 0.8135,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0866,
+          "confidence": 0.9134,
+          "answer_confidence": 0.9134,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 685,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1600.986598059535
+  },
+  {
+    "fixture_id": "F08_physician_audience_worry",
+    "text": "I'm worried this looks abnormal, is there a risk here for the patient?",
+    "context": {
+      "patient_id": "p_44",
+      "audience": "physician"
+    },
+    "expected": {
+      "classify_intent": "generative_explanation",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "I'm worried this looks abnormal, is there a risk here for the patient?",
+        "patient_id": "p_44",
+        "audience": "physician"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "clarification_required",
+          "probabilities": {
+            "direct_state_read": 0.076,
+            "evidence_retrieval": 0.0444,
+            "deterministic_computation": 0.0564,
+            "simulation": 0.0218,
+            "artifact_generation": 0.0175,
+            "generative_explanation": 0.1391,
+            "complex_synthesis": 0.0193,
+            "clarification_required": 0.6254
+          },
+          "confidence": 0.3773,
+          "answer_confidence": 0.6254,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "NONE",
+          "probabilities": {
+            "TWIN": 0.0466,
+            "EVIDENCE": 0.0801,
+            "PHYSIOLOGY": 0.1179,
+            "EXPERIMENT": 0.0107,
+            "COMPARE": 0.0103,
+            "UNCERTAINTY": 0.1018,
+            "REPORT": 0.0073,
+            "NONE": 0.6253
+          },
+          "confidence": 0.3965,
+          "answer_confidence": 0.6253,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.4292,
+          "confidence": 0.5708,
+          "answer_confidence": 0.5708,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.0023,
+          "confidence": 0.9977,
+          "answer_confidence": 0.9977,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0584,
+          "confidence": 0.9416,
+          "answer_confidence": 0.9416,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.3278,
+          "confidence": 0.6722,
+          "answer_confidence": 0.6722,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0,
+          "confidence": 1.0,
+          "answer_confidence": 1.0,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 832,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1800.7252181414515
+  },
+  {
+    "fixture_id": "F09_direct_read_with_component_context",
+    "text": "Show me the current pressure-volume loop for this component",
+    "context": {
+      "component_id": "cmp_valve_1"
+    },
+    "expected": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "Show me the current pressure-volume loop for this component",
+        "component_id": "cmp_valve_1"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "complex_synthesis",
+          "probabilities": {
+            "direct_state_read": 0.1372,
+            "evidence_retrieval": 0.0254,
+            "deterministic_computation": 0.1246,
+            "simulation": 0.1937,
+            "artifact_generation": 0.047,
+            "generative_explanation": 0.0306,
+            "complex_synthesis": 0.4172,
+            "clarification_required": 0.0243
+          },
+          "confidence": 0.2071,
+          "answer_confidence": 0.4172,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "COMPARE",
+          "probabilities": {
+            "TWIN": 0.0791,
+            "EVIDENCE": 0.0754,
+            "PHYSIOLOGY": 0.107,
+            "EXPERIMENT": 0.0336,
+            "COMPARE": 0.4429,
+            "UNCERTAINTY": 0.009,
+            "REPORT": 0.0155,
+            "NONE": 0.2373
+          },
+          "confidence": 0.2507,
+          "answer_confidence": 0.4429,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.0163,
+          "confidence": 0.9837,
+          "answer_confidence": 0.9837,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.1478,
+          "confidence": 0.8522,
+          "answer_confidence": 0.8522,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.2494,
+          "confidence": 0.7506,
+          "answer_confidence": 0.7506,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1193,
+          "confidence": 0.8807,
+          "answer_confidence": 0.8807,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.1331,
+          "confidence": 0.8669,
+          "answer_confidence": 0.8669,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 769,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1729.7529471106827
+  },
+  {
+    "fixture_id": "F10_empty_input",
+    "text": "",
+    "context": null,
+    "expected": {
+      "classify_intent": "clarification_required",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": true,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": ""
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "direct_state_read",
+          "probabilities": {
+            "direct_state_read": 0.1975,
+            "evidence_retrieval": 0.0799,
+            "deterministic_computation": 0.1541,
+            "simulation": 0.1399,
+            "artifact_generation": 0.0797,
+            "generative_explanation": 0.1654,
+            "complex_synthesis": 0.0972,
+            "clarification_required": 0.0863
+          },
+          "confidence": 0.0272,
+          "answer_confidence": 0.1975,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "NONE",
+          "probabilities": {
+            "TWIN": 0.038,
+            "EVIDENCE": 0.0395,
+            "PHYSIOLOGY": 0.046,
+            "EXPERIMENT": 0.0409,
+            "COMPARE": 0.0206,
+            "UNCERTAINTY": 0.0277,
+            "REPORT": 0.0229,
+            "NONE": 0.7645
+          },
+          "confidence": 0.5213,
+          "answer_confidence": 0.7645,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.1089,
+          "confidence": 0.8911,
+          "answer_confidence": 0.8911,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.1045,
+          "confidence": 0.8955,
+          "answer_confidence": 0.8955,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0408,
+          "confidence": 0.9592,
+          "answer_confidence": 0.9592,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.4898,
+          "confidence": 0.5102,
+          "answer_confidence": 0.5102,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0001,
+          "confidence": 0.9999,
+          "answer_confidence": 0.9999,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 601,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "no letters detected in state; using default (english)",
+        "detection": {
+          "script": "unknown",
+          "script_profile": {},
+          "language": null,
+          "is_english": true,
+          "language_undecided": true,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1091.2650909740478
+  },
+  {
+    "fixture_id": "F11_shadow_trial_experiment",
+    "text": "Run a shadow trial experiment comparing the ACE inhibitor pathway against placebo, and tell me which findings differ",
+    "context": null,
+    "expected": {
+      "classify_intent": "simulation",
+      "select_tool_family": "EXPERIMENT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": true,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": true
+    },
+    "request": {
+      "state": {
+        "text": "Run a shadow trial experiment comparing the ACE inhibitor pathway against placebo, and tell me which findings differ"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "simulation",
+          "probabilities": {
+            "direct_state_read": 0.0026,
+            "evidence_retrieval": 0.0022,
+            "deterministic_computation": 0.0345,
+            "simulation": 0.9008,
+            "artifact_generation": 0.0258,
+            "generative_explanation": 0.0091,
+            "complex_synthesis": 0.0177,
+            "clarification_required": 0.0073
+          },
+          "confidence": 0.7674,
+          "answer_confidence": 0.9008,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "EXPERIMENT",
+          "probabilities": {
+            "TWIN": 0.0003,
+            "EVIDENCE": 0.0011,
+            "PHYSIOLOGY": 0.0005,
+            "EXPERIMENT": 0.983,
+            "COMPARE": 0.01,
+            "UNCERTAINTY": 0.0003,
+            "REPORT": 0.0003,
+            "NONE": 0.0046
+          },
+          "confidence": 0.9491,
+          "answer_confidence": 0.983,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.1165,
+          "confidence": 0.8835,
+          "answer_confidence": 0.8835,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.1271,
+          "confidence": 0.8729,
+          "answer_confidence": 0.8729,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.0405,
+          "confidence": 0.9595,
+          "answer_confidence": 0.9595,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.0936,
+          "confidence": 0.9064,
+          "answer_confidence": 0.9064,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.1026,
+          "confidence": 0.8974,
+          "answer_confidence": 0.8974,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 734,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1159.5054920762777
+  },
+  {
+    "fixture_id": "F12_uncertainty_ensemble",
+    "text": "What evidence would change your assessment of the ensemble's dominant assumption here?",
+    "context": {
+      "ensemble_id": "ens_7"
+    },
+    "expected": {
+      "classify_intent": "evidence_retrieval",
+      "select_tool_family": "UNCERTAINTY",
+      "needs_evidence_retrieval": true,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "What evidence would change your assessment of the ensemble's dominant assumption here?",
+        "ensemble_id": "ens_7"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "evidence_retrieval",
+          "probabilities": {
+            "direct_state_read": 0.0033,
+            "evidence_retrieval": 0.8995,
+            "deterministic_computation": 0.0062,
+            "simulation": 0.0047,
+            "artifact_generation": 0.0053,
+            "generative_explanation": 0.0377,
+            "complex_synthesis": 0.0213,
+            "clarification_required": 0.0221
+          },
+          "confidence": 0.7653,
+          "answer_confidence": 0.8995,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "EVIDENCE",
+          "probabilities": {
+            "TWIN": 0.0197,
+            "EVIDENCE": 0.6886,
+            "PHYSIOLOGY": 0.0083,
+            "EXPERIMENT": 0.0071,
+            "COMPARE": 0.0268,
+            "UNCERTAINTY": 0.0673,
+            "REPORT": 0.0086,
+            "NONE": 0.1735
+          },
+          "confidence": 0.5033,
+          "answer_confidence": 0.6886,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.5554,
+          "confidence": 0.5554,
+          "answer_confidence": 0.5554,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.0134,
+          "confidence": 0.9866,
+          "answer_confidence": 0.9866,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.7451,
+          "confidence": 0.7451,
+          "answer_confidence": 0.7451,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.204,
+          "confidence": 0.796,
+          "answer_confidence": 0.796,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0705,
+          "confidence": 0.9295,
+          "answer_confidence": 0.9295,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 776,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1274.4731770362705
+  },
+  {
+    "fixture_id": "F13_compare_simulated_vs_observed_long",
+    "text": "Can you compare last month's directly observed heart rate versus the simulated heart rate and summarize which one tracks better?",
+    "context": {
+      "scenario_id": "scn_2",
+      "snapshot_id": "snap_5"
+    },
+    "expected": {
+      "classify_intent": "complex_synthesis",
+      "select_tool_family": "COMPARE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": true
+    },
+    "request": {
+      "state": {
+        "text": "Can you compare last month's directly observed heart rate versus the simulated heart rate and summarize which one tracks better?",
+        "scenario_id": "scn_2",
+        "snapshot_id": "snap_5"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "simulation",
+          "probabilities": {
+            "direct_state_read": 0.1535,
+            "evidence_retrieval": 0.0364,
+            "deterministic_computation": 0.1135,
+            "simulation": 0.5639,
+            "artifact_generation": 0.0079,
+            "generative_explanation": 0.0211,
+            "complex_synthesis": 0.0842,
+            "clarification_required": 0.0196
+          },
+          "confidence": 0.3348,
+          "answer_confidence": 0.5639,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "COMPARE",
+          "probabilities": {
+            "TWIN": 0.0287,
+            "EVIDENCE": 0.1067,
+            "PHYSIOLOGY": 0.0091,
+            "EXPERIMENT": 0.0354,
+            "COMPARE": 0.6677,
+            "UNCERTAINTY": 0.0062,
+            "REPORT": 0.1073,
+            "NONE": 0.0389
+          },
+          "confidence": 0.4379,
+          "answer_confidence": 0.6677,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.1307,
+          "confidence": 0.8693,
+          "answer_confidence": 0.8693,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.5986,
+          "confidence": 0.5986,
+          "answer_confidence": 0.5986,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.241,
+          "confidence": 0.759,
+          "answer_confidence": 0.759,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1627,
+          "confidence": 0.8373,
+          "answer_confidence": 0.8373,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.1665,
+          "confidence": 0.8335,
+          "answer_confidence": 0.8335,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 909,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1369.5270391181111
+  },
+  {
+    "fixture_id": "F14_short_get_status",
+    "text": "Get the current status",
+    "context": null,
+    "expected": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "request": {
+      "state": {
+        "text": "Get the current status"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "direct_state_read",
+          "probabilities": {
+            "direct_state_read": 0.9926,
+            "evidence_retrieval": 0.0033,
+            "deterministic_computation": 0.0004,
+            "simulation": 0.0004,
+            "artifact_generation": 0.0009,
+            "generative_explanation": 0.0011,
+            "complex_synthesis": 0.0004,
+            "clarification_required": 0.001
+          },
+          "confidence": 0.9731,
+          "answer_confidence": 0.9926,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "NONE",
+          "probabilities": {
+            "TWIN": 0.1995,
+            "EVIDENCE": 0.0619,
+            "PHYSIOLOGY": 0.0219,
+            "EXPERIMENT": 0.0403,
+            "COMPARE": 0.0178,
+            "UNCERTAINTY": 0.0128,
+            "REPORT": 0.1116,
+            "NONE": 0.5342
+          },
+          "confidence": 0.3199,
+          "answer_confidence": 0.5342,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.069,
+          "confidence": 0.931,
+          "answer_confidence": 0.931,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.0001,
+          "confidence": 0.9999,
+          "answer_confidence": 0.9999,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.1775,
+          "confidence": 0.8225,
+          "answer_confidence": 0.8225,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1498,
+          "confidence": 0.8502,
+          "answer_confidence": 0.8502,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.0003,
+          "confidence": 0.9997,
+          "answer_confidence": 0.9997,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 629,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1032.7634948771447
+  },
+  {
+    "fixture_id": "F15_hemodynamic_causal_with_risk_word",
+    "text": "How does the hemodynamic feedback loop cause the pressure drop, and why is that concerning for this patient right now",
+    "context": {
+      "patient_id": "p_9"
+    },
+    "expected": {
+      "classify_intent": "generative_explanation",
+      "select_tool_family": "PHYSIOLOGY",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": true
+    },
+    "request": {
+      "state": {
+        "text": "How does the hemodynamic feedback loop cause the pressure drop, and why is that concerning for this patient right now",
+        "patient_id": "p_9"
+      },
+      "questions": {
+        "classify_intent": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT execution class that best routes this request.",
+          "criteria": {
+            "direct_state_read": "the request asks to read a current value from the twin, with no computation or simulation needed",
+            "evidence_retrieval": "the request asks for sources, provenance, or where a number/claim comes from",
+            "deterministic_computation": "the request asks to calculate or compute a hemodynamic/physics quantity directly",
+            "simulation": "the request asks to run or explore a what-if scenario or recovery simulation",
+            "artifact_generation": "the request asks to generate a report, brief, or document artifact",
+            "generative_explanation": "the request asks why or how something works, wanting an explanation",
+            "complex_synthesis": "the request asks to compare or synthesize multiple sources or data series",
+            "clarification_required": "the request is too vague or ambiguous to route safely without asking a follow-up question"
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "instructions": "Pick exactly one BeatIT tool-registry category (or NONE) that should handle this request.",
+          "criteria": {
+            "TWIN": "a question about the current cardiac digital twin state, snapshot, or component",
+            "EVIDENCE": "a question asking for sources, provenance, or citations",
+            "PHYSIOLOGY": "a question about hemodynamics, PV loops, ECG, or causal physiology",
+            "EXPERIMENT": "a request to run a scenario, shadow trial, or simulation experiment",
+            "COMPARE": "a request to compare or contrast two or more things",
+            "UNCERTAINTY": "a question about confidence, assumptions, missing evidence, or ensemble disagreement",
+            "REPORT": "a request to generate a summary report or brief",
+            "NONE": "no specialist tool is needed; a plain conversational reply suffices"
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "instructions": "Should the response be framed with physician-review evidence density (assumptions, provenance, uncertainty)?",
+          "criteria": {}
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "instructions": "Does answering this request require running a deterministic scenario/recovery simulation?",
+          "criteria": {}
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "instructions": "Does answering this request require retrieving provenance/evidence records?",
+          "criteria": {}
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "instructions": "Is this request too ambiguous or underspecified to route safely without asking a clarifying question?",
+          "criteria": {}
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "instructions": "Does this request require deep multi-source synthesis (vs. a simple explanation or a direct state read)?",
+          "criteria": {}
+        }
+      }
+    },
+    "response": {
+      "model": "laya-rl-agent",
+      "answers": {
+        "classify_intent": {
+          "type": "choice",
+          "choice": "generative_explanation",
+          "probabilities": {
+            "direct_state_read": 0.1061,
+            "evidence_retrieval": 0.0319,
+            "deterministic_computation": 0.0297,
+            "simulation": 0.0391,
+            "artifact_generation": 0.0204,
+            "generative_explanation": 0.4974,
+            "complex_synthesis": 0.0956,
+            "clarification_required": 0.1799
+          },
+          "confidence": 0.26,
+          "answer_confidence": 0.4974,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "select_tool_family": {
+          "type": "choice",
+          "choice": "PHYSIOLOGY",
+          "probabilities": {
+            "TWIN": 0.0079,
+            "EVIDENCE": 0.0635,
+            "PHYSIOLOGY": 0.5619,
+            "EXPERIMENT": 0.0115,
+            "COMPARE": 0.0071,
+            "UNCERTAINTY": 0.0142,
+            "REPORT": 0.0349,
+            "NONE": 0.2989
+          },
+          "confidence": 0.4411,
+          "answer_confidence": 0.5619,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_physician_review_framing": {
+          "type": "noul",
+          "noul": 0.2488,
+          "confidence": 0.7512,
+          "answer_confidence": 0.7512,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_simulation": {
+          "type": "noul",
+          "noul": 0.1012,
+          "confidence": 0.8988,
+          "answer_confidence": 0.8988,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_evidence_retrieval": {
+          "type": "noul",
+          "noul": 0.2529,
+          "confidence": 0.7471,
+          "answer_confidence": 0.7471,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "needs_clarification": {
+          "type": "noul",
+          "noul": 0.1656,
+          "confidence": 0.8344,
+          "answer_confidence": 0.8344,
+          "action": {
+            "act_probability": 1.0
+          }
+        },
+        "is_complex_reasoning_required": {
+          "type": "noul",
+          "noul": 0.1018,
+          "confidence": 0.8982,
+          "answer_confidence": 0.8982,
+          "action": {
+            "act_probability": 1.0
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 818,
+        "output_tokens": 0
+      },
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0
+        },
+        "workflow": null
+      }
+    },
+    "latency_ms": 1786.4327649585903
+  }
+]

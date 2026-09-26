@@ -1,0 +1,290 @@
+{
+  "fallback": {
+    "classify_intent": {
+      "accuracy": 0.7333333333333333,
+      "correct": 11,
+      "total": 15,
+      "confusion": {
+        "direct_state_read": {
+          "direct_state_read": 3
+        },
+        "simulation": {
+          "simulation": 2
+        },
+        "evidence_retrieval": {
+          "evidence_retrieval": 2
+        },
+        "clarification_required": {
+          "clarification_required": 2
+        },
+        "complex_synthesis": {
+          "simulation": 2
+        },
+        "artifact_generation": {
+          "simulation": 1
+        },
+        "generative_explanation": {
+          "generative_explanation": 2,
+          "deterministic_computation": 1
+        }
+      }
+    },
+    "select_tool_family": {
+      "accuracy": 0.8,
+      "correct": 12,
+      "total": 15,
+      "confusion": {
+        "TWIN": {
+          "TWIN": 5
+        },
+        "EXPERIMENT": {
+          "EXPERIMENT": 2
+        },
+        "NONE": {
+          "NONE": 3
+        },
+        "COMPARE": {
+          "EXPERIMENT": 2
+        },
+        "REPORT": {
+          "REPORT": 1
+        },
+        "UNCERTAINTY": {
+          "EVIDENCE": 1
+        },
+        "PHYSIOLOGY": {
+          "PHYSIOLOGY": 1
+        }
+      }
+    },
+    "needs_evidence_retrieval": {
+      "accuracy": 1.0,
+      "correct": 15,
+      "total": 15,
+      "confusion": {
+        "False": {
+          "False": 13
+        },
+        "True": {
+          "True": 2
+        }
+      }
+    },
+    "needs_simulation": {
+      "accuracy": 0.7333333333333333,
+      "correct": 11,
+      "total": 15,
+      "confusion": {
+        "False": {
+          "False": 10,
+          "True": 3
+        },
+        "True": {
+          "True": 1,
+          "False": 1
+        }
+      }
+    },
+    "needs_clarification": {
+      "accuracy": 1.0,
+      "correct": 15,
+      "total": 15,
+      "confusion": {
+        "False": {
+          "False": 13
+        },
+        "True": {
+          "True": 2
+        }
+      }
+    },
+    "needs_physician_review_framing": {
+      "accuracy": 1.0,
+      "correct": 15,
+      "total": 15,
+      "confusion": {
+        "False": {
+          "False": 12
+        },
+        "True": {
+          "True": 3
+        }
+      }
+    },
+    "is_complex_reasoning_required": {
+      "accuracy": 0.9333333333333333,
+      "correct": 14,
+      "total": 15,
+      "confusion": {
+        "False": {
+          "False": 11
+        },
+        "True": {
+          "True": 3,
+          "False": 1
+        }
+      }
+    }
+  },
+  "real_laya": {
+    "classify_intent": {
+      "accuracy": 0.6,
+      "correct": 9,
+      "total": 15,
+      "brier": 0.4876420466666666,
+      "ece": 0.1536133333333333,
+      "confusion": {
+        "direct_state_read": {
+          "direct_state_read": 2,
+          "complex_synthesis": 1
+        },
+        "simulation": {
+          "simulation": 2
+        },
+        "evidence_retrieval": {
+          "evidence_retrieval": 2
+        },
+        "clarification_required": {
+          "generative_explanation": 1,
+          "direct_state_read": 1
+        },
+        "complex_synthesis": {
+          "simulation": 2
+        },
+        "artifact_generation": {
+          "artifact_generation": 1
+        },
+        "generative_explanation": {
+          "generative_explanation": 2,
+          "clarification_required": 1
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0
+    },
+    "select_tool_family": {
+      "accuracy": 0.6,
+      "correct": 9,
+      "total": 15,
+      "brier": 0.5026595406666667,
+      "ece": 0.17842666666666668,
+      "confusion": {
+        "TWIN": {
+          "EVIDENCE": 2,
+          "NONE": 2,
+          "COMPARE": 1
+        },
+        "EXPERIMENT": {
+          "EXPERIMENT": 2
+        },
+        "NONE": {
+          "NONE": 3
+        },
+        "COMPARE": {
+          "COMPARE": 2
+        },
+        "REPORT": {
+          "REPORT": 1
+        },
+        "UNCERTAINTY": {
+          "EVIDENCE": 1
+        },
+        "PHYSIOLOGY": {
+          "PHYSIOLOGY": 1
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0
+    },
+    "needs_evidence_retrieval": {
+      "accuracy": 0.9333333333333333,
+      "correct": 14,
+      "total": 15,
+      "brier": 0.046703328,
+      "ece": 0.0694666666666667,
+      "confusion": {
+        "False": {
+          "False": 13
+        },
+        "True": {
+          "False": 1,
+          "True": 1
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0
+    },
+    "needs_simulation": {
+      "accuracy": 0.8,
+      "correct": 12,
+      "total": 15,
+      "brier": 0.146739282,
+      "ece": 0.07981999999999999,
+      "confusion": {
+        "False": {
+          "False": 12,
+          "True": 1
+        },
+        "True": {
+          "False": 2
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0
+    },
+    "needs_clarification": {
+      "accuracy": 0.9333333333333333,
+      "correct": 14,
+      "total": 15,
+      "brier": 0.05891191133333333,
+      "ece": 0.1479,
+      "confusion": {
+        "False": {
+          "False": 13
+        },
+        "True": {
+          "True": 1,
+          "False": 1
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0
+    },
+    "needs_physician_review_framing": {
+      "accuracy": 0.8,
+      "correct": 12,
+      "total": 15,
+      "brier": 0.108348954,
+      "ece": 0.13826000000000005,
+      "confusion": {
+        "False": {
+          "False": 11,
+          "True": 1
+        },
+        "True": {
+          "False": 2,
+          "True": 1
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0
+    },
+    "is_complex_reasoning_required": {
+      "accuracy": 0.7333333333333333,
+      "correct": 11,
+      "total": 15,
+      "brier": 0.2110158646666667,
+      "ece": 0.19162,
+      "confusion": {
+        "False": {
+          "False": 11
+        },
+        "True": {
+          "False": 4
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0
+    }
+  }
+}

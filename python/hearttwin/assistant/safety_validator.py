@@ -43,6 +43,7 @@ stricter-vs-permissive judgment call was made.
 from __future__ import annotations
 
 import re
+import unicodedata
 from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
@@ -155,8 +156,35 @@ _SUPPLEMENTAL_DIAGNOSIS_PATTERNS = [
 ]
 
 
+# Zero-width/invisible characters with no legitimate role in a chat message,
+# used to split a trigger word so no literal-substring check (ours, or the
+# imported intake_agent.py/safety.py checks we can't edit) ever sees it whole.
+# Found live by Wave 5's adversarial red-team (docs/assistant/wave5/
+# decision-adversary.md, "CRITICAL" finding): check_output_safety's four
+# independent layers all missed "medic​ation" simultaneously. Stripping
+# these, plus NFKD-decompose-and-drop-combining-marks (closes injected
+# diacritics like "medícation" and fullwidth-Unicode homoglyphs, both
+# also confirmed bypasses), before any downstream check — including the ones
+# in intake_agent.py/safety.py we intentionally never modify — closes the
+# gap for every layer at once without touching those shared files.
+#
+# Deliberately NOT attempted here (would need a different, higher-false-
+# positive-risk approach than Unicode normalization, and deserves its own
+# review rather than a rushed fix): leetspeak substitution ("wh4t sh0uld i
+# t4ke") and inserted-whitespace-inside-a-word ("medi cation"). Both remain
+# open, documented gaps — see decision-adversary.md.
+_ZERO_WIDTH_CHARS = "​‌‍⁠﻿"
+
+
+def _deobfuscate(text: str) -> str:
+    text = (text or "").translate({ord(ch): None for ch in _ZERO_WIDTH_CHARS})
+    decomposed = unicodedata.normalize("NFKD", text)
+    without_marks = "".join(ch for ch in decomposed if not unicodedata.combining(ch))
+    return unicodedata.normalize("NFKC", without_marks)
+
+
 def _normalize(text: str) -> str:
-    return re.sub(r"\s+", " ", (text or "").strip().lower())
+    return re.sub(r"\s+", " ", _deobfuscate(text).strip().lower())
 
 
 def _contains_any(text: str, patterns: list[str]) -> bool:
@@ -199,7 +227,14 @@ def classify_request_safety(text: str) -> RequestSafetyDecision:
     one — it can never soften or skip a rule-based block, preserving the
     exact guarantee ``_merge_decisions`` gives intake_agent.py itself.
     """
-    rule_decision: IntentDecision = _classify_intent_with_rules(text or "")
+    # Deobfuscate before handing text to intake_agent.py's regex too (not just
+    # our own supplemental patterns below) — closes the same zero-width/
+    # combining-mark/fullwidth-homoglyph evasion class on intake_agent's
+    # literal-string matching without editing that file. Never removes
+    # semantic content, only invisible/decorative characters, so this can
+    # only ever reveal a trigger phrase that was there all along — it cannot
+    # soften or mask one, preserving intake_agent's own block guarantee.
+    rule_decision: IntentDecision = _classify_intent_with_rules(_deobfuscate(text or ""))
 
     if rule_decision.safety_level == "blocked":
         category = _INTENT_TO_CATEGORY.get(rule_decision.intent_class, "normal")
@@ -375,7 +410,11 @@ def check_output_safety(generated_text: str) -> OutputSafetyDecision:
     A hit on ANY layer blocks. Terms are live-imported, never copy-pasted, so
     this can't silently fall behind either source growing new coverage.
     """
-    text = generated_text or ""
+    # Deobfuscate first so every layer below — including the two we live-import
+    # and never edit — sees the same evasion-resistant text; see _deobfuscate's
+    # docstring comment. strip_allowed_safety_phrases' own allowlist strings
+    # are plain ASCII, so deobfuscating first cannot affect that matching.
+    text = _deobfuscate(generated_text or "")
     matched_terms: list[str] = []
 
     checked = strip_allowed_safety_phrases(text)

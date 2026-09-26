@@ -1,0 +1,363 @@
+[
+  {
+    "fixture_id": "F01_direct_state_read_ef",
+    "text": "What is the current ejection fraction?",
+    "context": null,
+    "predictions": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F02_simulation_request",
+    "text": "What if the patient goes on a beta blocker regimen, run the recovery scenario",
+    "context": null,
+    "predictions": {
+      "classify_intent": "simulation",
+      "select_tool_family": "EXPERIMENT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": true,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "simulation",
+      "select_tool_family": "EXPERIMENT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": true,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F03_evidence_with_resolving_context",
+    "text": "Where does this ejection fraction number come from?",
+    "context": {
+      "snapshot_id": "snap_1"
+    },
+    "predictions": {
+      "classify_intent": "evidence_retrieval",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": true,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "evidence_retrieval",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": true,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F04_bare_ambiguous",
+    "text": "this",
+    "context": null,
+    "predictions": {
+      "classify_intent": "clarification_required",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": true,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "clarification_required",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": true,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F05_comparison_with_simulated_data",
+    "text": "Compare the directly observed versus the simulated ejection fraction over the last month",
+    "context": null,
+    "predictions": {
+      "classify_intent": "simulation",
+      "select_tool_family": "EXPERIMENT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": true,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": true
+    },
+    "expected": {
+      "classify_intent": "complex_synthesis",
+      "select_tool_family": "COMPARE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": true
+    }
+  },
+  {
+    "fixture_id": "F06_artifact_report_with_recovery_word",
+    "text": "Generate a PDF report summarizing this week's recovery trajectory",
+    "context": {
+      "scenario_id": "scn_9"
+    },
+    "predictions": {
+      "classify_intent": "simulation",
+      "select_tool_family": "REPORT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": true,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "artifact_generation",
+      "select_tool_family": "REPORT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F07_why_causal_ef",
+    "text": "Why does the ejection fraction drop after the beta blocker dose?",
+    "context": null,
+    "predictions": {
+      "classify_intent": "generative_explanation",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "generative_explanation",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F08_physician_audience_worry",
+    "text": "I'm worried this looks abnormal, is there a risk here for the patient?",
+    "context": {
+      "patient_id": "p_44",
+      "audience": "physician"
+    },
+    "predictions": {
+      "classify_intent": "generative_explanation",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "generative_explanation",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F09_direct_read_with_component_context",
+    "text": "Show me the current pressure-volume loop for this component",
+    "context": {
+      "component_id": "cmp_valve_1"
+    },
+    "predictions": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F10_empty_input",
+    "text": "",
+    "context": null,
+    "predictions": {
+      "classify_intent": "clarification_required",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": true,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "clarification_required",
+      "select_tool_family": "NONE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": true,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F11_shadow_trial_experiment",
+    "text": "Run a shadow trial experiment comparing the ACE inhibitor pathway against placebo, and tell me which findings differ",
+    "context": null,
+    "predictions": {
+      "classify_intent": "simulation",
+      "select_tool_family": "EXPERIMENT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "simulation",
+      "select_tool_family": "EXPERIMENT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": true,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": true
+    }
+  },
+  {
+    "fixture_id": "F12_uncertainty_ensemble",
+    "text": "What evidence would change your assessment of the ensemble's dominant assumption here?",
+    "context": {
+      "ensemble_id": "ens_7"
+    },
+    "predictions": {
+      "classify_intent": "evidence_retrieval",
+      "select_tool_family": "EVIDENCE",
+      "needs_evidence_retrieval": true,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "evidence_retrieval",
+      "select_tool_family": "UNCERTAINTY",
+      "needs_evidence_retrieval": true,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F13_compare_simulated_vs_observed_long",
+    "text": "Can you compare last month's directly observed heart rate versus the simulated heart rate and summarize which one tracks better?",
+    "context": {
+      "scenario_id": "scn_2",
+      "snapshot_id": "snap_5"
+    },
+    "predictions": {
+      "classify_intent": "simulation",
+      "select_tool_family": "EXPERIMENT",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": true,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": true
+    },
+    "expected": {
+      "classify_intent": "complex_synthesis",
+      "select_tool_family": "COMPARE",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": true
+    }
+  },
+  {
+    "fixture_id": "F14_short_get_status",
+    "text": "Get the current status",
+    "context": null,
+    "predictions": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    },
+    "expected": {
+      "classify_intent": "direct_state_read",
+      "select_tool_family": "TWIN",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": false,
+      "is_complex_reasoning_required": false
+    }
+  },
+  {
+    "fixture_id": "F15_hemodynamic_causal_with_risk_word",
+    "text": "How does the hemodynamic feedback loop cause the pressure drop, and why is that concerning for this patient right now",
+    "context": {
+      "patient_id": "p_9"
+    },
+    "predictions": {
+      "classify_intent": "deterministic_computation",
+      "select_tool_family": "PHYSIOLOGY",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": true
+    },
+    "expected": {
+      "classify_intent": "generative_explanation",
+      "select_tool_family": "PHYSIOLOGY",
+      "needs_evidence_retrieval": false,
+      "needs_simulation": false,
+      "needs_clarification": false,
+      "needs_physician_review_framing": true,
+      "is_complex_reasoning_required": true
+    }
+  }
+]

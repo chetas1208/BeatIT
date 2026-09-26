@@ -168,7 +168,20 @@ async def _call_systemone(
     try:
         import httpx  # imported lazily so the dependency stays optional at import time
 
-        criteria: dict[str, Any] = {"options": list(options)} if options else {}
+        # Real Laya's choice-question parser (laya/shortlist.py::_criteria_items
+        # in the installed package) reads `criteria` as {label: description}
+        # pairs via .items() — a list under one "options" key collapses into a
+        # single bogus option literally named "options" instead of N real
+        # ones. Found live against a real server during Wave 5's evaluation
+        # (docs/assistant/wave5/laya-evaluation.md, docs/assistant/wave5/
+        # artifacts/laya_adapter_bug_evidence.json): with the old shape,
+        # classify_intent/select_tool_family always silently fell through to
+        # the fallback even against a healthy server. Each option's own label
+        # doubles as its description — LAYA_RESEARCH.md never specified a
+        # richer per-option description format, and this is the minimal
+        # change that fixes the actual structural bug (Laya seeing all real
+        # options, not fabricating a description it wasn't given).
+        criteria: dict[str, Any] = {opt: opt for opt in options} if options else {}
         payload = {
             "state": {"text": text, **(context or {})},
             "questions": {

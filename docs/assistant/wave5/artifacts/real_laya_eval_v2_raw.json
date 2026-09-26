@@ -1,0 +1,3628 @@
+{
+  "classify_intent": [
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": "direct_state_read",
+      "predicted": "direct_state_read",
+      "correct": true,
+      "latency_ms": 305.9117889497429,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "direct_state_read",
+        "probabilities": {
+          "direct_state_read": 0.9975,
+          "evidence_retrieval": 0.0003,
+          "deterministic_computation": 0.0001,
+          "simulation": 0.0,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.0004,
+          "complex_synthesis": 0.0,
+          "clarification_required": 0.0003,
+          "insufficient_evidence": 0.0011,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0002
+        },
+        "confidence": 0.9912,
+        "answer_confidence": 0.9975,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Show me the LV ejection fraction right now.",
+      "context": {},
+      "expected": "direct_state_read",
+      "predicted": "direct_state_read",
+      "correct": true,
+      "latency_ms": 276.370886946097,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "direct_state_read",
+        "probabilities": {
+          "direct_state_read": 0.905,
+          "evidence_retrieval": 0.0053,
+          "deterministic_computation": 0.0201,
+          "simulation": 0.0,
+          "artifact_generation": 0.0004,
+          "generative_explanation": 0.0022,
+          "complex_synthesis": 0.0016,
+          "clarification_required": 0.0013,
+          "insufficient_evidence": 0.0423,
+          "human_decision_required": 0.0002,
+          "unsupported": 0.0216
+        },
+        "confidence": 0.8121,
+        "answer_confidence": 0.905,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "jargon"
+    },
+    {
+      "text": "whats the ef",
+      "context": {},
+      "expected": "direct_state_read",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "latency_ms": 275.15688398852944,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "generative_explanation",
+        "probabilities": {
+          "direct_state_read": 0.0001,
+          "evidence_retrieval": 0.0009,
+          "deterministic_computation": 0.001,
+          "simulation": 0.0005,
+          "artifact_generation": 0.0001,
+          "generative_explanation": 0.7437,
+          "complex_synthesis": 0.0012,
+          "clarification_required": 0.2105,
+          "insufficient_evidence": 0.0029,
+          "human_decision_required": 0.0002,
+          "unsupported": 0.0391
+        },
+        "confidence": 0.6998,
+        "answer_confidence": 0.7437,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "shorthand"
+    },
+    {
+      "text": "Where did this EF value come from?",
+      "context": {},
+      "expected": "evidence_retrieval",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "latency_ms": 265.9863911103457,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "generative_explanation",
+        "probabilities": {
+          "direct_state_read": 0.0085,
+          "evidence_retrieval": 0.0233,
+          "deterministic_computation": 0.0004,
+          "simulation": 0.0,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.9388,
+          "complex_synthesis": 0.0008,
+          "clarification_required": 0.0095,
+          "insufficient_evidence": 0.0117,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.0067
+        },
+        "confidence": 0.8633,
+        "answer_confidence": 0.9388,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Can you cite the source for the QTc measurement?",
+      "context": {},
+      "expected": "evidence_retrieval",
+      "predicted": "evidence_retrieval",
+      "correct": true,
+      "latency_ms": 274.4503451976925,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "evidence_retrieval",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.9825,
+          "deterministic_computation": 0.0,
+          "simulation": 0.0,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.0002,
+          "complex_synthesis": 0.0,
+          "clarification_required": 0.0122,
+          "insufficient_evidence": 0.0036,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0014
+        },
+        "confidence": 0.9572,
+        "answer_confidence": 0.9825,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the provenance of the echo-derived stroke volume?",
+      "context": {},
+      "expected": "evidence_retrieval",
+      "predicted": "evidence_retrieval",
+      "correct": true,
+      "latency_ms": 282.08604687824845,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "evidence_retrieval",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.842,
+          "deterministic_computation": 0.0001,
+          "simulation": 0.0,
+          "artifact_generation": 0.0001,
+          "generative_explanation": 0.0011,
+          "complex_synthesis": 0.0012,
+          "clarification_required": 0.012,
+          "insufficient_evidence": 0.1102,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.0332
+        },
+        "confidence": 0.7614,
+        "answer_confidence": 0.842,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "jargon"
+    },
+    {
+      "text": "Calculate the cardiac output from HR and stroke volume.",
+      "context": {},
+      "expected": "deterministic_computation",
+      "predicted": "deterministic_computation",
+      "correct": true,
+      "latency_ms": 373.79689584486187,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "deterministic_computation",
+        "probabilities": {
+          "direct_state_read": 0.0002,
+          "evidence_retrieval": 0.0014,
+          "deterministic_computation": 0.9224,
+          "simulation": 0.0012,
+          "artifact_generation": 0.0005,
+          "generative_explanation": 0.0011,
+          "complex_synthesis": 0.005,
+          "clarification_required": 0.0004,
+          "insufficient_evidence": 0.0043,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.0632
+        },
+        "confidence": 0.8607,
+        "answer_confidence": 0.9224,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Compute the PV loop for the current snapshot.",
+      "context": {},
+      "expected": "deterministic_computation",
+      "predicted": "deterministic_computation",
+      "correct": true,
+      "latency_ms": 314.14813781157136,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "deterministic_computation",
+        "probabilities": {
+          "direct_state_read": 0.0004,
+          "evidence_retrieval": 0.0004,
+          "deterministic_computation": 0.9533,
+          "simulation": 0.0163,
+          "artifact_generation": 0.0002,
+          "generative_explanation": 0.0001,
+          "complex_synthesis": 0.0244,
+          "clarification_required": 0.0003,
+          "insufficient_evidence": 0.0017,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.0029
+        },
+        "confidence": 0.8987,
+        "answer_confidence": 0.9533,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Give me the hemodynamic numbers for this component.",
+      "context": {},
+      "expected": "deterministic_computation",
+      "predicted": "direct_state_read",
+      "correct": false,
+      "latency_ms": 322.50941498205066,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "direct_state_read",
+        "probabilities": {
+          "direct_state_read": 0.9501,
+          "evidence_retrieval": 0.0073,
+          "deterministic_computation": 0.0296,
+          "simulation": 0.0,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.0001,
+          "complex_synthesis": 0.0009,
+          "clarification_required": 0.0003,
+          "insufficient_evidence": 0.0107,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0011
+        },
+        "confidence": 0.8939,
+        "answer_confidence": 0.9501,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "jargon"
+    },
+    {
+      "text": "What if we reduce afterload by 20%?",
+      "context": {},
+      "expected": "simulation",
+      "predicted": "simulation",
+      "correct": true,
+      "latency_ms": 324.116013944149,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "simulation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0,
+          "deterministic_computation": 0.001,
+          "simulation": 0.9989,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.0,
+          "complex_synthesis": 0.0,
+          "clarification_required": 0.0,
+          "insufficient_evidence": 0.0,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0001
+        },
+        "confidence": 0.9961,
+        "answer_confidence": 0.9989,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Run a recovery scenario for this patient.",
+      "context": {},
+      "expected": "simulation",
+      "predicted": "simulation",
+      "correct": true,
+      "latency_ms": 323.893039021641,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "simulation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0,
+          "deterministic_computation": 0.0,
+          "simulation": 0.9999,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.0,
+          "complex_synthesis": 0.0,
+          "clarification_required": 0.0,
+          "insufficient_evidence": 0.0,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0
+        },
+        "confidence": 0.9997,
+        "answer_confidence": 0.9999,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Rerun the ensemble with updated priors.",
+      "context": {},
+      "expected": "simulation",
+      "predicted": "simulation",
+      "correct": true,
+      "latency_ms": 323.51285009644926,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "simulation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0,
+          "deterministic_computation": 0.002,
+          "simulation": 0.9946,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.0,
+          "complex_synthesis": 0.0033,
+          "clarification_required": 0.0,
+          "insufficient_evidence": 0.0,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0001
+        },
+        "confidence": 0.9843,
+        "answer_confidence": 0.9946,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Generate a PDF report of this patient's twin.",
+      "context": {},
+      "expected": "artifact_generation",
+      "predicted": "artifact_generation",
+      "correct": true,
+      "latency_ms": 326.62790012545884,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "artifact_generation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0,
+          "deterministic_computation": 0.0,
+          "simulation": 0.0,
+          "artifact_generation": 1.0,
+          "generative_explanation": 0.0,
+          "complex_synthesis": 0.0,
+          "clarification_required": 0.0,
+          "insufficient_evidence": 0.0,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0
+        },
+        "confidence": 1.0,
+        "answer_confidence": 1.0,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Create a physician brief for this case.",
+      "context": {},
+      "expected": "artifact_generation",
+      "predicted": "artifact_generation",
+      "correct": true,
+      "latency_ms": 341.1591670010239,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "artifact_generation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0,
+          "deterministic_computation": 0.0,
+          "simulation": 0.0,
+          "artifact_generation": 1.0,
+          "generative_explanation": 0.0,
+          "complex_synthesis": 0.0,
+          "clarification_required": 0.0,
+          "insufficient_evidence": 0.0,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0
+        },
+        "confidence": 0.9999,
+        "answer_confidence": 1.0,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "jargon"
+    },
+    {
+      "text": "Draft a computational report artifact for the ensemble run.",
+      "context": {},
+      "expected": "artifact_generation",
+      "predicted": "artifact_generation",
+      "correct": true,
+      "latency_ms": 312.9880069755018,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "artifact_generation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0,
+          "deterministic_computation": 0.0,
+          "simulation": 0.0,
+          "artifact_generation": 1.0,
+          "generative_explanation": 0.0,
+          "complex_synthesis": 0.0,
+          "clarification_required": 0.0,
+          "insufficient_evidence": 0.0,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0
+        },
+        "confidence": 0.9999,
+        "answer_confidence": 1.0,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Summarize what changed over the last month and explain which findings are directly observed versus model-derived.",
+      "context": {},
+      "expected": "complex_synthesis",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "latency_ms": 338.772936956957,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "generative_explanation",
+        "probabilities": {
+          "direct_state_read": 0.0013,
+          "evidence_retrieval": 0.0182,
+          "deterministic_computation": 0.0004,
+          "simulation": 0.0,
+          "artifact_generation": 0.0602,
+          "generative_explanation": 0.8613,
+          "complex_synthesis": 0.0335,
+          "clarification_required": 0.0083,
+          "insufficient_evidence": 0.0043,
+          "human_decision_required": 0.0006,
+          "unsupported": 0.012
+        },
+        "confidence": 0.7428,
+        "answer_confidence": 0.8613,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Compare the current PV loop directly observed versus the model-derived one.",
+      "context": {},
+      "expected": "complex_synthesis",
+      "predicted": "complex_synthesis",
+      "correct": true,
+      "latency_ms": 359.9004310090095,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "complex_synthesis",
+        "probabilities": {
+          "direct_state_read": 0.0002,
+          "evidence_retrieval": 0.0158,
+          "deterministic_computation": 0.096,
+          "simulation": 0.003,
+          "artifact_generation": 0.0009,
+          "generative_explanation": 0.0009,
+          "complex_synthesis": 0.7371,
+          "clarification_required": 0.0012,
+          "insufficient_evidence": 0.0118,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.133
+        },
+        "confidence": 0.6343,
+        "answer_confidence": 0.7371,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Compare recovery outcomes across the last three scenarios.",
+      "context": {},
+      "expected": "complex_synthesis",
+      "predicted": "complex_synthesis",
+      "correct": true,
+      "latency_ms": 329.90947691723704,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "complex_synthesis",
+        "probabilities": {
+          "direct_state_read": 0.0001,
+          "evidence_retrieval": 0.0034,
+          "deterministic_computation": 0.0383,
+          "simulation": 0.2223,
+          "artifact_generation": 0.0005,
+          "generative_explanation": 0.0016,
+          "complex_synthesis": 0.6968,
+          "clarification_required": 0.0006,
+          "insufficient_evidence": 0.0028,
+          "human_decision_required": 0.0003,
+          "unsupported": 0.0333
+        },
+        "confidence": 0.6322,
+        "answer_confidence": 0.6968,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Why did stroke volume fall in the experiment?",
+      "context": {},
+      "expected": "generative_explanation",
+      "predicted": "generative_explanation",
+      "correct": true,
+      "latency_ms": 309.3335349112749,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "generative_explanation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0003,
+          "deterministic_computation": 0.0003,
+          "simulation": 0.0001,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.9982,
+          "complex_synthesis": 0.0001,
+          "clarification_required": 0.0001,
+          "insufficient_evidence": 0.0003,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0006
+        },
+        "confidence": 0.9931,
+        "answer_confidence": 0.9982,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "How does afterload reduction affect ejection fraction?",
+      "context": {},
+      "expected": "generative_explanation",
+      "predicted": "generative_explanation",
+      "correct": true,
+      "latency_ms": 371.3516399729997,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "generative_explanation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0009,
+          "deterministic_computation": 0.0002,
+          "simulation": 0.0,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.9899,
+          "complex_synthesis": 0.0007,
+          "clarification_required": 0.0023,
+          "insufficient_evidence": 0.0011,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0047
+        },
+        "confidence": 0.9702,
+        "answer_confidence": 0.9899,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Explain the drop in cardiac output after the last scenario.",
+      "context": {},
+      "expected": "generative_explanation",
+      "predicted": "generative_explanation",
+      "correct": true,
+      "latency_ms": 342.33357897028327,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "generative_explanation",
+        "probabilities": {
+          "direct_state_read": 0.0001,
+          "evidence_retrieval": 0.0006,
+          "deterministic_computation": 0.0033,
+          "simulation": 0.0188,
+          "artifact_generation": 0.0001,
+          "generative_explanation": 0.9648,
+          "complex_synthesis": 0.0042,
+          "clarification_required": 0.0007,
+          "insufficient_evidence": 0.003,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.0045
+        },
+        "confidence": 0.9149,
+        "answer_confidence": 0.9648,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "this",
+      "context": {},
+      "expected": "clarification_required",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "latency_ms": 282.4982339516282,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "generative_explanation",
+        "probabilities": {
+          "direct_state_read": 0.0013,
+          "evidence_retrieval": 0.0076,
+          "deterministic_computation": 0.0073,
+          "simulation": 0.0007,
+          "artifact_generation": 0.0014,
+          "generative_explanation": 0.4789,
+          "complex_synthesis": 0.0024,
+          "clarification_required": 0.0495,
+          "insufficient_evidence": 0.0228,
+          "human_decision_required": 0.0015,
+          "unsupported": 0.4267
+        },
+        "confidence": 0.5535,
+        "answer_confidence": 0.4789,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "what about it?",
+      "context": {},
+      "expected": "clarification_required",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "latency_ms": 340.6352831516415,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "generative_explanation",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.0,
+          "deterministic_computation": 0.0,
+          "simulation": 0.0,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.9939,
+          "complex_synthesis": 0.0,
+          "clarification_required": 0.0059,
+          "insufficient_evidence": 0.0,
+          "human_decision_required": 0.0,
+          "unsupported": 0.0001
+        },
+        "confidence": 0.9841,
+        "answer_confidence": 0.9939,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "What was the ejection fraction three years before this patient's first visit?",
+      "context": {
+        "available_history_days": 30
+      },
+      "expected": "insufficient_evidence",
+      "predicted": "insufficient_evidence",
+      "correct": true,
+      "latency_ms": 365.48376991413534,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "insufficient_evidence",
+        "probabilities": {
+          "direct_state_read": 0.0005,
+          "evidence_retrieval": 0.2135,
+          "deterministic_computation": 0.0025,
+          "simulation": 0.0,
+          "artifact_generation": 0.0002,
+          "generative_explanation": 0.0009,
+          "complex_synthesis": 0.0005,
+          "clarification_required": 0.0011,
+          "insufficient_evidence": 0.7707,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.0099
+        },
+        "confidence": 0.7434,
+        "answer_confidence": 0.7707,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "What does the biopsy report say about interstitial fibrosis for this component?",
+      "context": {
+        "component_id": "septum",
+        "has_biopsy_data": false
+      },
+      "expected": "insufficient_evidence",
+      "predicted": "evidence_retrieval",
+      "correct": false,
+      "latency_ms": 382.36200995743275,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "evidence_retrieval",
+        "probabilities": {
+          "direct_state_read": 0.0,
+          "evidence_retrieval": 0.6293,
+          "deterministic_computation": 0.0001,
+          "simulation": 0.0,
+          "artifact_generation": 0.0001,
+          "generative_explanation": 0.0002,
+          "complex_synthesis": 0.0004,
+          "clarification_required": 0.0053,
+          "insufficient_evidence": 0.3623,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.0021
+        },
+        "confidence": 0.7044,
+        "answer_confidence": 0.6293,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Should we switch this patient from warfarin to a DOAC?",
+      "context": {},
+      "expected": "human_decision_required",
+      "predicted": "human_decision_required",
+      "correct": true,
+      "latency_ms": 355.74489808641374,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "human_decision_required",
+        "probabilities": {
+          "direct_state_read": 0.0001,
+          "evidence_retrieval": 0.0098,
+          "deterministic_computation": 0.0001,
+          "simulation": 0.0,
+          "artifact_generation": 0.0,
+          "generative_explanation": 0.0005,
+          "complex_synthesis": 0.0001,
+          "clarification_required": 0.0183,
+          "insufficient_evidence": 0.0021,
+          "human_decision_required": 0.9545,
+          "unsupported": 0.0145
+        },
+        "confidence": 0.8983,
+        "answer_confidence": 0.9545,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Which of these two ablation strategies should we pursue for this patient?",
+      "context": {},
+      "expected": "human_decision_required",
+      "predicted": "human_decision_required",
+      "correct": true,
+      "latency_ms": 345.5575970001519,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "human_decision_required",
+        "probabilities": {
+          "direct_state_read": 0.0003,
+          "evidence_retrieval": 0.0702,
+          "deterministic_computation": 0.0034,
+          "simulation": 0.0001,
+          "artifact_generation": 0.0004,
+          "generative_explanation": 0.006,
+          "complex_synthesis": 0.0336,
+          "clarification_required": 0.087,
+          "insufficient_evidence": 0.0296,
+          "human_decision_required": 0.538,
+          "unsupported": 0.2315
+        },
+        "confidence": 0.4389,
+        "answer_confidence": 0.538,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Export this twin as a DICOM file and fax it to the cath lab.",
+      "context": {},
+      "expected": "unsupported",
+      "predicted": "unsupported",
+      "correct": true,
+      "latency_ms": 331.3128799200058,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "unsupported",
+        "probabilities": {
+          "direct_state_read": 0.0013,
+          "evidence_retrieval": 0.0349,
+          "deterministic_computation": 0.2477,
+          "simulation": 0.002,
+          "artifact_generation": 0.2664,
+          "generative_explanation": 0.0036,
+          "complex_synthesis": 0.0138,
+          "clarification_required": 0.0026,
+          "insufficient_evidence": 0.0277,
+          "human_decision_required": 0.0013,
+          "unsupported": 0.3987
+        },
+        "confidence": 0.4138,
+        "answer_confidence": 0.3987,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    },
+    {
+      "text": "What's the weather forecast for tomorrow?",
+      "context": {},
+      "expected": "unsupported",
+      "predicted": "unsupported",
+      "correct": true,
+      "latency_ms": 340.5734160915017,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "unsupported",
+        "probabilities": {
+          "direct_state_read": 0.0002,
+          "evidence_retrieval": 0.0226,
+          "deterministic_computation": 0.0002,
+          "simulation": 0.0,
+          "artifact_generation": 0.0001,
+          "generative_explanation": 0.0014,
+          "complex_synthesis": 0.0001,
+          "clarification_required": 0.0372,
+          "insufficient_evidence": 0.0071,
+          "human_decision_required": 0.0001,
+          "unsupported": 0.931
+        },
+        "confidence": 0.8644,
+        "answer_confidence": 0.931,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    }
+  ],
+  "select_tool_family": [
+    {
+      "text": "What is the current ejection fraction for this component?",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": "TWIN",
+      "predicted": "COMPARE",
+      "correct": false,
+      "latency_ms": 335.1531799416989,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "COMPARE",
+        "probabilities": {
+          "TWIN": 0.2547,
+          "EVIDENCE": 0.1971,
+          "PHYSIOLOGY": 0.033,
+          "EXPERIMENT": 0.0111,
+          "COMPARE": 0.3237,
+          "UNCERTAINTY": 0.0406,
+          "REPORT": 0.0097,
+          "NONE": 0.1301
+        },
+        "confidence": 0.213,
+        "answer_confidence": 0.3237,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Show me the latest snapshot of the twin.",
+      "context": {},
+      "expected": "TWIN",
+      "predicted": "TWIN",
+      "correct": true,
+      "latency_ms": 315.85387513041496,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "TWIN",
+        "probabilities": {
+          "TWIN": 0.9947,
+          "EVIDENCE": 0.0002,
+          "PHYSIOLOGY": 0.0002,
+          "EXPERIMENT": 0.0002,
+          "COMPARE": 0.0003,
+          "UNCERTAINTY": 0.0002,
+          "REPORT": 0.0003,
+          "NONE": 0.0039
+        },
+        "confidence": 0.9814,
+        "answer_confidence": 0.9947,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Get the component report for the LV free wall.",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": "TWIN",
+      "predicted": "COMPARE",
+      "correct": false,
+      "latency_ms": 336.62857580929995,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "COMPARE",
+        "probabilities": {
+          "TWIN": 0.0208,
+          "EVIDENCE": 0.01,
+          "PHYSIOLOGY": 0.0163,
+          "EXPERIMENT": 0.0214,
+          "COMPARE": 0.7973,
+          "UNCERTAINTY": 0.006,
+          "REPORT": 0.0674,
+          "NONE": 0.0608
+        },
+        "confidence": 0.5963,
+        "answer_confidence": 0.7973,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "What's the ejection fraction on the current twin snapshot?",
+      "context": {},
+      "expected": "TWIN",
+      "predicted": "TWIN",
+      "correct": true,
+      "latency_ms": 316.87831901945174,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "TWIN",
+        "probabilities": {
+          "TWIN": 0.9698,
+          "EVIDENCE": 0.0036,
+          "PHYSIOLOGY": 0.0089,
+          "EXPERIMENT": 0.0006,
+          "COMPARE": 0.0014,
+          "UNCERTAINTY": 0.0014,
+          "REPORT": 0.0005,
+          "NONE": 0.0138
+        },
+        "confidence": 0.9146,
+        "answer_confidence": 0.9698,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the source for this measurement?",
+      "context": {},
+      "expected": "EVIDENCE",
+      "predicted": "EVIDENCE",
+      "correct": true,
+      "latency_ms": 315.33541111275554,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EVIDENCE",
+        "probabilities": {
+          "TWIN": 0.0028,
+          "EVIDENCE": 0.5994,
+          "PHYSIOLOGY": 0.0079,
+          "EXPERIMENT": 0.0027,
+          "COMPARE": 0.0028,
+          "UNCERTAINTY": 0.0079,
+          "REPORT": 0.0044,
+          "NONE": 0.3721
+        },
+        "confidence": 0.6038,
+        "answer_confidence": 0.5994,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Show me the provenance of the ECG-derived HR.",
+      "context": {},
+      "expected": "EVIDENCE",
+      "predicted": "EVIDENCE",
+      "correct": true,
+      "latency_ms": 310.0281050428748,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EVIDENCE",
+        "probabilities": {
+          "TWIN": 0.0014,
+          "EVIDENCE": 0.9611,
+          "PHYSIOLOGY": 0.004,
+          "EXPERIMENT": 0.0008,
+          "COMPARE": 0.0011,
+          "UNCERTAINTY": 0.0014,
+          "REPORT": 0.0013,
+          "NONE": 0.029
+        },
+        "confidence": 0.9025,
+        "answer_confidence": 0.9611,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Cite where the EDV value came from.",
+      "context": {},
+      "expected": "EVIDENCE",
+      "predicted": "EVIDENCE",
+      "correct": true,
+      "latency_ms": 280.3651150316,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EVIDENCE",
+        "probabilities": {
+          "TWIN": 0.0016,
+          "EVIDENCE": 0.9399,
+          "PHYSIOLOGY": 0.0036,
+          "EXPERIMENT": 0.001,
+          "COMPARE": 0.0017,
+          "UNCERTAINTY": 0.0035,
+          "REPORT": 0.002,
+          "NONE": 0.0467
+        },
+        "confidence": 0.8644,
+        "answer_confidence": 0.9399,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Show me the PV loop for this component.",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": "PHYSIOLOGY",
+      "predicted": "NONE",
+      "correct": false,
+      "latency_ms": 300.5414200015366,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "NONE",
+        "probabilities": {
+          "TWIN": 0.0173,
+          "EVIDENCE": 0.0256,
+          "PHYSIOLOGY": 0.0462,
+          "EXPERIMENT": 0.0363,
+          "COMPARE": 0.2795,
+          "UNCERTAINTY": 0.0092,
+          "REPORT": 0.0157,
+          "NONE": 0.5702
+        },
+        "confidence": 0.4174,
+        "answer_confidence": 0.5702,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the ECG state right now?",
+      "context": {},
+      "expected": "PHYSIOLOGY",
+      "predicted": "NONE",
+      "correct": false,
+      "latency_ms": 274.65097699314356,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "NONE",
+        "probabilities": {
+          "TWIN": 0.0465,
+          "EVIDENCE": 0.1381,
+          "PHYSIOLOGY": 0.1316,
+          "EXPERIMENT": 0.0137,
+          "COMPARE": 0.0142,
+          "UNCERTAINTY": 0.0243,
+          "REPORT": 0.0301,
+          "NONE": 0.6016
+        },
+        "confidence": 0.3732,
+        "answer_confidence": 0.6016,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Get the causal trace for the stroke volume drop.",
+      "context": {},
+      "expected": "PHYSIOLOGY",
+      "predicted": "EVIDENCE",
+      "correct": false,
+      "latency_ms": 283.40629721060395,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EVIDENCE",
+        "probabilities": {
+          "TWIN": 0.0311,
+          "EVIDENCE": 0.3737,
+          "PHYSIOLOGY": 0.0634,
+          "EXPERIMENT": 0.2038,
+          "COMPARE": 0.0237,
+          "UNCERTAINTY": 0.014,
+          "REPORT": 0.052,
+          "NONE": 0.2383
+        },
+        "confidence": 0.2216,
+        "answer_confidence": 0.3737,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Run a scenario with reduced afterload.",
+      "context": {},
+      "expected": "EXPERIMENT",
+      "predicted": "EXPERIMENT",
+      "correct": true,
+      "latency_ms": 282.51624293625355,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EXPERIMENT",
+        "probabilities": {
+          "TWIN": 0.0002,
+          "EVIDENCE": 0.0001,
+          "PHYSIOLOGY": 0.0004,
+          "EXPERIMENT": 0.9952,
+          "COMPARE": 0.002,
+          "UNCERTAINTY": 0.0001,
+          "REPORT": 0.0001,
+          "NONE": 0.0019
+        },
+        "confidence": 0.9825,
+        "answer_confidence": 0.9952,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Create a new shadow trial for this patient.",
+      "context": {},
+      "expected": "EXPERIMENT",
+      "predicted": "EXPERIMENT",
+      "correct": true,
+      "latency_ms": 313.25692287646234,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EXPERIMENT",
+        "probabilities": {
+          "TWIN": 0.0023,
+          "EVIDENCE": 0.001,
+          "PHYSIOLOGY": 0.0025,
+          "EXPERIMENT": 0.945,
+          "COMPARE": 0.0008,
+          "UNCERTAINTY": 0.0011,
+          "REPORT": 0.001,
+          "NONE": 0.0463
+        },
+        "confidence": 0.8788,
+        "answer_confidence": 0.945,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What if we increase preload by 15%?",
+      "context": {},
+      "expected": "EXPERIMENT",
+      "predicted": "EXPERIMENT",
+      "correct": true,
+      "latency_ms": 310.92631607316434,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EXPERIMENT",
+        "probabilities": {
+          "TWIN": 0.0069,
+          "EVIDENCE": 0.0126,
+          "PHYSIOLOGY": 0.1104,
+          "EXPERIMENT": 0.3525,
+          "COMPARE": 0.2884,
+          "UNCERTAINTY": 0.0136,
+          "REPORT": 0.0046,
+          "NONE": 0.211
+        },
+        "confidence": 0.2928,
+        "answer_confidence": 0.3525,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Compare this snapshot to last week's.",
+      "context": {
+        "snapshot_id": "snap-7"
+      },
+      "expected": "COMPARE",
+      "predicted": "COMPARE",
+      "correct": true,
+      "latency_ms": 316.7559220455587,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "COMPARE",
+        "probabilities": {
+          "TWIN": 0.3675,
+          "EVIDENCE": 0.0063,
+          "PHYSIOLOGY": 0.0084,
+          "EXPERIMENT": 0.0085,
+          "COMPARE": 0.5067,
+          "UNCERTAINTY": 0.0042,
+          "REPORT": 0.0075,
+          "NONE": 0.091
+        },
+        "confidence": 0.4698,
+        "answer_confidence": 0.5067,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Show me the pair comparison between scenario A and B.",
+      "context": {},
+      "expected": "COMPARE",
+      "predicted": "COMPARE",
+      "correct": true,
+      "latency_ms": 306.20208103209734,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "COMPARE",
+        "probabilities": {
+          "TWIN": 0.0003,
+          "EVIDENCE": 0.0004,
+          "PHYSIOLOGY": 0.0002,
+          "EXPERIMENT": 0.0085,
+          "COMPARE": 0.9893,
+          "UNCERTAINTY": 0.0001,
+          "REPORT": 0.0001,
+          "NONE": 0.0012
+        },
+        "confidence": 0.9673,
+        "answer_confidence": 0.9893,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "How does this component compare versus the baseline?",
+      "context": {
+        "component_id": "septum"
+      },
+      "expected": "COMPARE",
+      "predicted": "COMPARE",
+      "correct": true,
+      "latency_ms": 307.93604883365333,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "COMPARE",
+        "probabilities": {
+          "TWIN": 0.0087,
+          "EVIDENCE": 0.0027,
+          "PHYSIOLOGY": 0.0019,
+          "EXPERIMENT": 0.0018,
+          "COMPARE": 0.9741,
+          "UNCERTAINTY": 0.0011,
+          "REPORT": 0.0018,
+          "NONE": 0.0078
+        },
+        "confidence": 0.9215,
+        "answer_confidence": 0.9741,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the dominant assumption behind this ensemble?",
+      "context": {
+        "ensemble_id": "ens-3"
+      },
+      "expected": "UNCERTAINTY",
+      "predicted": "NONE",
+      "correct": false,
+      "latency_ms": 279.39079399220645,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "NONE",
+        "probabilities": {
+          "TWIN": 0.1202,
+          "EVIDENCE": 0.0487,
+          "PHYSIOLOGY": 0.0466,
+          "EXPERIMENT": 0.0134,
+          "COMPARE": 0.0275,
+          "UNCERTAINTY": 0.3384,
+          "REPORT": 0.019,
+          "NONE": 0.3861
+        },
+        "confidence": 0.2734,
+        "answer_confidence": 0.3861,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Run the missing piece analysis for this case.",
+      "context": {},
+      "expected": "UNCERTAINTY",
+      "predicted": "EXPERIMENT",
+      "correct": false,
+      "latency_ms": 262.60609505698085,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EXPERIMENT",
+        "probabilities": {
+          "TWIN": 0.0022,
+          "EVIDENCE": 0.0014,
+          "PHYSIOLOGY": 0.0021,
+          "EXPERIMENT": 0.9059,
+          "COMPARE": 0.0759,
+          "UNCERTAINTY": 0.0006,
+          "REPORT": 0.0008,
+          "NONE": 0.011
+        },
+        "confidence": 0.8167,
+        "answer_confidence": 0.9059,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What evidence would change this result the most?",
+      "context": {},
+      "expected": "UNCERTAINTY",
+      "predicted": "EVIDENCE",
+      "correct": false,
+      "latency_ms": 262.9136140458286,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EVIDENCE",
+        "probabilities": {
+          "TWIN": 0.0011,
+          "EVIDENCE": 0.9585,
+          "PHYSIOLOGY": 0.0014,
+          "EXPERIMENT": 0.0008,
+          "COMPARE": 0.0098,
+          "UNCERTAINTY": 0.0019,
+          "REPORT": 0.0009,
+          "NONE": 0.0257
+        },
+        "confidence": 0.894,
+        "answer_confidence": 0.9585,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Generate a physician brief for this case.",
+      "context": {},
+      "expected": "REPORT",
+      "predicted": "EXPERIMENT",
+      "correct": false,
+      "latency_ms": 260.5120949447155,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EXPERIMENT",
+        "probabilities": {
+          "TWIN": 0.0098,
+          "EVIDENCE": 0.0074,
+          "PHYSIOLOGY": 0.0201,
+          "EXPERIMENT": 0.542,
+          "COMPARE": 0.0128,
+          "UNCERTAINTY": 0.0046,
+          "REPORT": 0.3282,
+          "NONE": 0.0753
+        },
+        "confidence": 0.4553,
+        "answer_confidence": 0.542,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Create a computational report summarizing this run.",
+      "context": {},
+      "expected": "REPORT",
+      "predicted": "REPORT",
+      "correct": true,
+      "latency_ms": 291.59230389632285,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "REPORT",
+        "probabilities": {
+          "TWIN": 0.0003,
+          "EVIDENCE": 0.0003,
+          "PHYSIOLOGY": 0.0003,
+          "EXPERIMENT": 0.0065,
+          "COMPARE": 0.0003,
+          "UNCERTAINTY": 0.0001,
+          "REPORT": 0.9906,
+          "NONE": 0.0015
+        },
+        "confidence": 0.9695,
+        "answer_confidence": 0.9906,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Give me a summary of this session.",
+      "context": {},
+      "expected": "REPORT",
+      "predicted": "REPORT",
+      "correct": true,
+      "latency_ms": 285.7133289799094,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "REPORT",
+        "probabilities": {
+          "TWIN": 0.0039,
+          "EVIDENCE": 0.0025,
+          "PHYSIOLOGY": 0.0029,
+          "EXPERIMENT": 0.0015,
+          "COMPARE": 0.0013,
+          "UNCERTAINTY": 0.0015,
+          "REPORT": 0.9472,
+          "NONE": 0.0391
+        },
+        "confidence": 0.8748,
+        "answer_confidence": 0.9472,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Thanks, that's helpful!",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "NONE",
+      "correct": true,
+      "latency_ms": 327.72403699345887,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "NONE",
+        "probabilities": {
+          "TWIN": 0.0129,
+          "EVIDENCE": 0.0146,
+          "PHYSIOLOGY": 0.0326,
+          "EXPERIMENT": 0.0118,
+          "COMPARE": 0.0078,
+          "UNCERTAINTY": 0.0181,
+          "REPORT": 0.0129,
+          "NONE": 0.8892
+        },
+        "confidence": 0.7341,
+        "answer_confidence": 0.8892,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Hello, can you help me understand this app?",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "NONE",
+      "correct": true,
+      "latency_ms": 294.8493738658726,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "NONE",
+        "probabilities": {
+          "TWIN": 0.0242,
+          "EVIDENCE": 0.0461,
+          "PHYSIOLOGY": 0.0585,
+          "EXPERIMENT": 0.0344,
+          "COMPARE": 0.0141,
+          "UNCERTAINTY": 0.0399,
+          "REPORT": 0.0105,
+          "NONE": 0.7723
+        },
+        "confidence": 0.5431,
+        "answer_confidence": 0.7723,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Okay, got it.",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "NONE",
+      "correct": true,
+      "latency_ms": 299.83583092689514,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "NONE",
+        "probabilities": {
+          "TWIN": 0.0221,
+          "EVIDENCE": 0.0266,
+          "PHYSIOLOGY": 0.0396,
+          "EXPERIMENT": 0.0241,
+          "COMPARE": 0.0128,
+          "UNCERTAINTY": 0.0236,
+          "REPORT": 0.0122,
+          "NONE": 0.839
+        },
+        "confidence": 0.6425,
+        "answer_confidence": 0.839,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What is the current guideline for anticoagulation after ablation?",
+      "context": {},
+      "expected": "EVIDENCE",
+      "predicted": "NONE",
+      "correct": false,
+      "latency_ms": 259.8844470921904,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "NONE",
+        "probabilities": {
+          "TWIN": 0.0448,
+          "EVIDENCE": 0.0836,
+          "PHYSIOLOGY": 0.2026,
+          "EXPERIMENT": 0.0136,
+          "COMPARE": 0.0326,
+          "UNCERTAINTY": 0.0239,
+          "REPORT": 0.0354,
+          "NONE": 0.5635
+        },
+        "confidence": 0.3407,
+        "answer_confidence": 0.5635,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "What's the current time in UTC?",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "NONE",
+      "correct": true,
+      "latency_ms": 258.63210717216134,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "NONE",
+        "probabilities": {
+          "TWIN": 0.0493,
+          "EVIDENCE": 0.0444,
+          "PHYSIOLOGY": 0.0573,
+          "EXPERIMENT": 0.0222,
+          "COMPARE": 0.0161,
+          "UNCERTAINTY": 0.0566,
+          "REPORT": 0.0189,
+          "NONE": 0.7353
+        },
+        "confidence": 0.4878,
+        "answer_confidence": 0.7353,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    },
+    {
+      "text": "Is the current build passing CI?",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "EVIDENCE",
+      "correct": false,
+      "latency_ms": 256.2793828547001,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "EVIDENCE",
+        "probabilities": {
+          "TWIN": 0.0257,
+          "EVIDENCE": 0.3786,
+          "PHYSIOLOGY": 0.026,
+          "EXPERIMENT": 0.0741,
+          "COMPARE": 0.0127,
+          "UNCERTAINTY": 0.2779,
+          "REPORT": 0.0139,
+          "NONE": 0.191
+        },
+        "confidence": 0.261,
+        "answer_confidence": 0.3786,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    },
+    {
+      "text": "Compare the current PV loop directly observed versus the model-derived one.",
+      "context": {},
+      "expected": "COMPARE",
+      "predicted": "COMPARE",
+      "correct": true,
+      "latency_ms": 266.76665199920535,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "COMPARE",
+        "probabilities": {
+          "TWIN": 0.0003,
+          "EVIDENCE": 0.0022,
+          "PHYSIOLOGY": 0.0006,
+          "EXPERIMENT": 0.0002,
+          "COMPARE": 0.9955,
+          "UNCERTAINTY": 0.0001,
+          "REPORT": 0.0001,
+          "NONE": 0.001
+        },
+        "confidence": 0.9829,
+        "answer_confidence": 0.9955,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Compare what the simulation predicts against the evidence for last month.",
+      "context": {},
+      "expected": "COMPARE",
+      "predicted": "COMPARE",
+      "correct": true,
+      "latency_ms": 263.82290897890925,
+      "raw_answer": {
+        "type": "choice",
+        "choice": "COMPARE",
+        "probabilities": {
+          "TWIN": 0.0013,
+          "EVIDENCE": 0.0068,
+          "PHYSIOLOGY": 0.0011,
+          "EXPERIMENT": 0.0048,
+          "COMPARE": 0.9758,
+          "UNCERTAINTY": 0.0009,
+          "REPORT": 0.0009,
+          "NONE": 0.0085
+        },
+        "confidence": 0.9266,
+        "answer_confidence": 0.9758,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    }
+  ],
+  "needs_evidence_retrieval": [
+    {
+      "text": "Where did this EF value come from?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 115.5466299969703,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.4679,
+        "confidence": 0.5321,
+        "answer_confidence": 0.5321,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Can you cite the source for the QTc measurement?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 117.12763411924243,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.4502,
+        "confidence": 0.5498,
+        "answer_confidence": 0.5498,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the provenance of the echo-derived stroke volume?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 118.73466009274125,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.7237,
+        "confidence": 0.7237,
+        "answer_confidence": 0.7237,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "jargon"
+    },
+    {
+      "text": "Based on what data was this derived?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 112.97621601261199,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.641,
+        "confidence": 0.641,
+        "answer_confidence": 0.641,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Is this number directly observed or model-derived?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 108.9458700735122,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0964,
+        "confidence": 0.9036,
+        "answer_confidence": 0.9036,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "What's backing up this claim about reduced contractility?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 136.17048203013837,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1942,
+        "confidence": 0.8058,
+        "answer_confidence": 0.8058,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Show me the citation for this guideline recommendation.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 133.0524228978902,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.4967,
+        "confidence": 0.5033,
+        "answer_confidence": 0.5033,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "I want to see the raw echo report this was extracted from.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 184.18253283016384,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.4073,
+        "confidence": 0.5927,
+        "answer_confidence": 0.5927,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "provenance pls",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 175.50179595127702,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.5944,
+        "confidence": 0.5944,
+        "answer_confidence": 0.5944,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "shorthand"
+    },
+    {
+      "text": "evidence?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 172.41791705600917,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3066,
+        "confidence": 0.6934,
+        "answer_confidence": 0.6934,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "shorthand"
+    },
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 132.68925109878182,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1318,
+        "confidence": 0.8682,
+        "answer_confidence": 0.8682,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Run a recovery scenario.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 108.00741403363645,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0341,
+        "confidence": 0.9659,
+        "answer_confidence": 0.9659,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Thanks, got it!",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 110.35782704129815,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0,
+        "confidence": 1.0,
+        "answer_confidence": 1.0,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Compare this snapshot to last week's.",
+      "context": {
+        "snapshot_id": "snap-7"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 120.47826312482357,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0646,
+        "confidence": 0.9354,
+        "answer_confidence": 0.9354,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Generate a physician brief.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 111.11475806683302,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1334,
+        "confidence": 0.8666,
+        "answer_confidence": 0.8666,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Why did stroke volume fall?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 113.09252795763314,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1091,
+        "confidence": 0.8909,
+        "answer_confidence": 0.8909,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "What if we double the afterload?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 115.98904500715435,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0283,
+        "confidence": 0.9717,
+        "answer_confidence": 0.9717,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Calculate the cardiac output.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 107.08507103845477,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0613,
+        "confidence": 0.9387,
+        "answer_confidence": 0.9387,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "This is concerning, is it dangerous?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 115.33664492890239,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0794,
+        "confidence": 0.9206,
+        "answer_confidence": 0.9206,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "current",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 111.76150082610548,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0132,
+        "confidence": 0.9868,
+        "answer_confidence": 0.9868,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    }
+  ],
+  "needs_simulation": [
+    {
+      "text": "What if we reduce afterload by 20%?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 124.13568305782974,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3883,
+        "confidence": 0.6117,
+        "answer_confidence": 0.6117,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Run a recovery scenario for this patient.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 122.51486396417022,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.5638,
+        "confidence": 0.5638,
+        "answer_confidence": 0.5638,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Simulate increased preload.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 125.87478221394122,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.5491,
+        "confidence": 0.5491,
+        "answer_confidence": 0.5491,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Rerun the ensemble with updated priors.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 134.41829197108746,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1566,
+        "confidence": 0.8434,
+        "answer_confidence": 0.8434,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Start a shadow trial with these parameters.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 172.25318681448698,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.5737,
+        "confidence": 0.5737,
+        "answer_confidence": 0.5737,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Run an experiment varying contractility.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 130.52944908849895,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2685,
+        "confidence": 0.7315,
+        "answer_confidence": 0.7315,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Project how this patient's numbers would look after 6 weeks of recovery.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 141.87704701907933,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.4553,
+        "confidence": 0.5447,
+        "answer_confidence": 0.5447,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Model what happens if we halve the vessel resistance.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 142.66886608675122,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3222,
+        "confidence": 0.6778,
+        "answer_confidence": 0.6778,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Kick off a scenario run with the new baseline.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 128.75433778390288,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2235,
+        "confidence": 0.7765,
+        "answer_confidence": 0.7765,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Predict the outcome for a hypothetical medication-free recovery trajectory.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 137.5070298090577,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.679,
+        "confidence": 0.679,
+        "answer_confidence": 0.679,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 136.34283398278058,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0148,
+        "confidence": 0.9852,
+        "answer_confidence": 0.9852,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Where did this value come from?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 127.4774200282991,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0859,
+        "confidence": 0.9141,
+        "answer_confidence": 0.9141,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Compare this snapshot to last week's.",
+      "context": {
+        "snapshot_id": "snap-7"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 136.32259611040354,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0969,
+        "confidence": 0.9031,
+        "answer_confidence": 0.9031,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Generate a report.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 121.08149705454707,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1236,
+        "confidence": 0.8764,
+        "answer_confidence": 0.8764,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Why did the ejection fraction change?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 124.75870503112674,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0813,
+        "confidence": 0.9187,
+        "answer_confidence": 0.9187,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Show me the ECG right now.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 119.53192297369242,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0002,
+        "confidence": 0.9998,
+        "answer_confidence": 0.9998,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "I'm worried this looks abnormal.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 121.09270202927291,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0,
+        "confidence": 1.0,
+        "answer_confidence": 1.0,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "This is great, thanks!",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 130.89055893942714,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0,
+        "confidence": 1.0,
+        "answer_confidence": 1.0,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "current",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 146.53117093257606,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0405,
+        "confidence": 0.9595,
+        "answer_confidence": 0.9595,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    },
+    {
+      "text": "What's the causal trace for the stroke volume drop that already happened?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 122.0654861535877,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0994,
+        "confidence": 0.9006,
+        "answer_confidence": 0.9006,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    }
+  ],
+  "needs_clarification": [
+    {
+      "text": "this",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 115.04595004953444,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.5398,
+        "confidence": 0.5398,
+        "answer_confidence": 0.5398,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "that",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 122.0623729750514,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2637,
+        "confidence": 0.7363,
+        "answer_confidence": 0.7363,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "what about it?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 127.48247501440346,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3032,
+        "confidence": 0.6968,
+        "answer_confidence": 0.6968,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "fix this",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 131.0305460356176,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1917,
+        "confidence": 0.8083,
+        "answer_confidence": 0.8083,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "huh?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 133.33732704631984,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3348,
+        "confidence": 0.6652,
+        "answer_confidence": 0.6652,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    },
+    {
+      "text": "can you look at that component here?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 128.11886612325907,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2052,
+        "confidence": 0.7948,
+        "answer_confidence": 0.7948,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "update it please",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 126.5662310179323,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0895,
+        "confidence": 0.9105,
+        "answer_confidence": 0.9105,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "what does this mean",
+      "context": {
+        "snapshot_id": null
+      },
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 138.0446720868349,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3484,
+        "confidence": 0.6516,
+        "answer_confidence": 0.6516,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "show me that one again",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 125.44840993359685,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0933,
+        "confidence": 0.9067,
+        "answer_confidence": 0.9067,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "hmm",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 128.4631071612239,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2855,
+        "confidence": 0.7145,
+        "answer_confidence": 0.7145,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    },
+    {
+      "text": "this",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 132.01657496392727,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2441,
+        "confidence": 0.7559,
+        "answer_confidence": 0.7559,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "what is the ejection fraction for this component?",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 122.78841901570559,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1954,
+        "confidence": 0.8046,
+        "answer_confidence": 0.8046,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "show me the report for that scenario",
+      "context": {
+        "scenario_id": "scn-042"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 111.9177311193198,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1387,
+        "confidence": 0.8613,
+        "answer_confidence": 0.8613,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "compare this to the baseline",
+      "context": {
+        "snapshot_id": "snap-7"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 112.8348431084305,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1276,
+        "confidence": 0.8724,
+        "answer_confidence": 0.8724,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "what does this mean for the ensemble",
+      "context": {
+        "ensemble_id": "ens-3"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 121.5550119522959,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2837,
+        "confidence": 0.7163,
+        "answer_confidence": 0.7163,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "run it again with the same parameters",
+      "context": {
+        "scenario_id": "scn-9"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 143.64565280266106,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1326,
+        "confidence": 0.8674,
+        "answer_confidence": 0.8674,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "what is the current ejection fraction?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 134.26747894845903,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1775,
+        "confidence": 0.8225,
+        "answer_confidence": 0.8225,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "calculate the cardiac output from HR and stroke volume",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 132.3875510133803,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0916,
+        "confidence": 0.9084,
+        "answer_confidence": 0.9084,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "generate a physician brief for this case",
+      "context": {
+        "patient_id": "pt-1"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 117.8453650791198,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1348,
+        "confidence": 0.8652,
+        "answer_confidence": 0.8652,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "why did stroke volume fall in the experiment",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 135.47853683121502,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1968,
+        "confidence": 0.8032,
+        "answer_confidence": 0.8032,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "that's helpful, thank you",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 134.77418012917042,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0567,
+        "confidence": 0.9433,
+        "answer_confidence": 0.9433,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    }
+  ],
+  "needs_physician_review_framing": [
+    {
+      "text": "What is the current EF?",
+      "context": {
+        "audience": "physician"
+      },
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 111.49038607254624,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2263,
+        "confidence": 0.7737,
+        "answer_confidence": 0.7737,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Show me the PV loop.",
+      "context": {
+        "audience": "physician"
+      },
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 111.50585603900254,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.363,
+        "confidence": 0.637,
+        "answer_confidence": 0.637,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "This looks concerning, should I be worried?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 137.25995901040733,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.6852,
+        "confidence": 0.6852,
+        "answer_confidence": 0.6852,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Is this ejection fraction abnormal?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 139.57073213532567,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2547,
+        "confidence": 0.7453,
+        "answer_confidence": 0.7453,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the risk here?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 134.39395697787404,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3152,
+        "confidence": 0.6848,
+        "answer_confidence": 0.6848,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What assumptions were made in this simulation?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 134.82813187874854,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.7119,
+        "confidence": 0.7119,
+        "answer_confidence": 0.7119,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "How uncertain is this estimate?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 159.91294593550265,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.7891,
+        "confidence": 0.7891,
+        "answer_confidence": 0.7891,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Walk me through the evidence and assumptions behind this recommendation.",
+      "context": {
+        "audience": "physician"
+      },
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 105.38540501147509,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.7526,
+        "confidence": 0.7526,
+        "answer_confidence": 0.7526,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Should I be worried about this trend?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 114.445490995422,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1801,
+        "confidence": 0.8199,
+        "answer_confidence": 0.8199,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "This finding seems inconsistent with the guideline \u2014 how confident are we?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 95.09534202516079,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.6385,
+        "confidence": 0.6385,
+        "answer_confidence": 0.6385,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 120.67576707340777,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0586,
+        "confidence": 0.9414,
+        "answer_confidence": 0.9414,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Thanks, thats helpful!",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 110.55717198178172,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0,
+        "confidence": 1.0,
+        "answer_confidence": 1.0,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Run a recovery scenario.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 113.12215379439294,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0502,
+        "confidence": 0.9498,
+        "answer_confidence": 0.9498,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Generate a report.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 109.09004602581263,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.116,
+        "confidence": 0.884,
+        "answer_confidence": 0.884,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Compare this to last week.",
+      "context": {
+        "snapshot_id": "snap-1"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 99.78578798472881,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0418,
+        "confidence": 0.9582,
+        "answer_confidence": 0.9582,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What if we reduce afterload?",
+      "context": {
+        "audience": "patient"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 93.55018986389041,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1101,
+        "confidence": 0.8899,
+        "answer_confidence": 0.8899,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Calculate the cardiac output.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 110.81042303703725,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1798,
+        "confidence": 0.8202,
+        "answer_confidence": 0.8202,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the causal trace for this?",
+      "context": {
+        "component_id": "septum"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 95.36602208390832,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3958,
+        "confidence": 0.6042,
+        "answer_confidence": 0.6042,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "hello",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 118.73609106987715,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0027,
+        "confidence": 0.9973,
+        "answer_confidence": 0.9973,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "nonsense"
+    },
+    {
+      "text": "Show me the ensemble result.",
+      "context": {
+        "audience": "general"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 120.34605210646987,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1048,
+        "confidence": 0.8952,
+        "answer_confidence": 0.8952,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    }
+  ],
+  "is_complex_reasoning_required": [
+    {
+      "text": "Summarize what changed over the last month and explain which findings are directly observed versus model-derived.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "latency_ms": 97.68047602847219,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.8097,
+        "confidence": 0.8097,
+        "answer_confidence": 0.8097,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Compare the current twin state to the baseline and identify which changes are clinically meaningful.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 94.91527895443141,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0831,
+        "confidence": 0.9169,
+        "answer_confidence": 0.9169,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Which findings are directly attributable to the intervention versus natural variation over time?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 94.16096890345216,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2407,
+        "confidence": 0.7593,
+        "answer_confidence": 0.7593,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the trade-off between reducing afterload aggressively versus a more conservative titration approach?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 98.19327085278928,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1097,
+        "confidence": 0.8903,
+        "answer_confidence": 0.8903,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Directly observed versus model-derived: which values in this report should I trust more?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 101.91885591484606,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0782,
+        "confidence": 0.9218,
+        "answer_confidence": 0.9218,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Summarize the ensemble results and explain which assumptions drove the biggest spread in outcomes.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 99.60962901823223,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.4065,
+        "confidence": 0.5935,
+        "answer_confidence": 0.5935,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Can you walk me through how the reduced afterload scenario compares to the baseline, which assumptions were used for both runs, and whether the resulting stroke volume change is clinically significant?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 107.9362181480974,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3101,
+        "confidence": 0.6899,
+        "answer_confidence": 0.6899,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Explain whether these values are directly observed versus extrapolated by the ensemble model, and why the two might disagree.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 99.27076706662774,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.3663,
+        "confidence": 0.6337,
+        "answer_confidence": 0.6337,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "I noticed the stroke volume, ejection fraction, and cardiac output all shifted after the last two scenarios and the recovery run \u2014 can you help me understand which of those changes are related versus independent, and what's driving the biggest one?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 112.36265790648758,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.4579,
+        "confidence": 0.5421,
+        "answer_confidence": 0.5421,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What trade-offs should I weigh between running another ensemble now versus waiting for more evidence?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "latency_ms": 112.89788200519979,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0383,
+        "confidence": 0.9617,
+        "answer_confidence": 0.9617,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Compare this scenario to the baseline.",
+      "context": {
+        "scenario_id": "scn-1"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 96.33000614121556,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0218,
+        "confidence": 0.9782,
+        "answer_confidence": 0.9782,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "Could you please go ahead and just quickly tell me one more time what the current ejection fraction value is for this particular patient right now?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 102.17510210350156,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0661,
+        "confidence": 0.9339,
+        "answer_confidence": 0.9339,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "ambiguous"
+    },
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 113.5794217698276,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0373,
+        "confidence": 0.9627,
+        "answer_confidence": 0.9627,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Run a recovery scenario.",
+      "context": {},
+      "expected": false,
+      "predicted": true,
+      "correct": false,
+      "latency_ms": 116.43111193552613,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.5099,
+        "confidence": 0.5099,
+        "answer_confidence": 0.5099,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Why did stroke volume fall?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 111.9278680998832,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0881,
+        "confidence": 0.9119,
+        "answer_confidence": 0.9119,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Generate a report.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 108.37994306348264,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.072,
+        "confidence": 0.928,
+        "answer_confidence": 0.928,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Thanks, that's helpful!",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 111.06269201263785,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0,
+        "confidence": 1.0,
+        "answer_confidence": 1.0,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "Show me the PV loop.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 111.52591998688877,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.1978,
+        "confidence": 0.8022,
+        "answer_confidence": 0.8022,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "What's the causal trace for this component?",
+      "context": {
+        "component_id": "septum"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 102.26745600812137,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.2093,
+        "confidence": 0.7907,
+        "answer_confidence": 0.7907,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    },
+    {
+      "text": "This is concerning, is it dangerous?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "latency_ms": 113.10407193377614,
+      "raw_answer": {
+        "type": "noul",
+        "noul": 0.0313,
+        "confidence": 0.9687,
+        "answer_confidence": 0.9687,
+        "action": {
+          "act_probability": 1.0
+        }
+      },
+      "category": "clear"
+    }
+  ]
+}

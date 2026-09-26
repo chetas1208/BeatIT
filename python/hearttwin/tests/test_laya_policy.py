@@ -46,12 +46,14 @@ def test_all_seven_laya_adapter_decision_names_are_covered() -> None:
 
 @pytest.mark.parametrize("decision_name", ALL_DECISION_NAMES)
 @pytest.mark.parametrize("source", ["laya", "fallback"])
-def test_default_provisional_policy_is_at_its_own_threshold_for_every_decision(decision_name: str, source: str) -> None:
-    # Every DEFAULT_POLICY entry is provisional with accuracy == its own
-    # defer_threshold (both pinned to the provisional floor), so it should
-    # currently read as trustworthy (>=) — i.e. not yet deferring — for both
-    # sources, since source doesn't change the type-level gate today.
-    assert should_defer_to_clarification(decision_name, source) is False
+def test_default_measured_policy_matches_wave5_evaluation_for_every_decision(decision_name: str, source: str) -> None:
+    # DEFAULT_POLICY now carries Wave 5's real fallback-accuracy measurements
+    # (docs/assistant/wave5/laya-evaluation.md), not provisional placeholders.
+    # classify_intent measured below its own 0.70 threshold (58.6%) and is
+    # the sole type that should defer; the other 6 all cleared it. source
+    # still doesn't change the type-level gate today (see the adjacent test).
+    expected_defer = decision_name == "classify_intent"
+    assert should_defer_to_clarification(decision_name, source) is expected_defer
 
 
 def test_source_does_not_change_the_outcome_for_a_given_decision_type() -> None:
@@ -160,12 +162,16 @@ def test_policy_summary_shape() -> None:
         assert entry["source"] in ("measured", "provisional-default")
 
 
-def test_default_policy_summary_is_all_provisional() -> None:
+def test_default_policy_summary_is_all_measured() -> None:
+    # Was "is_all_provisional" before Wave 5's real evaluation landed; every
+    # DEFAULT_POLICY entry is now AccuracySource.MEASURED with a real
+    # laya-evaluation.md reference, not a PENDING placeholder.
     summary = get_policy_summary()
-    assert summary["all_measured"] is False
+    assert summary["all_measured"] is True
     for entry in summary["decisions"].values():
-        assert entry["source"] == "provisional-default"
-        assert "PENDING" in entry["reference"]
+        assert entry["source"] == "measured"
+        assert "laya-evaluation.md" in entry["reference"]
+        assert "PENDING" not in entry["reference"]
 
 
 def test_all_measured_flips_true_once_every_entry_is_measured() -> None:
@@ -210,7 +216,17 @@ def test_decision_accuracy_rejects_out_of_bounds_threshold(bad_threshold: float)
 
 
 def test_with_measured_accuracy_flips_source_and_keeps_type() -> None:
-    provisional = DEFAULT_POLICY.get(DecisionType.NEEDS_EVIDENCE_RETRIEVAL)
+    # DEFAULT_POLICY itself is measured now (Wave 5), so this test builds its
+    # own provisional fixture directly rather than reading one off
+    # DEFAULT_POLICY, to keep testing with_measured_accuracy's own behavior
+    # independent of what DEFAULT_POLICY's current numbers happen to be.
+    provisional = DecisionAccuracy(
+        decision_type=DecisionType.NEEDS_EVIDENCE_RETRIEVAL,
+        accuracy=0.70,
+        defer_threshold=0.70,
+        source=AccuracySource.PROVISIONAL_DEFAULT,
+        reference="PENDING: docs/assistant/wave5/laya-evaluation.md not yet available",
+    )
     assert provisional.source is AccuracySource.PROVISIONAL_DEFAULT
 
     measured = provisional.with_measured_accuracy(

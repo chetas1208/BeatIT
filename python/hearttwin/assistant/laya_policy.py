@@ -29,15 +29,17 @@ REQUIREMENT" metrics: accuracy, confusion matrix, Brier score, ECE,
 abstention, false-high-confidence rate). This module gates on that, per
 decision type, not on any individual call's score.
 
-Numbers status (see docs/assistant/wave5/decision-policy.md for the full
-table): Agent 22's ``docs/assistant/wave5/laya-evaluation.md`` did not exist
-in this repo as of when this module was built (checked, re-checked after a
-wait — see that doc's "Verification" section for the exact check performed).
-Every threshold below is therefore a clearly-labeled PROVISIONAL default,
-not a measured one. ``DEFAULT_POLICY`` is fully parameterized so a future
-agent can swap in ``AccuracySource.MEASURED`` entries, with the real
-fractions and a doc reference, without touching any call site — see
-``DecisionPolicy.with_measured_accuracy``.
+Numbers status: UPDATED during Wave 5 integration.
+``docs/assistant/wave5/laya-evaluation.md`` now exists — Agent 22 ran the
+deterministic fallback (the path actually live in production; Laya itself
+is not enabled by default) against Agent 21's 160-example fixture set. Every
+``accuracy`` below is now ``AccuracySource.MEASURED`` from that real run, not
+a guess. ``defer_threshold`` stays at the original policy choice (0.70) —
+that's a threshold decision, not a measurement, and ``with_measured_accuracy``
+deliberately only ever replaces ``accuracy``/``source``/``reference``/``note``.
+Net effect: 6 of 7 decision types clear the threshold as measured
+(``is_trustworthy`` True); ``classify_intent`` measured at 58.6%, the one
+type that does not — see its field's note below.
 """
 
 from __future__ import annotations
@@ -233,6 +235,16 @@ class DecisionPolicy:
             "fallback (laya_adapter._fallback_classify_intent) — most exposed to "
             "misroute risk of the 7. Treat provisional threshold as a floor, not "
             "a comfortable estimate, until measured.",
+        ).with_measured_accuracy(
+            0.586,
+            reference="docs/assistant/wave5/laya-evaluation.md (17/29, fallback, 160-fixture eval)",
+            note="MEASURED BELOW THRESHOLD (58.6% < 70%) — the one decision type "
+            "of 7 that does not clear its own bar. is_trustworthy is now False: "
+            "should_defer_to_clarification(...) returns True for this type until "
+            "either the fallback cascade is improved (see decision-adversary.md's "
+            "confirmed bucket-ordering bugs, e.g. REPORT shadowing TWIN) or the "
+            "threshold is deliberately revisited — do not silently lower the "
+            "threshold to make this pass.",
         )
     )
     select_tool_family: DecisionAccuracy = field(
@@ -243,6 +255,10 @@ class DecisionPolicy:
             "orchestrator._select_and_execute_tool already falls back to "
             "INSUFFICIENT_EVIDENCE/UNSUPPORTED rather than fabricating a tool "
             "result when no candidate's required args resolve.",
+        ).with_measured_accuracy(
+            0.733,
+            reference="docs/assistant/wave5/laya-evaluation.md (22/30, fallback, 160-fixture eval)",
+            note="MEASURED above threshold (73.3%).",
         )
     )
     needs_evidence_retrieval: DecisionAccuracy = field(
@@ -250,6 +266,10 @@ class DecisionPolicy:
             DecisionType.NEEDS_EVIDENCE_RETRIEVAL,
             "Binary yes/no; false negative just skips an evidence lookup the "
             "user could re-ask for, not a safety issue.",
+        ).with_measured_accuracy(
+            0.85,
+            reference="docs/assistant/wave5/laya-evaluation.md (17/20, fallback, 160-fixture eval)",
+            note="MEASURED above threshold (85.0%).",
         )
     )
     needs_simulation: DecisionAccuracy = field(
@@ -258,6 +278,10 @@ class DecisionPolicy:
             "Binary yes/no; note the deterministic simulation tools themselves "
             "(cardiac_state.py/hemodynamics.py/recovery_sim.py) are untouched by "
             "this decision either way — this only routes to them, never computes.",
+        ).with_measured_accuracy(
+            0.90,
+            reference="docs/assistant/wave5/laya-evaluation.md (18/20, fallback, 160-fixture eval)",
+            note="MEASURED above threshold (90.0%).",
         )
     )
     needs_clarification: DecisionAccuracy = field(
@@ -270,6 +294,16 @@ class DecisionPolicy:
             "22's measurement lands low for this one specifically, the correct "
             "response is to bias the DEFAULT (i.e. make the fallback ask more "
             "often), not to raise this threshold further — see decision-policy.md.",
+        ).with_measured_accuracy(
+            0.952,
+            reference="docs/assistant/wave5/laya-evaluation.md (20/21, fallback, 160-fixture eval)",
+            note="MEASURED well above threshold (95.2%) — the worked-example "
+            "worry above (modeled on a hypothetical 55%) did not materialize "
+            "for the deterministic fallback; no bias-the-default action needed. "
+            "(Note: real zero-shot Laya measured far worse on this same "
+            "decision, 52.4% — a reason to keep LAYA_ENABLED off for this type "
+            "specifically even after the wire-format bug in laya_adapter.py's "
+            "choice-type calls is fixed.)",
         )
     )
     needs_physician_review_framing: DecisionAccuracy = field(
@@ -278,6 +312,10 @@ class DecisionPolicy:
             "Binary yes/no; affects presentation density only per "
             "GLOBAL_ARCHITECTURE.md's physician-support policy, never affects "
             "diagnostic/treatment authority.",
+        ).with_measured_accuracy(
+            0.90,
+            reference="docs/assistant/wave5/laya-evaluation.md (18/20, fallback, 160-fixture eval)",
+            note="MEASURED above threshold (90.0%).",
         )
     )
     is_complex_reasoning_required: DecisionAccuracy = field(
@@ -287,6 +325,11 @@ class DecisionPolicy:
             "(orchestrator.py module docstring: 'No LLM / model-router "
             "integration exists in this wave'), so this decision is currently "
             "inert in production regardless of its policy value.",
+        ).with_measured_accuracy(
+            0.85,
+            reference="docs/assistant/wave5/laya-evaluation.md (17/20, fallback, 160-fixture eval)",
+            note="MEASURED above threshold (85.0%); still inert in production "
+            "pending a model router (unchanged from the provisional note).",
         )
     )
 

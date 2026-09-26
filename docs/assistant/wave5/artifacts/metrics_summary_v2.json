@@ -1,0 +1,360 @@
+{
+  "fallback": {
+    "classify_intent": {
+      "accuracy": 0.5862068965517241,
+      "correct": 17,
+      "total": 29,
+      "confusion": {
+        "direct_state_read": {
+          "direct_state_read": 2,
+          "generative_explanation": 1
+        },
+        "evidence_retrieval": {
+          "evidence_retrieval": 3
+        },
+        "deterministic_computation": {
+          "deterministic_computation": 3
+        },
+        "simulation": {
+          "simulation": 2,
+          "generative_explanation": 1
+        },
+        "artifact_generation": {
+          "artifact_generation": 3
+        },
+        "complex_synthesis": {
+          "complex_synthesis": 1,
+          "deterministic_computation": 1,
+          "simulation": 1
+        },
+        "generative_explanation": {
+          "generative_explanation": 2,
+          "simulation": 1
+        },
+        "clarification_required": {
+          "clarification_required": 1,
+          "generative_explanation": 1
+        },
+        "insufficient_evidence": {
+          "generative_explanation": 1,
+          "artifact_generation": 1
+        },
+        "human_decision_required": {
+          "generative_explanation": 2
+        },
+        "unsupported": {
+          "generative_explanation": 2
+        }
+      }
+    },
+    "select_tool_family": {
+      "accuracy": 0.7333333333333333,
+      "correct": 22,
+      "total": 30,
+      "confusion": {
+        "TWIN": {
+          "TWIN": 3,
+          "REPORT": 1
+        },
+        "EVIDENCE": {
+          "EVIDENCE": 3,
+          "TWIN": 1
+        },
+        "PHYSIOLOGY": {
+          "PHYSIOLOGY": 3
+        },
+        "EXPERIMENT": {
+          "EXPERIMENT": 3
+        },
+        "COMPARE": {
+          "COMPARE": 2,
+          "EXPERIMENT": 1,
+          "PHYSIOLOGY": 1,
+          "EVIDENCE": 1
+        },
+        "UNCERTAINTY": {
+          "UNCERTAINTY": 2,
+          "EVIDENCE": 1
+        },
+        "REPORT": {
+          "REPORT": 3
+        },
+        "NONE": {
+          "NONE": 3,
+          "TWIN": 2
+        }
+      }
+    },
+    "needs_evidence_retrieval": {
+      "accuracy": 0.85,
+      "correct": 17,
+      "total": 20,
+      "confusion": {
+        "True": {
+          "True": 7,
+          "False": 3
+        },
+        "False": {
+          "False": 10
+        }
+      }
+    },
+    "needs_simulation": {
+      "accuracy": 0.9,
+      "correct": 18,
+      "total": 20,
+      "confusion": {
+        "True": {
+          "True": 8,
+          "False": 2
+        },
+        "False": {
+          "False": 10
+        }
+      }
+    },
+    "needs_clarification": {
+      "accuracy": 0.9523809523809523,
+      "correct": 20,
+      "total": 21,
+      "confusion": {
+        "True": {
+          "True": 11
+        },
+        "False": {
+          "False": 9,
+          "True": 1
+        }
+      }
+    },
+    "needs_physician_review_framing": {
+      "accuracy": 0.9,
+      "correct": 18,
+      "total": 20,
+      "confusion": {
+        "True": {
+          "True": 8,
+          "False": 2
+        },
+        "False": {
+          "False": 10
+        }
+      }
+    },
+    "is_complex_reasoning_required": {
+      "accuracy": 0.85,
+      "correct": 17,
+      "total": 20,
+      "confusion": {
+        "True": {
+          "True": 9,
+          "False": 1
+        },
+        "False": {
+          "True": 2,
+          "False": 8
+        }
+      }
+    }
+  },
+  "real_laya": {
+    "classify_intent": {
+      "accuracy": 0.7586206896551724,
+      "correct": 22,
+      "total": 29,
+      "brier": 0.4222275431034483,
+      "ece": 0.15084137931034478,
+      "confusion": {
+        "direct_state_read": {
+          "direct_state_read": 2,
+          "generative_explanation": 1
+        },
+        "evidence_retrieval": {
+          "generative_explanation": 1,
+          "evidence_retrieval": 2
+        },
+        "deterministic_computation": {
+          "deterministic_computation": 2,
+          "direct_state_read": 1
+        },
+        "simulation": {
+          "simulation": 3
+        },
+        "artifact_generation": {
+          "artifact_generation": 3
+        },
+        "complex_synthesis": {
+          "generative_explanation": 1,
+          "complex_synthesis": 2
+        },
+        "generative_explanation": {
+          "generative_explanation": 3
+        },
+        "clarification_required": {
+          "generative_explanation": 2
+        },
+        "insufficient_evidence": {
+          "insufficient_evidence": 1,
+          "evidence_retrieval": 1
+        },
+        "human_decision_required": {
+          "human_decision_required": 2
+        },
+        "unsupported": {
+          "unsupported": 2
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0,
+      "mean_latency_ms": 325.4649467477254
+    },
+    "select_tool_family": {
+      "accuracy": 0.6333333333333333,
+      "correct": 19,
+      "total": 30,
+      "brier": 0.48454815133333334,
+      "ece": 0.12578999999999996,
+      "confusion": {
+        "TWIN": {
+          "COMPARE": 2,
+          "TWIN": 2
+        },
+        "EVIDENCE": {
+          "EVIDENCE": 3,
+          "NONE": 1
+        },
+        "PHYSIOLOGY": {
+          "NONE": 2,
+          "EVIDENCE": 1
+        },
+        "EXPERIMENT": {
+          "EXPERIMENT": 3
+        },
+        "COMPARE": {
+          "COMPARE": 5
+        },
+        "UNCERTAINTY": {
+          "NONE": 1,
+          "EXPERIMENT": 1,
+          "EVIDENCE": 1
+        },
+        "REPORT": {
+          "EXPERIMENT": 1,
+          "REPORT": 2
+        },
+        "NONE": {
+          "NONE": 4,
+          "EVIDENCE": 1
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0,
+      "mean_latency_ms": 292.56525932966423
+    },
+    "needs_evidence_retrieval": {
+      "accuracy": 0.65,
+      "correct": 13,
+      "total": 20,
+      "brier": 0.17849008,
+      "ece": 0.14423,
+      "confusion": {
+        "True": {
+          "False": 7,
+          "True": 3
+        },
+        "False": {
+          "False": 10
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0,
+      "mean_latency_ms": 126.028423209209
+    },
+    "needs_simulation": {
+      "accuracy": 0.7,
+      "correct": 14,
+      "total": 20,
+      "brier": 0.185420229,
+      "ece": 0.1773000000000001,
+      "confusion": {
+        "True": {
+          "False": 6,
+          "True": 4
+        },
+        "False": {
+          "False": 10
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0,
+      "mean_latency_ms": 132.33142155222595
+    },
+    "needs_clarification": {
+      "accuracy": 0.5238095238095238,
+      "correct": 11,
+      "total": 21,
+      "brier": 0.3045892257142857,
+      "ece": 0.3126380952380952,
+      "confusion": {
+        "True": {
+          "True": 1,
+          "False": 10
+        },
+        "False": {
+          "False": 10
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0,
+      "mean_latency_ms": 127.38625249559325
+    },
+    "needs_physician_review_framing": {
+      "accuracy": 0.75,
+      "correct": 15,
+      "total": 20,
+      "brier": 0.167638178,
+      "ece": 0.05891000000000002,
+      "confusion": {
+        "True": {
+          "False": 5,
+          "True": 5
+        },
+        "False": {
+          "False": 10
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0,
+      "mean_latency_ms": 116.79639555513859
+    },
+    "is_complex_reasoning_required": {
+      "accuracy": 0.5,
+      "correct": 10,
+      "total": 20,
+      "brier": 0.29537075749999997,
+      "ece": 0.32525500000000007,
+      "confusion": {
+        "True": {
+          "True": 1,
+          "False": 9
+        },
+        "False": {
+          "False": 9,
+          "True": 1
+        }
+      },
+      "act_probability_min": 1.0,
+      "act_probability_max": 1.0,
+      "mean_latency_ms": 105.28647989267483
+    }
+  },
+  "fixture_counts": {
+    "classify_intent": 29,
+    "select_tool_family": 30,
+    "needs_evidence_retrieval": 20,
+    "needs_simulation": 20,
+    "needs_clarification": 21,
+    "needs_physician_review_framing": 20,
+    "is_complex_reasoning_required": 20
+  }
+}

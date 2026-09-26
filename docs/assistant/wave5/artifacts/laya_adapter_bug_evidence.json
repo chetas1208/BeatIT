@@ -1,0 +1,64 @@
+{
+  "fixture_used": "F02_simulation_request",
+  "text": "What if the patient goes on a beta blocker regimen, run the recovery scenario",
+  "classify_intent_result": {
+    "decision_name": "classify_intent",
+    "options": [
+      "direct_state_read",
+      "evidence_retrieval",
+      "deterministic_computation",
+      "simulation",
+      "artifact_generation",
+      "generative_explanation",
+      "complex_synthesis",
+      "clarification_required",
+      "insufficient_evidence",
+      "human_decision_required",
+      "unsupported"
+    ],
+    "chosen": "simulation",
+    "raw_score": null,
+    "source": "fallback",
+    "calibration_status": "uncalibrated",
+    "warnings": [
+      "Laya unavailable; used deterministic keyword fallback"
+    ]
+  },
+  "select_tool_family_result": {
+    "decision_name": "select_tool_family",
+    "options": [
+      "TWIN",
+      "EVIDENCE",
+      "PHYSIOLOGY",
+      "EXPERIMENT",
+      "COMPARE",
+      "UNCERTAINTY",
+      "REPORT",
+      "NONE"
+    ],
+    "chosen": "EXPERIMENT",
+    "raw_score": null,
+    "source": "fallback",
+    "calibration_status": "uncalibrated",
+    "warnings": [
+      "Laya unavailable; used deterministic keyword fallback"
+    ]
+  },
+  "needs_simulation_result": {
+    "decision_name": "needs_simulation",
+    "answer": false,
+    "raw_score": 0.7578,
+    "source": "laya",
+    "calibration_status": "uncalibrated",
+    "warnings": []
+  },
+  "needs_clarification_result": {
+    "decision_name": "needs_clarification",
+    "answer": false,
+    "raw_score": 0.875,
+    "source": "laya",
+    "calibration_status": "uncalibrated",
+    "warnings": []
+  },
+  "note": "classify_intent/select_tool_family are 'choice' type: the adapter's _call_systemone() builds criteria={'options': [list]} which the real server's choice-question parser reads as a SINGLE option literally named 'options' (see laya/shortlist.py _criteria_items: a dict's .items() are read as (label, description) pairs, so {'options': [..]} yields exactly one label, 'options'). The server duly answers choice='options' with 100% probability. The adapter's own _parse_choice_answer() then checks `chosen not in options` -> True -> discards the answer and returns None, so it silently falls through to the deterministic fallback (source='fallback') EVEN THOUGH the real server responded successfully. needs_simulation/needs_clarification are 'noul' type: the adapter sends criteria={} (no options field), which IS the correct/accepted shape, so these get a genuine source='laya' answer."
+}

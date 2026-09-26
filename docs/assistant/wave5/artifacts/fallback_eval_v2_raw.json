@@ -1,0 +1,1511 @@
+{
+  "classify_intent": [
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": "direct_state_read",
+      "predicted": "direct_state_read",
+      "correct": true,
+      "category": "clear",
+      "notes": "Verbatim GLOBAL_ARCHITECTURE.md fast-path example."
+    },
+    {
+      "text": "Show me the LV ejection fraction right now.",
+      "context": {},
+      "expected": "direct_state_read",
+      "predicted": "direct_state_read",
+      "correct": true,
+      "category": "jargon",
+      "notes": "No 'current'/'what is' keywords; tests recall beyond the literal fallback trigger words."
+    },
+    {
+      "text": "whats the ef",
+      "context": {},
+      "expected": "direct_state_read",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "category": "shorthand",
+      "notes": "Lowercase, no apostrophe, no punctuation \u2014 realistic chat shorthand."
+    },
+    {
+      "text": "Where did this EF value come from?",
+      "context": {},
+      "expected": "evidence_retrieval",
+      "predicted": "evidence_retrieval",
+      "correct": true,
+      "category": "clear",
+      "notes": "Verbatim GLOBAL_ARCHITECTURE.md-style evidence ask."
+    },
+    {
+      "text": "Can you cite the source for the QTc measurement?",
+      "context": {},
+      "expected": "evidence_retrieval",
+      "predicted": "evidence_retrieval",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the provenance of the echo-derived stroke volume?",
+      "context": {},
+      "expected": "evidence_retrieval",
+      "predicted": "evidence_retrieval",
+      "correct": true,
+      "category": "jargon",
+      "notes": "Physician-register phrasing ('provenance', 'echo-derived')."
+    },
+    {
+      "text": "Calculate the cardiac output from HR and stroke volume.",
+      "context": {},
+      "expected": "deterministic_computation",
+      "predicted": "deterministic_computation",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Compute the PV loop for the current snapshot.",
+      "context": {},
+      "expected": "deterministic_computation",
+      "predicted": "deterministic_computation",
+      "correct": true,
+      "category": "clear",
+      "notes": "Also contains 'current', but 'compute'/'pv loop' correctly dominate for a pure computation ask."
+    },
+    {
+      "text": "Give me the hemodynamic numbers for this component.",
+      "context": {},
+      "expected": "deterministic_computation",
+      "predicted": "deterministic_computation",
+      "correct": true,
+      "category": "jargon",
+      "notes": ""
+    },
+    {
+      "text": "What if we reduce afterload by 20%?",
+      "context": {},
+      "expected": "simulation",
+      "predicted": "simulation",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Run a recovery scenario for this patient.",
+      "context": {},
+      "expected": "simulation",
+      "predicted": "simulation",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Rerun the ensemble with updated priors.",
+      "context": {},
+      "expected": "simulation",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: classify_intent's SIMULATION bucket keyword list (what if/scenario/simulat/recovery/run.*experiment) contains none of 'rerun'/'ensemble', so the cascade falls through to the final GENERATIVE_EXPLANATION else-branch. Human ground truth: re-running an ensemble is unambiguously a simulation request (EXPERIMENT tool family, run_ensemble). Contrast with needs_simulation's fallback, whose keyword list DOES include 'rerun' and would get this one right \u2014 an inconsistency between the two fallback heuristics worth noting."
+    },
+    {
+      "text": "Generate a PDF report of this patient's twin.",
+      "context": {},
+      "expected": "artifact_generation",
+      "predicted": "artifact_generation",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Create a physician brief for this case.",
+      "context": {},
+      "expected": "artifact_generation",
+      "predicted": "artifact_generation",
+      "correct": true,
+      "category": "jargon",
+      "notes": ""
+    },
+    {
+      "text": "Draft a computational report artifact for the ensemble run.",
+      "context": {},
+      "expected": "artifact_generation",
+      "predicted": "artifact_generation",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Summarize what changed over the last month and explain which findings are directly observed versus model-derived.",
+      "context": {},
+      "expected": "complex_synthesis",
+      "predicted": "complex_synthesis",
+      "correct": true,
+      "category": "clear",
+      "notes": "Verbatim GLOBAL_ARCHITECTURE.md 'complex physician path' example."
+    },
+    {
+      "text": "Compare the current PV loop directly observed versus the model-derived one.",
+      "context": {},
+      "expected": "complex_synthesis",
+      "predicted": "deterministic_computation",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: the cascade checks DETERMINISTIC_COMPUTATION's '\\bpv loop\\b' pattern (bucket 4) before COMPLEX_SYNTHESIS's '\\bdirectly observed versus\\b' pattern (bucket 6), so 'pv loop' wins first even though this sentence is near-verbatim GLOBAL_ARCHITECTURE.md's own COMPLEX_SYNTHESIS example phrasing ('directly observed versus model-derived'). Human ground truth follows the doc's own example, not the cascade order."
+    },
+    {
+      "text": "Compare recovery outcomes across the last three scenarios.",
+      "context": {},
+      "expected": "complex_synthesis",
+      "predicted": "simulation",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Tests Agent 23's flagged hypothesis directly: 'recovery' is a SIMULATION cue checked (bucket 2) before COMPLEX_SYNTHESIS's 'compare' cue (bucket 6), so a retrospective, already-run comparison across scenarios plausibly gets misrouted to SIMULATION by the fallback. Human ground truth: this asks to compare/synthesize outcomes that already exist, not to run a new one."
+    },
+    {
+      "text": "Why did stroke volume fall in the experiment?",
+      "context": {},
+      "expected": "generative_explanation",
+      "predicted": "generative_explanation",
+      "correct": true,
+      "category": "clear",
+      "notes": "Verbatim GLOBAL_ARCHITECTURE.md 'grounded explanation path' example."
+    },
+    {
+      "text": "How does afterload reduction affect ejection fraction?",
+      "context": {},
+      "expected": "generative_explanation",
+      "predicted": "generative_explanation",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Explain the drop in cardiac output after the last scenario.",
+      "context": {},
+      "expected": "generative_explanation",
+      "predicted": "simulation",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: contains 'scenario', a SIMULATION cue (bucket 2, checked before GENERATIVE_EXPLANATION's why/explain cue at bucket 7), so the cascade would likely misroute this to SIMULATION even though the verb is 'explain' (a request to explain something that already happened, not to run a new one)."
+    },
+    {
+      "text": "this",
+      "context": {},
+      "expected": "clarification_required",
+      "predicted": "clarification_required",
+      "correct": true,
+      "category": "clear",
+      "notes": "Single word; unambiguously too little information to route."
+    },
+    {
+      "text": "what about it?",
+      "context": {},
+      "expected": "clarification_required",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: 3 words (len<=1 rule doesn't fire), and no other bucket's keyword list matches 'what about it' (it is not '\\bwhat is\\b'), so the cascade falls through to the GENERATIVE_EXPLANATION else-branch. Human ground truth: a bare referent with no resolvable antecedent needs clarification regardless of word count."
+    },
+    {
+      "text": "What was the ejection fraction three years before this patient's first visit?",
+      "context": {
+        "available_history_days": 30
+      },
+      "expected": "insufficient_evidence",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Judgment call, flagged explicitly: classify_intent routes from text alone, and text alone can't strictly prove data is missing \u2014 we label this INSUFFICIENT_EVIDENCE because the context makes clear no such historical record exists, on the reading that a real System-1 router would have access to the same context object the adapter methods accept. A stricter reading could instead call this DIRECT_STATE_READ that later fails downstream; noted as a limitation in decision-fixtures.md. The current fallback structurally CANNOT ever choose INSUFFICIENT_EVIDENCE \u2014 it does not appear anywhere in the cascade's elif chain \u2014 so this is guaranteed fallback-wrong by construction, independent of the judgment call above."
+    },
+    {
+      "text": "What does the biopsy report say about interstitial fibrosis for this component?",
+      "context": {
+        "component_id": "septum",
+        "has_biopsy_data": false
+      },
+      "expected": "insufficient_evidence",
+      "predicted": "artifact_generation",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Same structural fallback gap as above (INSUFFICIENT_EVIDENCE is unreachable by the current keyword cascade)."
+    },
+    {
+      "text": "Should we switch this patient from warfarin to a DOAC?",
+      "context": {},
+      "expected": "human_decision_required",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "category": "clear",
+      "notes": "A therapy choice \u2014 must never be answered by System-1 routing content, only routed to a human-decision-required path. Fallback cannot reach this class (not in the cascade); it would likely land on GENERATIVE_EXPLANATION or DIRECT_STATE_READ ('current'-free though, so probably the final else GENERATIVE_EXPLANATION), which is a real, structural miss."
+    },
+    {
+      "text": "Which of these two ablation strategies should we pursue for this patient?",
+      "context": {},
+      "expected": "human_decision_required",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "category": "clear",
+      "notes": "Same structural fallback gap as above."
+    },
+    {
+      "text": "Export this twin as a DICOM file and fax it to the cath lab.",
+      "context": {},
+      "expected": "unsupported",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "category": "nonsense",
+      "notes": "Not a capability BeatIT's tool registry exposes (no fax/DICOM-export tool). Fallback cannot reach UNSUPPORTED (not in the cascade)."
+    },
+    {
+      "text": "What's the weather forecast for tomorrow?",
+      "context": {},
+      "expected": "unsupported",
+      "predicted": "generative_explanation",
+      "correct": false,
+      "category": "nonsense",
+      "notes": "Out-of-domain nonsense relative to a cardiac digital twin app. Fallback's cascade has no bucket for this and no final catch-all for out-of-domain text, so it falls to the GENERATIVE_EXPLANATION else-branch \u2014 a clear miss."
+    }
+  ],
+  "select_tool_family": [
+    {
+      "text": "What is the current ejection fraction for this component?",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": "TWIN",
+      "predicted": "TWIN",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Show me the latest snapshot of the twin.",
+      "context": {},
+      "expected": "TWIN",
+      "predicted": "TWIN",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Get the component report for the LV free wall.",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": "TWIN",
+      "predicted": "REPORT",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Structural fallback bug, not just a hypothesis: GLOBAL_ARCHITECTURE.md's 'SINGLE TOOL REGISTRY' section lists `get_component_report` under the TWIN category explicitly. But select_tool_family's REPORT bucket ('\\breport\\b', bucket 6) is checked before the TWIN bucket (bucket 7), so any text containing the literal word 'report' about a component's own twin state gets misrouted to REPORT instead of TWIN."
+    },
+    {
+      "text": "What's the ejection fraction on the current twin snapshot?",
+      "context": {},
+      "expected": "TWIN",
+      "predicted": "TWIN",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the source for this measurement?",
+      "context": {},
+      "expected": "EVIDENCE",
+      "predicted": "EVIDENCE",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Show me the provenance of the ECG-derived HR.",
+      "context": {},
+      "expected": "EVIDENCE",
+      "predicted": "EVIDENCE",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Cite where the EDV value came from.",
+      "context": {},
+      "expected": "EVIDENCE",
+      "predicted": "EVIDENCE",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Show me the PV loop for this component.",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": "PHYSIOLOGY",
+      "predicted": "PHYSIOLOGY",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the ECG state right now?",
+      "context": {},
+      "expected": "PHYSIOLOGY",
+      "predicted": "PHYSIOLOGY",
+      "correct": true,
+      "category": "clear",
+      "notes": "'right now' avoids the literal 'current' keyword on purpose, to test whether ECG-state recall depends on that one word."
+    },
+    {
+      "text": "Get the causal trace for the stroke volume drop.",
+      "context": {},
+      "expected": "PHYSIOLOGY",
+      "predicted": "PHYSIOLOGY",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Run a scenario with reduced afterload.",
+      "context": {},
+      "expected": "EXPERIMENT",
+      "predicted": "EXPERIMENT",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Create a new shadow trial for this patient.",
+      "context": {},
+      "expected": "EXPERIMENT",
+      "predicted": "EXPERIMENT",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What if we increase preload by 15%?",
+      "context": {},
+      "expected": "EXPERIMENT",
+      "predicted": "EXPERIMENT",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Compare this snapshot to last week's.",
+      "context": {
+        "snapshot_id": "snap-7"
+      },
+      "expected": "COMPARE",
+      "predicted": "COMPARE",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Show me the pair comparison between scenario A and B.",
+      "context": {},
+      "expected": "COMPARE",
+      "predicted": "EXPERIMENT",
+      "correct": false,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "How does this component compare versus the baseline?",
+      "context": {
+        "component_id": "septum"
+      },
+      "expected": "COMPARE",
+      "predicted": "COMPARE",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the dominant assumption behind this ensemble?",
+      "context": {
+        "ensemble_id": "ens-3"
+      },
+      "expected": "UNCERTAINTY",
+      "predicted": "UNCERTAINTY",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Run the missing piece analysis for this case.",
+      "context": {},
+      "expected": "UNCERTAINTY",
+      "predicted": "UNCERTAINTY",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What evidence would change this result the most?",
+      "context": {},
+      "expected": "UNCERTAINTY",
+      "predicted": "EVIDENCE",
+      "correct": false,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Generate a physician brief for this case.",
+      "context": {},
+      "expected": "REPORT",
+      "predicted": "REPORT",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Create a computational report summarizing this run.",
+      "context": {},
+      "expected": "REPORT",
+      "predicted": "REPORT",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Give me a summary of this session.",
+      "context": {},
+      "expected": "REPORT",
+      "predicted": "REPORT",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Thanks, that's helpful!",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "NONE",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Hello, can you help me understand this app?",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "NONE",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Okay, got it.",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "NONE",
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What is the current guideline for anticoagulation after ablation?",
+      "context": {},
+      "expected": "EVIDENCE",
+      "predicted": "TWIN",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Agent 23 hypothesis test (fallback-specialization doc, item 2): the word 'current' is not exclusively a twin-state cue \u2014 this text asks about medical-literature guidance, not this patient's twin. No EVIDENCE keyword ('evidence'/'source'/'provenance'/'cite') literally appears, so the fallback cascade falls through every bucket until 'current' fires the TWIN bucket (checked second-to-last) \u2014 a plausible over-routing to TWIN."
+    },
+    {
+      "text": "What's the current time in UTC?",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "TWIN",
+      "correct": false,
+      "category": "nonsense",
+      "notes": "Agent 23 hypothesis test: out-of-domain nonsense containing 'current'. Fallback almost certainly over-routes to TWIN via the bare '\\bcurrent\\b' pattern, since no other bucket matches and NONE is only the final else."
+    },
+    {
+      "text": "Is the current build passing CI?",
+      "context": {},
+      "expected": "NONE",
+      "predicted": "TWIN",
+      "correct": false,
+      "category": "nonsense",
+      "notes": "Same 'current'-without-twin-meaning hypothesis, different out-of-domain (software engineering, not cardiology) framing."
+    },
+    {
+      "text": "Compare the current PV loop directly observed versus the model-derived one.",
+      "context": {},
+      "expected": "COMPARE",
+      "predicted": "PHYSIOLOGY",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Judgment call, flagged explicitly: PHYSIOLOGY (get_pv_loop) and COMPARE (get_comparison) are both defensible tool families for this text. We label COMPARE because the primary verb/action is 'compare X versus Y', which is exactly what the COMPARE category exists for per the registry description; PHYSIOLOGY is for reading a single state, not comparing two. Fallback likely picks PHYSIOLOGY instead, since '\\bpv loop\\b' (bucket 2) is checked before COMPARE (bucket 4)."
+    },
+    {
+      "text": "Compare what the simulation predicts against the evidence for last month.",
+      "context": {},
+      "expected": "COMPARE",
+      "predicted": "EVIDENCE",
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Judgment call: this text plausibly triggers EVIDENCE ('evidence' keyword, bucket 1, checked first), EXPERIMENT ('simulation' matches '\\bsimulat', bucket 3), and COMPARE ('compare', bucket 4) all at once. We label COMPARE because the sentence's main verb is 'compare' \u2014 the ask is fundamentally a cross-source comparison, not a request for either source alone. Fallback likely returns EVIDENCE since that bucket is checked first. See the matching needs_simulation/needs_evidence_retrieval fixtures below using this same text, which legitimately expect BOTH to be True \u2014 a case the two independent yes/no decisions handle fine even though select_tool_family, a single-choice decision, cannot pick two families at once."
+    }
+  ],
+  "needs_evidence_retrieval": [
+    {
+      "text": "Where did this EF value come from?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Can you cite the source for the QTc measurement?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the provenance of the echo-derived stroke volume?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "jargon",
+      "notes": ""
+    },
+    {
+      "text": "Based on what data was this derived?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Is this number directly observed or model-derived?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: asks to distinguish observed-vs-derived, which is an evidence/provenance question in substance, but the fallback's keyword list (evidence/source/provenance/cite/citation/'where did...come from'/'based on what') has no match for 'directly observed or model-derived'."
+    },
+    {
+      "text": "What's backing up this claim about reduced contractility?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: 'backing up' is a natural-language paraphrase of 'evidence for' with no literal keyword match."
+    },
+    {
+      "text": "Show me the citation for this guideline recommendation.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "I want to see the raw echo report this was extracted from.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: 'extracted from' implies provenance but doesn't match any literal keyword in the fallback's list."
+    },
+    {
+      "text": "provenance pls",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "shorthand",
+      "notes": ""
+    },
+    {
+      "text": "evidence?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "shorthand",
+      "notes": ""
+    },
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Run a recovery scenario.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Thanks, got it!",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Compare this snapshot to last week's.",
+      "context": {
+        "snapshot_id": "snap-7"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Generate a physician brief.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Why did stroke volume fall?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "ambiguous",
+      "notes": "Judgment call: an explanation draws on internal causal-trace data, but the direct ask here is 'why', not 'show me the source/provenance' \u2014 labeled False on the reading that GENERATIVE_EXPLANATION and EVIDENCE_RETRIEVAL are meant to be distinct paths per GLOBAL_ARCHITECTURE.md."
+    },
+    {
+      "text": "What if we double the afterload?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Calculate the cardiac output.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "This is concerning, is it dangerous?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": "Triggers needs_physician_review_framing, not evidence retrieval \u2014 kept as a negative control to make sure the two decisions aren't conflated."
+    },
+    {
+      "text": "current",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "nonsense",
+      "notes": ""
+    }
+  ],
+  "needs_simulation": [
+    {
+      "text": "What if we reduce afterload by 20%?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Run a recovery scenario for this patient.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Simulate increased preload.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Rerun the ensemble with updated priors.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "Unlike classify_intent's SIMULATION bucket, needs_simulation's fallback keyword list DOES include '\\brerun\\b', so the fallback is expected to get this one right \u2014 kept as a positive control / cross-check against the classify_intent fixture using the same text (which is expected to be a fallback miss there)."
+    },
+    {
+      "text": "Start a shadow trial with these parameters.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: 'shadow trial' is a real EXPERIMENT-category tool (run_shadow_trial) but is not in needs_simulation's fallback keyword list (what if/scenario/simulat/recovery/rerun/run experiment)."
+    },
+    {
+      "text": "Run an experiment varying contractility.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Project how this patient's numbers would look after 6 weeks of recovery.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Model what happens if we halve the vessel resistance.",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: 'what happens if' is semantically identical to 'what if' but does not match the fallback's literal '\\bwhat if\\b' pattern."
+    },
+    {
+      "text": "Kick off a scenario run with the new baseline.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Predict the outcome for a hypothetical medication-free recovery trajectory.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "'hypothetical' isn't a fallback keyword, but 'recovery' is, so the fallback is expected to get this right for the wrong/incomplete reason \u2014 worth noting in the evaluation as a right-answer-fragile-heuristic case, not a clean pass."
+    },
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Where did this value come from?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Compare this snapshot to last week's.",
+      "context": {
+        "snapshot_id": "snap-7"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Generate a report.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Why did the ejection fraction change?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Show me the ECG right now.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "I'm worried this looks abnormal.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "This is great, thanks!",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "current",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "nonsense",
+      "notes": ""
+    },
+    {
+      "text": "What's the causal trace for the stroke volume drop that already happened?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "ambiguous",
+      "notes": "Explicitly distinguishes a request about an already-observed event from a request to run a new simulation; the word 'happened' signals past tense."
+    }
+  ],
+  "needs_clarification": [
+    {
+      "text": "this",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "that",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "what about it?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "Bare referent 'it', no resolving context id."
+    },
+    {
+      "text": "fix this",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "Bare referent 'this', no resolving context id."
+    },
+    {
+      "text": "huh?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "nonsense",
+      "notes": ""
+    },
+    {
+      "text": "can you look at that component here?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "Two bare referents ('that', 'here'), no resolving context id."
+    },
+    {
+      "text": "update it please",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "what does this mean",
+      "context": {
+        "snapshot_id": null
+      },
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "ambiguous",
+      "notes": "Edge case: a referent-resolving key is present in context but its value is falsy (None) \u2014 `bool(context.get(key))` is False, so this should NOT count as a resolving context. Tests that the resolver checks truthiness, not just key presence."
+    },
+    {
+      "text": "show me that one again",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "hmm",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "nonsense",
+      "notes": ""
+    },
+    {
+      "text": "this",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "ambiguous",
+      "notes": "Judgment call: even with a resolving component_id in context, a single BARE word still doesn't specify WHAT information is wanted (EF? PV loop? report?). Labeled True (needs_clarification) on the reasoning that word-count ambiguity about intent is independent of, and not resolved by, referent resolution. This matches the fallback's own unconditional single-word rule, so it is NOT a fallback-disagreement case \u2014 included to make that judgment call explicit rather than silently assumed."
+    },
+    {
+      "text": "what is the ejection fraction for this component?",
+      "context": {
+        "component_id": "lv_free_wall"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": "Bare referent 'this', but multi-word and a resolving component_id is set."
+    },
+    {
+      "text": "show me the report for that scenario",
+      "context": {
+        "scenario_id": "scn-042"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "compare this to the baseline",
+      "context": {
+        "snapshot_id": "snap-7"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "what does this mean for the ensemble",
+      "context": {
+        "ensemble_id": "ens-3"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "run it again with the same parameters",
+      "context": {
+        "scenario_id": "scn-9"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "what is the current ejection fraction?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": "No bare referent at all."
+    },
+    {
+      "text": "calculate the cardiac output from HR and stroke volume",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "generate a physician brief for this case",
+      "context": {
+        "patient_id": "pt-1"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "why did stroke volume fall in the experiment",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "that's helpful, thank you",
+      "context": {},
+      "expected": false,
+      "predicted": true,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback false-positive hypothesis: the regex '\\bthat\\b' matches the substring 'that' inside \"that's\" (word boundary falls on the apostrophe), so the fallback likely flags this pure pleasantry as needing clarification even though it plainly does not."
+    }
+  ],
+  "needs_physician_review_framing": [
+    {
+      "text": "What is the current EF?",
+      "context": {
+        "audience": "physician"
+      },
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "audience=='physician' short-circuits True regardless of text content."
+    },
+    {
+      "text": "Show me the PV loop.",
+      "context": {
+        "audience": "physician"
+      },
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "This looks concerning, should I be worried?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Is this ejection fraction abnormal?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the risk here?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What assumptions were made in this simulation?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "How uncertain is this estimate?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Walk me through the evidence and assumptions behind this recommendation.",
+      "context": {
+        "audience": "physician"
+      },
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "Both the audience short-circuit and the keyword trigger fire."
+    },
+    {
+      "text": "Should I be worried about this trend?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "This finding seems inconsistent with the guideline \u2014 how confident are we?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback-miss hypothesis: 'inconsistent'/'confident' aren't literal keyword matches (concerning/abnormal/should i be worried/risk/uncertain/assumption), but the text is clearly raising doubt about a finding and asking for confidence framing, which is exactly what this decision exists to gate."
+    },
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Thanks, thats helpful!",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Run a recovery scenario.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Generate a report.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Compare this to last week.",
+      "context": {
+        "snapshot_id": "snap-1"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What if we reduce afterload?",
+      "context": {
+        "audience": "patient"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": "audience is set but not 'physician' \u2014 should NOT short-circuit."
+    },
+    {
+      "text": "Calculate the cardiac output.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the causal trace for this?",
+      "context": {
+        "component_id": "septum"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "hello",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "nonsense",
+      "notes": ""
+    },
+    {
+      "text": "Show me the ensemble result.",
+      "context": {
+        "audience": "general"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    }
+  ],
+  "is_complex_reasoning_required": [
+    {
+      "text": "Summarize what changed over the last month and explain which findings are directly observed versus model-derived.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "Verbatim GLOBAL_ARCHITECTURE.md complex-synthesis example; long AND keyword match."
+    },
+    {
+      "text": "Compare the current twin state to the baseline and identify which changes are clinically meaningful.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "'compare' plus an explicit additional synthesis ask ('identify which changes')."
+    },
+    {
+      "text": "Which findings are directly attributable to the intervention versus natural variation over time?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the trade-off between reducing afterload aggressively versus a more conservative titration approach?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Directly observed versus model-derived: which values in this report should I trust more?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Summarize the ensemble results and explain which assumptions drove the biggest spread in outcomes.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Can you walk me through how the reduced afterload scenario compares to the baseline, which assumptions were used for both runs, and whether the resulting stroke volume change is clinically significant?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "Long AND contains compare/which \u2014 unambiguous multi-part synthesis ask."
+    },
+    {
+      "text": "Explain whether these values are directly observed versus extrapolated by the ensemble model, and why the two might disagree.",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "I noticed the stroke volume, ejection fraction, and cardiac output all shifted after the last two scenarios and the recovery run \u2014 can you help me understand which of those changes are related versus independent, and what's driving the biggest one?",
+      "context": {},
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "category": "clear",
+      "notes": "Long and genuinely multi-source synthesis; clean agreement case."
+    },
+    {
+      "text": "What trade-offs should I weigh between running another ensemble now versus waiting for more evidence?",
+      "context": {},
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Compare this scenario to the baseline.",
+      "context": {
+        "scenario_id": "scn-1"
+      },
+      "expected": false,
+      "predicted": true,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback false-positive hypothesis: the bare '\\bcompare\\b' keyword fires regardless of sentence complexity, but a short, simple two-way compare answerable directly by the COMPARE tool is not 'complex reasoning' in the sense GLOBAL_ARCHITECTURE.md means (deep multi-source synthesis needing the NVIDIA LLM System-2 path) \u2014 contrast with the longer, genuinely synthetic 'compare' fixtures above, which are labeled True."
+    },
+    {
+      "text": "Could you please go ahead and just quickly tell me one more time what the current ejection fraction value is for this particular patient right now?",
+      "context": {},
+      "expected": false,
+      "predicted": true,
+      "correct": false,
+      "category": "ambiguous",
+      "notes": "Fallback false-positive hypothesis: word count is 26 (>18), so the fallback's length heuristic alone would flag this True, but this is a single simple direct-state-read question padded with filler/polite words ('could you please', 'just quickly', 'one more time') \u2014 no multi-source synthesis is needed at all. This is the clearest length-heuristic false positive in the set."
+    },
+    {
+      "text": "What is the current EF?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Run a recovery scenario.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Why did stroke volume fall?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Generate a report.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Thanks, that's helpful!",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "Show me the PV loop.",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "What's the causal trace for this component?",
+      "context": {
+        "component_id": "septum"
+      },
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": ""
+    },
+    {
+      "text": "This is concerning, is it dangerous?",
+      "context": {},
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "category": "clear",
+      "notes": "Triggers needs_physician_review_framing, not complex reasoning \u2014 negative control to keep the two decisions distinct."
+    }
+  ]
+}
