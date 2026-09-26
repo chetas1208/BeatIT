@@ -22,6 +22,27 @@ AI may explain and interrogate it.**
 *A real local application capture. The empty viewport is honest: this screen
 was captured before a case run, while the synthetic-demo workflow was ready.*
 
+## Five-slide demo deck
+
+**[Download the formal BeatIT presentation (PPTX)](PPT/BeatIT_5_Slide_Demo.pptx)**
+
+The five-slide deck is designed for a concise, demo-first presentation:
+
+1. BeatIT's evidence-first thesis
+2. The clinical communication and trust gap
+3. The eight-agent deterministic workflow
+4. Independent PTB-XL ECG and UCI heart-failure demo cases
+5. Validation, differentiation, and the closing message
+
+The presentation is editable and reproducible. Regenerate it with:
+
+```bash
+python scripts/create_demo_ppt.py
+```
+
+> **Demo integrity:** synthetic measurements = 0; cross-patient stitching = 0;
+> missing modalities remain explicitly missing.
+
 ## Why BeatIT?
 
 Cardiac evidence arrives as ECGs, imaging, vitals, laboratory results,
