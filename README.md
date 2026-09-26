@@ -67,6 +67,77 @@ multi-agent orchestration, and explicit uncertainty.
 > BeatIT is a research and educational prototype. It is not a diagnostic,
 > treatment, triage, or clinical decision-making system.
 
+## Current product architecture
+
+```mermaid
+flowchart LR
+    subgraph E["Evidence"]
+        E1["Verified real demo cases<br/>PTB-XL · UCI HF"]
+        E2["Uploaded evidence<br/>PDF · ECG · imaging · CSV"]
+        E3["Structured vitals"]
+    end
+
+    subgraph O["Auditable orchestration"]
+        O1["Intake + safety"]
+        O2["Multimodal extraction"]
+        O3["Evidence validation"]
+        O4["Cardiac state builder"]
+        O5["Electrophysiology"]
+        O6["Hemodynamics"]
+        O7["Recovery"]
+        O8["Evaluator"]
+    end
+
+    subgraph C["Deterministic cardiac core"]
+        C1["Sourced CardiacTwinState"]
+        C2["SV · EF · CO · MAP · RR · QTc"]
+        C3["Seeded plausible twins"]
+        C4["Paired Shadow Trials"]
+        C5["Missing Piece sensitivity"]
+    end
+
+    subgraph P["Clinician-facing product"]
+        P1["Twin"]
+        P2["Experiment"]
+        P3["Compare"]
+        P4["Evidence"]
+        P5["Report"]
+    end
+
+    E1 --> O1
+    E2 --> O1
+    E3 --> O1
+    O1 --> O2 --> O3 --> O4
+    O4 --> O5
+    O4 --> O6
+    O5 --> O7
+    O6 --> O7
+    O7 --> O8
+    O8 --> C1
+    C1 --> C2
+    C1 --> C3 --> C4
+    C1 --> C5
+    C2 --> P1
+    C3 --> P2
+    C4 --> P3
+    C5 --> P4
+    C1 --> P5
+
+    S["Safety + provenance<br/>OBSERVED · DERIVED · MODEL_PRIOR · MISSING"]
+    S -. governs .-> O1
+    S -. governs .-> C1
+    S -. governs .-> P5
+
+    X["Optional providers<br/>Bedrock · Redis · Weave · VISTA-3D"]
+    X -. enriches; core degrades safely .-> O2
+    X -. enriches; core degrades safely .-> P1
+```
+
+The diagram reflects the current repository architecture. Optional providers
+may enrich extraction, persistence, tracing, language, or segmentation, but
+they are not numerical authorities and the deterministic core remains usable
+when they are unavailable.
+
 ## Why BeatIT?
 
 Cardiac evidence arrives as ECGs, imaging, vitals, laboratory results,
