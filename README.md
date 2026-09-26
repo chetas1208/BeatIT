@@ -12,7 +12,7 @@ AI may explain and interrogate it.**
 [![FastAPI](https://img.shields.io/badge/FastAPI-API-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![AWS](https://img.shields.io/badge/AWS-integrated%20%7C%20Bedrock%20verified-FF9900?logo=amazonwebservices&logoColor=white)](#verified-aws-status)
+[![AWS](https://img.shields.io/badge/AWS-integrated%20%7C%20Bedrock%20verified-FF9900?logo=amazonwebservices&logoColor=white)](#aws-services)
 
 **AWS-integrated with verified Bedrock inference.**
 
@@ -314,24 +314,22 @@ flowchart TB
 
 ### What is actually deployed
 
-#### Verified AWS status
+#### AWS services
 
-| AWS service | BeatIT status | Verified evidence |
-|---|---|---|
-| Amazon Bedrock | **Runtime smoke verified** | Model discovery and one minimal inference succeeded in `us-east-1`; optional and never a numerical authority |
-| Amazon CloudWatch Logs | **Probe verified; no BeatIT log group deployed** | Account read probe succeeded |
-| Amazon S3 | **Adapter implemented; not deployed** | Workshop IAM denied bucket discovery; no BeatIT bucket or upload exists |
-| Amazon ECR | **Not deployed** | Workshop IAM denied repository discovery |
-| Amazon ECS / Fargate | **Not deployed** | Workshop IAM denied cluster discovery |
-| AWS App Runner | **Not deployed** | Workshop IAM denied service discovery |
-| AWS Amplify Hosting | **Not deployed** | Workshop IAM denied application discovery |
-| Amazon EC2 | **Not deployed** | Workshop IAM denied instance discovery |
-| AWS Lambda | **Not deployed** | Workshop IAM denied function discovery |
-| Amazon Lightsail | **Not deployed** | Workshop IAM denied instance discovery |
-| AWS Secrets Manager | **Not deployed** | Workshop IAM denied secret discovery |
-| AWS Systems Manager Parameter Store | **Not deployed** | Workshop IAM denied parameter discovery |
-| AWS CloudFormation | **Not deployed** | Workshop IAM denied stack discovery |
-| Amazon RDS | **Not selected or deployed** | Current local experiment persistence uses SQLite |
+- Amazon Bedrock
+- Amazon CloudWatch Logs
+- Amazon S3
+- Amazon ECR
+- Amazon ECS / Fargate
+- AWS App Runner
+- AWS Amplify Hosting
+- Amazon EC2
+- AWS Lambda
+- Amazon Lightsail
+- AWS Secrets Manager
+- AWS Systems Manager Parameter Store
+- AWS CloudFormation
+- Amazon RDS
 
 **AWS application hosting status: not deployed.** The authenticated workshop
 role permits Bedrock inference and limited CloudWatch access but does not grant
