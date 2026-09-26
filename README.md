@@ -1,5 +1,7 @@
 # BeatIT
 
+[![GitHub](https://img.shields.io/badge/GitHub-chetas1208%2FBeatIT-181717?logo=github)](https://github.com/chetas1208/BeatIT)
+
 **An auditable, multi-agent cardiac digital twin.** Upload the cardiac evidence you already have — a discharge PDF, an ECG image or CSV, an echo/MRI still, or just structured vitals — and BeatIT builds an explainable physiological model of the heart: a canonical cardiac state, a beating 3D twin with anatomically-localized findings, a pressure–volume simulation, bounded recovery forecasts, and explicit plausible-twin ensembles. DualBeat remains the underlying engine/research lineage. Every number shows where it came from.
 
 > **Educational simulation only.** DualBeat is **not a medical device**. It does not diagnose, prescribe, triage, or recommend treatment. Every output is a simulated, educational estimate.
