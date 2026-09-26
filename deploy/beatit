@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+run_dir="$repo_root/.run/beatit"
+api_port="${BEATIT_API_PORT:-8000}"
+web_port="${BEATIT_WEB_PORT:-3001}"
+mkdir -p "$run_dir"
+
+pid_file() { printf '%s/%s.pid' "$run_dir" "$1"; }
+log_file() { printf '%s/%s.log' "$run_dir" "$1"; }
+
+is_running() { [[ -f "$(pid_file "$1")" ]] && kill -0 "$(cat "$(pid_file "$1")")" 2>/dev/null; }
+
+status() {
+  local name
+  for name in backend frontend; do
+    if is_running "$name"; then
+      echo "$name RUNNING pid=$(cat "$(pid_file "$name")")"
+    else
+      echo "$name STOPPED"
+    fi
+  done
+}
+
+down() {
+  local name pid
+  for name in frontend backend; do
+    if [[ -f "$(pid_file "$name")" ]]; then
+      pid="$(cat "$(pid_file "$name")")"
+      if kill -0 "$pid" 2>/dev/null; then kill "$pid"; fi
+      rm -f "$(pid_file "$name")"
+    fi
+  done
+  echo "BeatIT services stopped (only recorded PIDs were targeted)."
+}
+
+up() {
+  cd "$repo_root"
+  if is_running backend || is_running frontend; then
+    echo "BeatIT is already running; use '$0 status' or '$0 down' first." >&2
+    exit 1
+  fi
+  [[ -x "$repo_root/web/node_modules/.bin/next" ]] || { echo "web dependencies/build are missing" >&2; exit 1; }
+  # Next inlines NEXT_PUBLIC_* at build time; loopback self-host must target this API port.
+  public_api_base="${NEXT_PUBLIC_API_BASE:-http://127.0.0.1:${api_port}/api/v1}"
+  cardiology_copilot="${NEXT_PUBLIC_CARDIOLOGY_COPILOT_ENABLED:-false}"
+  unified_assistant="${NEXT_PUBLIC_UNIFIED_ASSISTANT_ENABLED:-false}"
+  (
+    cd "$repo_root/web"
+    env NEXT_PUBLIC_API_BASE="$public_api_base" \
+      NEXT_PUBLIC_CARDIOLOGY_COPILOT_ENABLED="$cardiology_copilot" \
+      NEXT_PUBLIC_UNIFIED_ASSISTANT_ENABLED="$unified_assistant" \
+      ./node_modules/.bin/next build
+  ) >/dev/null
+  cors_origins="http://127.0.0.1:${web_port},http://localhost:${web_port}"
+  if [[ -n "${BEATIT_CORS_ORIGINS:-}" ]]; then
+    cors_origins="${BEATIT_CORS_ORIGINS},${cors_origins}"
+  fi
+  nohup env PYTHONPATH="$repo_root" BEATIT_CORS_ORIGINS="$cors_origins" python -m uvicorn api.index:app --host 127.0.0.1 --port "$api_port" >"$(log_file backend)" 2>&1 &
+  echo $! >"$(pid_file backend)"
+  (
+    cd "$repo_root/web"
+    nohup env NEXT_PUBLIC_API_BASE="$public_api_base" \
+      NEXT_PUBLIC_CARDIOLOGY_COPILOT_ENABLED="$cardiology_copilot" \
+      NEXT_PUBLIC_UNIFIED_ASSISTANT_ENABLED="$unified_assistant" \
+      API_BASE="$public_api_base" \
+      ./node_modules/.bin/next start -p "$web_port" >"$(log_file frontend)" 2>&1 &
+    echo $! >"$(pid_file frontend)"
+  )
+  for _ in $(seq 1 30); do
+    if curl -fsS "http://127.0.0.1:${api_port}/api/health/live" >/dev/null 2>&1 && curl -fsS "http://127.0.0.1:${web_port}/" >/dev/null 2>&1; then
+      echo "BEATIT READY frontend=http://127.0.0.1:${web_port} backend=http://127.0.0.1:${api_port}"
+      return 0
+    fi
+    sleep 1
+  done
+  echo "BEATIT FAILED TO START; inspect $run_dir/*.log" >&2
+  status
+  exit 1
+}
+
+case "${1:-status}" in
+  up) up ;;
+  down) down ;;
+  restart) down; up ;;
+  status) status ;;
+  preflight) E2E_BASE_URL="http://127.0.0.1:${api_port}" "$repo_root/scripts/demo-preflight.sh" ;;
+  *) echo "Usage: $0 {up|down|restart|status|preflight}" >&2; exit 2 ;;
+esac

@@ -1,0 +1,209 @@
+{
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-beatit-syn-0394",
+      "resource": {
+        "id": "patient-beatit-syn-0394",
+        "identifier": [
+          {
+            "system": "https://beatit.local/synthetic",
+            "value": "BEATIT-SYN-0394"
+          }
+        ],
+        "name": [
+          {
+            "text": "BEATIT-SYN-0394"
+          }
+        ],
+        "resourceType": "Patient"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-beatit-syn-0394",
+      "resource": {
+        "class": {
+          "code": "AMB"
+        },
+        "id": "encounter-beatit-syn-0394",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "subject": {
+          "reference": "Patient/patient-beatit-syn-0394"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-beatit-syn-0394-1",
+      "resource": {
+        "code": {
+          "coding": [
+            {
+              "code": "heart_rate",
+              "system": "https://beatit.local/synthetic"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-01-30T00:00:00+00:00",
+        "encounter": {
+          "reference": "Encounter/encounter-beatit-syn-0394"
+        },
+        "id": "obs-beatit-syn-0394-1",
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/patient-beatit-syn-0394"
+        },
+        "valueQuantity": {
+          "unit": "beats/min",
+          "value": 74.43
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-beatit-syn-0394-2",
+      "resource": {
+        "code": {
+          "coding": [
+            {
+              "code": "systolic_bp",
+              "system": "https://beatit.local/synthetic"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-01-30T00:00:00+00:00",
+        "encounter": {
+          "reference": "Encounter/encounter-beatit-syn-0394"
+        },
+        "id": "obs-beatit-syn-0394-2",
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/patient-beatit-syn-0394"
+        },
+        "valueQuantity": {
+          "unit": "mm[Hg]",
+          "value": 119.06
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-beatit-syn-0394-3",
+      "resource": {
+        "code": {
+          "coding": [
+            {
+              "code": "diastolic_bp",
+              "system": "https://beatit.local/synthetic"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-01-30T00:00:00+00:00",
+        "encounter": {
+          "reference": "Encounter/encounter-beatit-syn-0394"
+        },
+        "id": "obs-beatit-syn-0394-3",
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/patient-beatit-syn-0394"
+        },
+        "valueQuantity": {
+          "unit": "mm[Hg]",
+          "value": 80.06
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-beatit-syn-0394-4",
+      "resource": {
+        "code": {
+          "coding": [
+            {
+              "code": "end_diastolic_volume",
+              "system": "https://beatit.local/synthetic"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-01-30T00:00:00+00:00",
+        "encounter": {
+          "reference": "Encounter/encounter-beatit-syn-0394"
+        },
+        "id": "obs-beatit-syn-0394-4",
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/patient-beatit-syn-0394"
+        },
+        "valueQuantity": {
+          "unit": "mL",
+          "value": 160.18
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-beatit-syn-0394-5",
+      "resource": {
+        "code": {
+          "coding": [
+            {
+              "code": "end_systolic_volume",
+              "system": "https://beatit.local/synthetic"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-01-30T00:00:00+00:00",
+        "encounter": {
+          "reference": "Encounter/encounter-beatit-syn-0394"
+        },
+        "id": "obs-beatit-syn-0394-5",
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/patient-beatit-syn-0394"
+        },
+        "valueQuantity": {
+          "unit": "mL",
+          "value": 83.07
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-beatit-syn-0394-6",
+      "resource": {
+        "code": {
+          "coding": [
+            {
+              "code": "oxygen_saturation",
+              "system": "https://beatit.local/synthetic"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-01-30T00:00:00+00:00",
+        "encounter": {
+          "reference": "Encounter/encounter-beatit-syn-0394"
+        },
+        "id": "obs-beatit-syn-0394-6",
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/patient-beatit-syn-0394"
+        },
+        "valueQuantity": {
+          "unit": "%",
+          "value": 97.67
+        }
+      }
+    }
+  ],
+  "id": "bundle-beatit-syn-0394",
+  "meta": {
+    "tag": [
+      {
+        "code": "synthetic_demo",
+        "system": "https://hearttwin.local/careguard"
+      }
+    ]
+  },
+  "resourceType": "Bundle",
+  "type": "collection"
+}

@@ -1,0 +1,45 @@
+{
+  "age_years": 71,
+  "available_modalities": [
+    "fhir_r4",
+    "echo_metadata"
+  ],
+  "category": "mixed",
+  "expected_capabilities": [
+    "cardiac_state",
+    "ensemble",
+    "shadow_trial",
+    "missing_piece",
+    "report"
+  ],
+  "fhir_path": "fhir/BEATIT-SYN-0437.json",
+  "fhir_validation": {
+    "issues": [],
+    "valid": true,
+    "warnings": []
+  },
+  "phenotype_tags": [
+    "mixed",
+    "synthetic_demo",
+    "deterministic"
+  ],
+  "profile_id": "BEATIT-SYN-0437",
+  "provenance": {
+    "ecg_source": null,
+    "identity_policy": "not derived from a real person",
+    "source": "BeatIT deterministic generator",
+    "source_type": "synthetic"
+  },
+  "seed": 20261363,
+  "sex": "female",
+  "synthetic": true,
+  "timeline": [],
+  "vitals": {
+    "diastolic_bp_mmhg": 88.17,
+    "edv_ml": 176.6,
+    "esv_ml": 80.92,
+    "heart_rate_bpm": 85.08,
+    "oxygen_saturation_pct": 98.71,
+    "systolic_bp_mmhg": 167.55
+  }
+}

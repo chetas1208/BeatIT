@@ -1,0 +1,48 @@
+{
+  "age_years": 63,
+  "available_modalities": [
+    "fhir_r4",
+    "echo_metadata",
+    "synthetic_ecg"
+  ],
+  "category": "hemodynamic",
+  "ecg_path": "ecg/BEATIT-SYN-0213.csv",
+  "ecg_source_type": "synthetic",
+  "expected_capabilities": [
+    "cardiac_state",
+    "ensemble",
+    "shadow_trial",
+    "missing_piece",
+    "report"
+  ],
+  "fhir_path": "fhir/BEATIT-SYN-0213.json",
+  "fhir_validation": {
+    "issues": [],
+    "valid": true,
+    "warnings": []
+  },
+  "phenotype_tags": [
+    "hemodynamic",
+    "synthetic_demo",
+    "deterministic"
+  ],
+  "profile_id": "BEATIT-SYN-0213",
+  "provenance": {
+    "ecg_source": "NeuroKit2-compatible synthetic waveform generator",
+    "identity_policy": "not derived from a real person",
+    "source": "BeatIT deterministic generator",
+    "source_type": "synthetic"
+  },
+  "seed": 20261139,
+  "sex": "female",
+  "synthetic": true,
+  "timeline": [],
+  "vitals": {
+    "diastolic_bp_mmhg": 90.75,
+    "edv_ml": 98.12,
+    "esv_ml": 39.45,
+    "heart_rate_bpm": 72.6,
+    "oxygen_saturation_pct": 95.36,
+    "systolic_bp_mmhg": 173.07
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "categories": {
+    "baseline": 20,
+    "electrical": 20,
+    "hemodynamic": 20,
+    "mixed": 20,
+    "stress_test": 20,
+    "structural": 20
+  },
+  "ensemble_success": 120,
+  "missing_piece_success": 120,
+  "profile_isolation": true,
+  "sample_count": 120,
+  "shadow_trial_success": 120,
+  "status": "PASS"
+}

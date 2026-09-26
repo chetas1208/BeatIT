@@ -1,0 +1,8 @@
+{
+  "duplicate_ids": 0,
+  "fhir_valid": 500,
+  "negative_or_nonfinite_values": 0,
+  "physiological_invariants": "PASS",
+  "profile_count": 500,
+  "unique_ids": 500
+}

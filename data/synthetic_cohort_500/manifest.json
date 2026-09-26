@@ -1,0 +1,30 @@
+{
+  "beatit_ingestion_success": 500,
+  "category_counts": {
+    "baseline": 200,
+    "electrical": 70,
+    "hemodynamic": 100,
+    "mixed": 40,
+    "stress_test": 30,
+    "structural": 60
+  },
+  "created_at_utc": "2026-09-26T17:51:02.909206+00:00",
+  "database": "beatit_cohort.sqlite3",
+  "fhir_valid": 500,
+  "generator": "scripts/build_cohort_500.py",
+  "generator_policy": "local deterministic enrichment; no cross-source identity mixing",
+  "longitudinal_count": 250,
+  "persisted_count": 500,
+  "profile_count": 500,
+  "profile_directory": "profiles",
+  "provenance": "Every profile and modality is synthetic_demo; no real patient identity is used.",
+  "seed": 20260926,
+  "source_references": [
+    "synthetic local generator",
+    "FHIR R4-shaped bundle contract"
+  ],
+  "synthetic": true,
+  "synthetic_ecg_count": 166,
+  "unique_profile_count": 500,
+  "version": "beatit-synthetic-cohort-500-v1"
+}

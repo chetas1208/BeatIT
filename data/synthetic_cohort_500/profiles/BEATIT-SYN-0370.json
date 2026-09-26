@@ -1,0 +1,111 @@
+{
+  "age_years": 65,
+  "available_modalities": [
+    "fhir_r4",
+    "echo_metadata"
+  ],
+  "category": "electrical",
+  "expected_capabilities": [
+    "cardiac_state",
+    "ensemble",
+    "shadow_trial",
+    "missing_piece",
+    "report"
+  ],
+  "fhir_path": "fhir/BEATIT-SYN-0370.json",
+  "fhir_validation": {
+    "issues": [],
+    "valid": true,
+    "warnings": []
+  },
+  "phenotype_tags": [
+    "electrical",
+    "synthetic_demo",
+    "deterministic",
+    "longitudinal"
+  ],
+  "profile_id": "BEATIT-SYN-0370",
+  "provenance": {
+    "ecg_source": null,
+    "identity_policy": "not derived from a real person",
+    "source": "BeatIT deterministic generator",
+    "source_type": "synthetic"
+  },
+  "seed": 20261296,
+  "sex": "male",
+  "synthetic": true,
+  "timeline": [
+    {
+      "date": "2026-01-06",
+      "evidence_types": [
+        "vitals",
+        "echo_metadata"
+      ],
+      "timepoint": "T0",
+      "vitals": {
+        "diastolic_bp_mmhg": 78.83,
+        "edv_ml": 105.34,
+        "esv_ml": 50.41,
+        "heart_rate_bpm": 49.42,
+        "oxygen_saturation_pct": 98.13,
+        "systolic_bp_mmhg": 110.85
+      }
+    },
+    {
+      "date": "2026-02-05",
+      "evidence_types": [
+        "vitals",
+        "echo_metadata"
+      ],
+      "timepoint": "T1",
+      "vitals": {
+        "diastolic_bp_mmhg": 78.83,
+        "edv_ml": 105.34,
+        "esv_ml": 50.41,
+        "heart_rate_bpm": 49.09,
+        "oxygen_saturation_pct": 98.13,
+        "systolic_bp_mmhg": 110.85
+      }
+    },
+    {
+      "date": "2026-03-07",
+      "evidence_types": [
+        "vitals",
+        "echo_metadata"
+      ],
+      "timepoint": "T2",
+      "vitals": {
+        "diastolic_bp_mmhg": 78.83,
+        "edv_ml": 105.34,
+        "esv_ml": 50.41,
+        "heart_rate_bpm": 48.76,
+        "oxygen_saturation_pct": 98.13,
+        "systolic_bp_mmhg": 110.85
+      }
+    },
+    {
+      "date": "2026-04-06",
+      "evidence_types": [
+        "vitals",
+        "echo_metadata"
+      ],
+      "timepoint": "T3",
+      "vitals": {
+        "diastolic_bp_mmhg": 78.83,
+        "edv_ml": 105.34,
+        "esv_ml": 50.41,
+        "heart_rate_bpm": 48.43,
+        "oxygen_saturation_pct": 98.13,
+        "systolic_bp_mmhg": 110.85
+      }
+    }
+  ],
+  "vitals": {
+    "diastolic_bp_mmhg": 78.83,
+    "edv_ml": 105.34,
+    "esv_ml": 50.41,
+    "heart_rate_bpm": 49.42,
+    "oxygen_saturation_pct": 98.13,
+    "systolic_bp_mmhg": 110.85
+  }
+}

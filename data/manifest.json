@@ -1,0 +1,18 @@
+{
+  "dataset_version": "m10.5-demo-v1",
+  "generated_at_utc": "2026-09-26T00:00:00Z",
+  "synthetic": true,
+  "patient_id": "BeatIT-Demo-Patient-001",
+  "source": "checked-in synthetic fixtures",
+  "provenance_classification": "synthetic_demo",
+  "fixture_ids": [
+    "manual_baseline",
+    "fixed-only",
+    "synthetic-demo-case"
+  ],
+  "checksums": {
+    "fixtures/hearttwin/manual_baseline.json": "1e448677700a64058df5038dd60f8f5a6516dc2df9bff5eb5e71f6fbd335b5ca",
+    "fixtures/golden/probabilistic/fixed-only.json": "ac3d4334162541b0c4aec6d1cca61210826737f1d82f9295f7ff02c20178fb84",
+    "fixtures/golden/shadow_trials/synthetic-demo-case.json": "6ab9a8c62f80e1a373ee01ce8d6b8eca8b87041abe694331f5a913b081406530"
+  }
+}

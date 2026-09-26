@@ -1,0 +1,893 @@
+{
+  "case_id": "596ce63a-3fae-4e14-8c22-1abf772f5966",
+  "evaluation": {
+    "agent_stage_result": {
+      "agent_id": "evaluator_critic",
+      "agent_name": "Evaluator & Critic Agent",
+      "confidence": 0.9,
+      "deterministic_tool_calls": 0,
+      "finished_at": "2026-09-26T17:50:57.104979+00:00",
+      "inputs_used": [
+        "cardiac_twin_state",
+        "agent_trace",
+        "generated_text"
+      ],
+      "latency_ms": 6.4,
+      "local_trace_id": "98eee119-c277-4eaa-baa7-802a1e9d3eea",
+      "memory_patterns_used": [],
+      "model_used": null,
+      "output_summary": "overall=0.90 safety=1.00 hallucination_risk=0.10 findings=3 safe_to_display=True",
+      "safety_flags": [],
+      "scenario_count": 0,
+      "scenario_types": [],
+      "source_refs": [],
+      "started_at": "2026-09-26T17:50:57.098524+00:00",
+      "status": "warning",
+      "structured_output": {
+        "critic_finding_count": 3,
+        "eval_scores": {
+          "extraction_completeness": 1.0,
+          "failed_checks": [
+            "visualization_missing_pv_loop"
+          ],
+          "hallucination_risk": 0.1,
+          "overall_score": 0.9,
+          "physiological_plausibility": 0.92,
+          "recovery_scenario_stability": 1.0,
+          "safety_compliance": 1.0,
+          "visualization_readiness": 0.6,
+          "warnings": [
+            "High prior usage reduces physiological plausibility confidence",
+            "Many numeric trace values are not directly tied to canonical state fields",
+            "High prior usage: 24 fields from population priors \u2014 upload more patient data for a better-calibrated simulation"
+          ]
+        },
+        "hallucination_risk": 0.1,
+        "required_revisions": [],
+        "safe_to_display": true,
+        "safety_flags": [],
+        "warnings": [
+          "High prior usage reduces physiological plausibility confidence",
+          "Many numeric trace values are not directly tied to canonical state fields",
+          "High prior usage: 24 fields from population priors \u2014 upload more patient data for a better-calibrated simulation"
+        ]
+      },
+      "tools_called": [
+        "hearttwin.score_extraction_completeness",
+        "hearttwin.score_physiological_plausibility",
+        "hearttwin.score_safety_compliance",
+        "hearttwin.score_hallucination_risk",
+        "hearttwin.score_visualization_readiness",
+        "hearttwin.score_recovery_stability",
+        "hearttwin.generate_critic_findings",
+        "hearttwin.evaluate_run"
+      ],
+      "uncertainty_status": "",
+      "warnings": [
+        "High prior usage reduces physiological plausibility confidence",
+        "Many numeric trace values are not directly tied to canonical state fields",
+        "High prior usage: 24 fields from population priors \u2014 upload more patient data for a better-calibrated simulation"
+      ],
+      "weave_call_id": null
+    },
+    "agent_statuses": {
+      "electrophysiology_agent": "warning",
+      "extraction_agent": "success",
+      "hemodynamics_agent": "success",
+      "intake_safety_agent": "success",
+      "state_builder_agent": "warning",
+      "validator_agent": "warning"
+    },
+    "critic_findings": [
+      {
+        "category": "uncertainty",
+        "evidence": "24 fields using default_model_prior: ejection_fraction_pct, stroke_volume_ml, cardiac_output_l_min, qrs_duration_ms, qt_interval_ms, qtc_ms....",
+        "fix": "Increase uncertainty_penalty_weight in RecoveryConfig. Mark prior-heavy scenarios as low-confidence. Ask for missing EDV/ESV evidence.",
+        "issue": "Many fields rely on population priors rather than extracted evidence.",
+        "severity": "medium"
+      },
+      {
+        "category": "visualization",
+        "evidence": "pv_loop key missing or empty in visualization_payload.",
+        "fix": "Confirm hemodynamics_agent ran successfully and returned pv_loop.",
+        "issue": "PV loop data is absent from the visualization payload.",
+        "severity": "low"
+      },
+      {
+        "category": "orchestration",
+        "evidence": "recovery_scenarios is empty or absent.",
+        "fix": "Run /simulate-recovery to generate bounded scenario trajectories before requesting visualization.",
+        "issue": "No recovery scenarios present in this run.",
+        "severity": "low"
+      }
+    ],
+    "eval_scores": {
+      "extraction_completeness": 1.0,
+      "failed_checks": [
+        "visualization_missing_pv_loop"
+      ],
+      "hallucination_risk": 0.1,
+      "overall_score": 0.9,
+      "physiological_plausibility": 0.92,
+      "recovery_scenario_stability": 1.0,
+      "safety_compliance": 1.0,
+      "visualization_readiness": 0.6,
+      "warnings": [
+        "High prior usage reduces physiological plausibility confidence",
+        "Many numeric trace values are not directly tied to canonical state fields",
+        "High prior usage: 24 fields from population priors \u2014 upload more patient data for a better-calibrated simulation"
+      ]
+    },
+    "failed_checks": [
+      "visualization_missing_pv_loop"
+    ],
+    "force_revision_issues": [],
+    "numeric_checks": {
+      "all_consistent": true,
+      "checks_performed": 7,
+      "mismatches": []
+    },
+    "passed": true,
+    "prior_field_count": 24,
+    "prior_fields": [
+      "ejection_fraction_pct",
+      "stroke_volume_ml",
+      "cardiac_output_l_min",
+      "qrs_duration_ms",
+      "qt_interval_ms",
+      "qtc_ms",
+      "tissue_state.scar_fraction",
+      "tissue_state.inflammation_index",
+      "tissue_state.oxygen_delivery_index",
+      "tissue_state.myocardial_oxygen_demand_index",
+      "tissue_state.stiffness_index",
+      "tissue_state.remodeling_index",
+      "operating_environment.mode",
+      "operating_environment.simulation_duration_seconds",
+      "operating_environment.time_step_ms",
+      "operating_environment.activity_level_mets",
+      "operating_environment.hydration_index",
+      "operating_environment.sleep_recovery_index",
+      "operating_environment.stress_catecholamine_index",
+      "operating_environment.ambient_temperature_c",
+      "operating_environment.altitude_m",
+      "operating_environment.oxygen_fraction",
+      "operating_environment.data_uncertainty_policy",
+      "operating_environment.missing_value_policy"
+    ],
+    "required_revisions": [],
+    "safe_to_display": true,
+    "scores": {
+      "data_completeness": 1.0,
+      "extraction_completeness": 1.0,
+      "hallucination_risk": 0.1,
+      "overall": 0.9,
+      "overall_score": 0.9,
+      "physiological_plausibility": 0.92,
+      "recovery_scenario_stability": 1.0,
+      "safety_compliance": 1.0,
+      "visualization_readiness": 0.6
+    },
+    "simulation_note": "Educational cardiac simulation only. Not for diagnosis or treatment decisions. Evaluated outputs are simulated estimates.",
+    "summary": "Overall score: 0.90. Safety: 1.00, Plausibility: 0.92, Hallucination risk: 0.10. 1 medium-severity finding(s) flagged for review. Failed checks: visualization_missing_pv_loop.",
+    "warnings": [
+      "High prior usage reduces physiological plausibility confidence",
+      "Many numeric trace values are not directly tied to canonical state fields",
+      "High prior usage: 24 fields from population priors \u2014 upload more patient data for a better-calibrated simulation"
+    ]
+  },
+  "metrics": {
+    "cardiac_output_l_min": 6.65,
+    "ef_pct": 61.2,
+    "map_mmhg": 94.5,
+    "rr_interval_ms": 531.8,
+    "stroke_volume_ml": 59.0
+  },
+  "pipeline_duration_ms": 25.48,
+  "profile_id": "BEATIT-SYN-0301",
+  "recovery_count": 4,
+  "safety_disclaimer": "Educational cardiac simulation only. Not for diagnosis or treatment decisions. SIMULATION ONLY. DualBeat is not a medical device, does not provide medical advice, and all outputs are simulated educational estimates.",
+  "state": {
+    "case_id": "596ce63a-3fae-4e14-8c22-1abf772f5966",
+    "created_at": "2026-09-26 17:50:57.096292",
+    "ct_segmentation": null,
+    "data_quality_score": 0.686,
+    "electrophysiology": {
+      "arrhythmia_instability_score": {
+        "confidence": 0.3,
+        "evidence": null,
+        "method": "prior_no_waveform",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.1
+      },
+      "conduction_delay_score": null,
+      "qrs_duration_ms": {
+        "confidence": 0.45,
+        "evidence": "No ECG/HR evidence available \u2014 adult population typical applied",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 90.0
+      },
+      "qt_interval_ms": {
+        "confidence": 0.45,
+        "evidence": "No ECG/HR evidence available \u2014 adult population typical applied",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 400.0
+      },
+      "qtc_ms": {
+        "confidence": 0.4,
+        "evidence": "No ECG/HR evidence available \u2014 adult population typical applied",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 420.0
+      },
+      "r_peak_confidence": 0.0,
+      "rhythm_label": "simulated tachycardic rhythm pattern (visualization estimate)",
+      "rr_interval_ms": {
+        "confidence": 0.9,
+        "evidence": null,
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 531.8206
+      }
+    },
+    "hemodynamics": {
+      "afterload_index": {
+        "confidence": 0.85,
+        "evidence": null,
+        "method": null,
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.7636
+      },
+      "arterial_compliance_index": {
+        "confidence": 0.8,
+        "evidence": null,
+        "method": null,
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.9028
+      },
+      "contractility_index": {
+        "confidence": 1.0,
+        "evidence": null,
+        "method": null,
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 1.2181
+      },
+      "filling_pressure_index": {
+        "confidence": 0.7,
+        "evidence": null,
+        "method": null,
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.2223
+      },
+      "preload_index": {
+        "confidence": 0.85,
+        "evidence": null,
+        "method": null,
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.6744
+      },
+      "pv_loop_area_index": {
+        "confidence": 0.8,
+        "evidence": null,
+        "method": null,
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 1.304
+      },
+      "systemic_vascular_resistance_index": {
+        "confidence": 0.8,
+        "evidence": null,
+        "method": null,
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.7643
+      }
+    },
+    "measurements": {
+      "bnp_pg_ml": null,
+      "cardiac_output_l_min": {
+        "confidence": 0.9,
+        "evidence": null,
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "L/min",
+        "value": 6.653
+      },
+      "diastolic_bp_mmhg": {
+        "confidence": 0.95,
+        "evidence": null,
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "mmHg",
+        "value": 83.61
+      },
+      "edv_ml": {
+        "confidence": 0.95,
+        "evidence": null,
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "mL",
+        "value": 96.34
+      },
+      "ejection_fraction_pct": {
+        "confidence": 0.95,
+        "evidence": null,
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "%",
+        "value": 61.2103
+      },
+      "esv_ml": {
+        "confidence": 0.95,
+        "evidence": null,
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "mL",
+        "value": 37.37
+      },
+      "heart_rate_bpm": {
+        "confidence": 0.95,
+        "evidence": null,
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "bpm",
+        "value": 112.82
+      },
+      "oxygen_saturation_pct": {
+        "confidence": 0.95,
+        "evidence": null,
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "%",
+        "value": 99.12
+      },
+      "stroke_volume_ml": {
+        "confidence": 0.95,
+        "evidence": null,
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "mL",
+        "value": 58.97
+      },
+      "systolic_bp_mmhg": {
+        "confidence": 0.95,
+        "evidence": null,
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "mmHg",
+        "value": 116.27
+      },
+      "troponin_ng_l": null
+    },
+    "operating_environment": {
+      "activity_level_mets": 1.0,
+      "altitude_m": 0.0,
+      "ambient_temperature_c": 22.0,
+      "data_uncertainty_policy": "conservative",
+      "hydration_index": 0.7,
+      "medication_effect_profile": null,
+      "missing_value_policy": "prior",
+      "mode": "rest",
+      "oxygen_fraction": 0.2095,
+      "simulation_duration_seconds": 10.0,
+      "sleep_recovery_index": 0.7,
+      "stress_catecholamine_index": 0.2,
+      "time_step_ms": 20.0
+    },
+    "patient_context": {
+      "age_years": null,
+      "bsa_m2": null,
+      "height_cm": null,
+      "notes": null,
+      "sex": null,
+      "weight_kg": null
+    },
+    "safety_level": "clear",
+    "simulation_config": {
+      "operating": {
+        "activity_level_mets": 1.0,
+        "altitude_m": 0.0,
+        "ambient_temperature_c": 22.0,
+        "data_uncertainty_policy": "conservative",
+        "hydration_index": 0.7,
+        "medication_effect_profile": null,
+        "missing_value_policy": "prior",
+        "mode": "rest",
+        "oxygen_fraction": 0.2095,
+        "simulation_duration_seconds": 10.0,
+        "sleep_recovery_index": 0.7,
+        "stress_catecholamine_index": 0.2,
+        "time_step_ms": 20.0
+      },
+      "random_seed": 42,
+      "recovery": {
+        "afterload_delta_per_day": -0.005,
+        "arrhythmia_stability_delta": 0.005,
+        "contractility_delta_per_day": 0.005,
+        "heart_rate_adaptation_rate": 0.002,
+        "inflammation_decay_rate": 0.03,
+        "max_safe_parameter_shift": 0.3,
+        "oxygen_delivery_delta_per_day": 0.003,
+        "preload_delta_per_day": -0.003,
+        "recovery_horizon_days": 30,
+        "scar_remodeling_rate": 0.001,
+        "scenario_type": "load_reduction",
+        "stiffness_delta_per_day": -0.002,
+        "target_metric": "balanced",
+        "uncertainty_penalty_weight": 0.2
+      }
+    },
+    "source_map": [
+      {
+        "confidence": 0.95,
+        "evidence": null,
+        "field": "heart_rate_bpm",
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "bpm",
+        "value": 112.82
+      },
+      {
+        "confidence": 0.95,
+        "evidence": null,
+        "field": "systolic_bp_mmhg",
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "mmHg",
+        "value": 116.27
+      },
+      {
+        "confidence": 0.95,
+        "evidence": null,
+        "field": "diastolic_bp_mmhg",
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "mmHg",
+        "value": 83.61
+      },
+      {
+        "confidence": 0.95,
+        "evidence": null,
+        "field": "edv_ml",
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "mL",
+        "value": 96.34
+      },
+      {
+        "confidence": 0.95,
+        "evidence": null,
+        "field": "esv_ml",
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "mL",
+        "value": 37.37
+      },
+      {
+        "confidence": 0.4,
+        "evidence": "No patient evidence available \u2014 adult population typical applied",
+        "field": "ejection_fraction_pct",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "%",
+        "value": 60.0
+      },
+      {
+        "confidence": 0.4,
+        "evidence": "No patient evidence available \u2014 adult population typical applied",
+        "field": "stroke_volume_ml",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "mL",
+        "value": 80.0
+      },
+      {
+        "confidence": 0.4,
+        "evidence": "No patient evidence available \u2014 adult population typical applied",
+        "field": "cardiac_output_l_min",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "L/min",
+        "value": 5.0
+      },
+      {
+        "confidence": 0.95,
+        "evidence": null,
+        "field": "oxygen_saturation_pct",
+        "method": "user_input",
+        "source": "user_input",
+        "source_file_id": null,
+        "unit": "%",
+        "value": 99.12
+      },
+      {
+        "confidence": 0.95,
+        "evidence": "SV = EDV - ESV",
+        "field": "stroke_volume_ml",
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "mL",
+        "value": 58.97
+      },
+      {
+        "confidence": 0.95,
+        "evidence": "EF = (SV / EDV) * 100",
+        "field": "ejection_fraction_pct",
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "%",
+        "value": 61.2103
+      },
+      {
+        "confidence": 0.9,
+        "evidence": "CO = (HR \u00d7 SV) / 1000",
+        "field": "cardiac_output_l_min",
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "L/min",
+        "value": 6.653
+      },
+      {
+        "confidence": 0.9,
+        "evidence": "MAP = DBP + (SBP - DBP) / 3",
+        "field": "map_mmhg",
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "mmHg",
+        "value": 94.4967
+      },
+      {
+        "confidence": 0.9,
+        "evidence": "RR interval = 60000 / HR",
+        "field": "rr_interval_ms",
+        "method": "deterministic_formula",
+        "source": "derived",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 531.8206
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No ECG/HR evidence available \u2014 adult population typical applied",
+        "field": "qrs_duration_ms",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 90.0
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No ECG/HR evidence available \u2014 adult population typical applied",
+        "field": "qt_interval_ms",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 400.0
+      },
+      {
+        "confidence": 0.4,
+        "evidence": "No ECG/HR evidence available \u2014 adult population typical applied",
+        "field": "qtc_ms",
+        "method": "population_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 420.0
+      },
+      {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "field": "tissue_state.scar_fraction",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "fraction",
+        "value": 0.0
+      },
+      {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "field": "tissue_state.inflammation_index",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.1
+      },
+      {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "field": "tissue_state.oxygen_delivery_index",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.85
+      },
+      {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "field": "tissue_state.myocardial_oxygen_demand_index",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.6
+      },
+      {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "field": "tissue_state.stiffness_index",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.3
+      },
+      {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "field": "tissue_state.remodeling_index",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.1
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.mode",
+        "method": "simulation_default",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "",
+        "value": null
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.simulation_duration_seconds",
+        "method": "simulation_default",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "s",
+        "value": 10.0
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.time_step_ms",
+        "method": "simulation_default",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "ms",
+        "value": 20.0
+      },
+      {
+        "confidence": 0.35,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.activity_level_mets",
+        "method": "default_model_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "METs",
+        "value": 1.0
+      },
+      {
+        "confidence": 0.35,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.hydration_index",
+        "method": "default_model_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.7
+      },
+      {
+        "confidence": 0.35,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.sleep_recovery_index",
+        "method": "default_model_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.7
+      },
+      {
+        "confidence": 0.35,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.stress_catecholamine_index",
+        "method": "default_model_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.2
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.ambient_temperature_c",
+        "method": "simulation_default",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "\u00b0C",
+        "value": 22.0
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.altitude_m",
+        "method": "simulation_default",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "m",
+        "value": 0.0
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.oxygen_fraction",
+        "method": "simulation_default",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "fraction",
+        "value": 0.2095
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.data_uncertainty_policy",
+        "method": "simulation_default",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "",
+        "value": null
+      },
+      {
+        "confidence": 0.45,
+        "evidence": "No operating environment supplied \u2014 safe simulation default applied",
+        "field": "operating_environment.missing_value_policy",
+        "method": "simulation_default",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "",
+        "value": null
+      }
+    ],
+    "tissue_state": {
+      "damage_zone_location": null,
+      "inflammation_index": {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.1
+      },
+      "myocardial_oxygen_demand_index": {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.6
+      },
+      "oxygen_delivery_index": {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.85
+      },
+      "remodeling_index": {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.1
+      },
+      "scar_fraction": {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "fraction",
+        "value": 0.0
+      },
+      "stiffness_index": {
+        "confidence": 0.3,
+        "evidence": "No imaging/biopsy evidence \u2014 conservative population prior for visualization only",
+        "method": "population_tissue_prior",
+        "source": "default_model_prior",
+        "source_file_id": null,
+        "unit": "index",
+        "value": 0.3
+      }
+    },
+    "warnings": [
+      "ejection_fraction_pct: no evidence available \u2014 using population prior (source: default_model_prior, confidence=0.4)",
+      "stroke_volume_ml: no evidence available \u2014 using population prior (source: default_model_prior, confidence=0.4)",
+      "cardiac_output_l_min: no evidence available \u2014 using population prior (source: default_model_prior, confidence=0.4)",
+      "qrs_duration_ms: no evidence available \u2014 using population prior (source: default_model_prior, confidence=0.45)",
+      "qt_interval_ms: no evidence available \u2014 using population prior (source: default_model_prior, confidence=0.45)",
+      "qtc_ms: no evidence available \u2014 using population prior (source: default_model_prior, confidence=0.4)",
+      "tissue_state.scar_fraction: conservative population prior applied (no disease implied)",
+      "tissue_state.inflammation_index: conservative population prior applied (no disease implied)",
+      "tissue_state.oxygen_delivery_index: conservative population prior applied (no disease implied)",
+      "tissue_state.myocardial_oxygen_demand_index: conservative population prior applied (no disease implied)",
+      "tissue_state.stiffness_index: conservative population prior applied (no disease implied)",
+      "tissue_state.remodeling_index: conservative population prior applied (no disease implied)",
+      "tissue_state.damage_zone_location: no evidence available \u2014 left unset (no location implied)",
+      "operating_environment.mode: not provided \u2014 applied simulation_default (value=rest)",
+      "operating_environment.simulation_duration_seconds: not provided \u2014 applied simulation_default (value=10.0)",
+      "operating_environment.time_step_ms: not provided \u2014 applied simulation_default (value=20.0)",
+      "operating_environment.activity_level_mets: not provided \u2014 applied default_model_prior (value=1.0)",
+      "operating_environment.hydration_index: not provided \u2014 applied default_model_prior (value=0.7)",
+      "operating_environment.sleep_recovery_index: not provided \u2014 applied default_model_prior (value=0.7)",
+      "operating_environment.stress_catecholamine_index: not provided \u2014 applied default_model_prior (value=0.2)",
+      "operating_environment.ambient_temperature_c: not provided \u2014 applied simulation_default (value=22.0)",
+      "operating_environment.altitude_m: not provided \u2014 applied simulation_default (value=0.0)",
+      "operating_environment.oxygen_fraction: not provided \u2014 applied simulation_default (value=0.2095)",
+      "operating_environment.data_uncertainty_policy: not provided \u2014 applied simulation_default (value=conservative)",
+      "operating_environment.missing_value_policy: not provided \u2014 applied simulation_default (value=prior)",
+      "24 field(s) rely on population priors (source: default_model_prior, confidence capped at 0.45)",
+      "7 canonical field(s) remain missing and were left unset: age_years, bnp_pg_ml, height_cm, rhythm_label, sex, troponin_ng_l, weight_kg"
+    ]
+  },
+  "status": "success"
+}

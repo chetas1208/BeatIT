@@ -1,0 +1,114 @@
+{
+  "age_years": 72,
+  "available_modalities": [
+    "fhir_r4",
+    "echo_metadata",
+    "synthetic_ecg"
+  ],
+  "category": "hemodynamic",
+  "ecg_path": "ecg/BEATIT-SYN-0216.csv",
+  "ecg_source_type": "synthetic",
+  "expected_capabilities": [
+    "cardiac_state",
+    "ensemble",
+    "shadow_trial",
+    "missing_piece",
+    "report"
+  ],
+  "fhir_path": "fhir/BEATIT-SYN-0216.json",
+  "fhir_validation": {
+    "issues": [],
+    "valid": true,
+    "warnings": []
+  },
+  "phenotype_tags": [
+    "hemodynamic",
+    "synthetic_demo",
+    "deterministic",
+    "longitudinal"
+  ],
+  "profile_id": "BEATIT-SYN-0216",
+  "provenance": {
+    "ecg_source": "NeuroKit2-compatible synthetic waveform generator",
+    "identity_policy": "not derived from a real person",
+    "source": "BeatIT deterministic generator",
+    "source_type": "synthetic"
+  },
+  "seed": 20261142,
+  "sex": "male",
+  "synthetic": true,
+  "timeline": [
+    {
+      "date": "2025-08-05",
+      "evidence_types": [
+        "vitals",
+        "synthetic_ecg"
+      ],
+      "timepoint": "T0",
+      "vitals": {
+        "diastolic_bp_mmhg": 89.54,
+        "edv_ml": 147.9,
+        "esv_ml": 61.36,
+        "heart_rate_bpm": 71.59,
+        "oxygen_saturation_pct": 97.91,
+        "systolic_bp_mmhg": 165.13
+      }
+    },
+    {
+      "date": "2025-09-04",
+      "evidence_types": [
+        "vitals",
+        "synthetic_ecg"
+      ],
+      "timepoint": "T1",
+      "vitals": {
+        "diastolic_bp_mmhg": 89.54,
+        "edv_ml": 147.9,
+        "esv_ml": 61.36,
+        "heart_rate_bpm": 72.31,
+        "oxygen_saturation_pct": 97.91,
+        "systolic_bp_mmhg": 165.13
+      }
+    },
+    {
+      "date": "2025-10-04",
+      "evidence_types": [
+        "vitals",
+        "synthetic_ecg"
+      ],
+      "timepoint": "T2",
+      "vitals": {
+        "diastolic_bp_mmhg": 89.54,
+        "edv_ml": 147.9,
+        "esv_ml": 61.36,
+        "heart_rate_bpm": 73.02,
+        "oxygen_saturation_pct": 97.91,
+        "systolic_bp_mmhg": 165.13
+      }
+    },
+    {
+      "date": "2025-11-03",
+      "evidence_types": [
+        "vitals",
+        "synthetic_ecg"
+      ],
+      "timepoint": "T3",
+      "vitals": {
+        "diastolic_bp_mmhg": 89.54,
+        "edv_ml": 147.9,
+        "esv_ml": 61.36,
+        "heart_rate_bpm": 73.74,
+        "oxygen_saturation_pct": 97.91,
+        "systolic_bp_mmhg": 165.13
+      }
+    }
+  ],
+  "vitals": {
+    "diastolic_bp_mmhg": 89.54,
+    "edv_ml": 147.9,
+    "esv_ml": 61.36,
+    "heart_rate_bpm": 71.59,
+    "oxygen_saturation_pct": 97.91,
+    "systolic_bp_mmhg": 165.13
+  }
+}
