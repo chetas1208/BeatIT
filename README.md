@@ -331,10 +331,6 @@ flowchart TB
 - AWS CloudFormation
 - Amazon RDS
 
-**AWS application hosting status: not deployed.** The authenticated workshop
-role permits Bedrock inference and limited CloudWatch access but does not grant
-the hosting, registry, storage, or secret permissions required to deploy
-BeatIT. The audit found zero BeatIT AWS resources and zero AWS public URLs.
 
 - **Vercel:** a `beatit` project and GitHub connection exist, but the first
   deployment failed because of an incorrect root-directory combination. No
