@@ -18,6 +18,7 @@ import { useDualBeatStore, type PipelineStatus } from "@/lib/store";
 import { redisStats } from "@/lib/api";
 import { useTraceStream } from "@/hooks/useTraceStream";
 import { DisclaimerModal } from "@/components/safety/DisclaimerModal";
+import { ProductTour } from "@/components/onboarding/ProductTour";
 import { CaseIntakePanel } from "@/components/intake/CaseIntakePanel";
 import { AgentTraceTimeline } from "@/components/trace/AgentTraceTimeline";
 import { SimulationCharts } from "@/components/charts/SimulationCharts";
@@ -90,7 +91,7 @@ export function AppShell() {
   return (
     <div className="flex min-h-[100dvh] flex-col bg-[var(--ht-line-strong)] lg:h-[100dvh] lg:min-h-0 lg:overflow-hidden">
       {/* Slim bar: brand (left) · live status / ready state (right-most). */}
-      <header className="flex h-11 flex-none items-center justify-between gap-3 border-b-2 border-[var(--ht-line-strong)] bg-[var(--ht-surface-1)] px-3">
+      <header data-tour="header" className="flex h-11 flex-none items-center justify-between gap-3 border-b-2 border-[var(--ht-line-strong)] bg-[var(--ht-surface-1)] px-3">
         <div className="flex min-w-0 items-center gap-2 leading-tight">
           <div
             aria-hidden="true"
@@ -125,12 +126,12 @@ export function AppShell() {
       <main className="min-h-0 flex-1 lg:overflow-hidden">
         <div className="grid grid-cols-12 gap-[2px] bg-[var(--ht-line-strong)] lg:h-full lg:min-h-0">
           {/* Left rail: case intake */}
-          <div className="col-span-12 flex min-h-0 flex-col lg:col-span-3 lg:[&>*]:h-full">
+          <div data-tour="evidence" className="col-span-12 flex min-h-0 flex-col lg:col-span-3 lg:[&>*]:h-full">
             <ErrorBoundary name="Case intake"><CaseIntakePanel /></ErrorBoundary>
           </div>
 
           {/* Center: the cardiac work surface — tabbed twin / simulation */}
-          <div className="col-span-12 flex min-h-0 flex-col bg-[var(--ht-surface-1)] lg:col-span-6">
+          <div data-tour="twin" className="col-span-12 flex min-h-0 flex-col bg-[var(--ht-surface-1)] lg:col-span-6">
             <div
               role="tablist"
               aria-label="Cardiac view"
@@ -171,7 +172,7 @@ export function AppShell() {
           {/* Right rail: always three boxes. Trace sizes to its content (shows
               every agent, no slack), evaluation grows to absorb the remaining
               height, Redis stays compact. */}
-          <div className="col-span-12 grid gap-[2px] bg-[var(--ht-line-strong)] lg:col-span-3 lg:min-h-0 lg:grid-rows-[auto_1fr_auto] lg:[&>*]:min-h-0 lg:[&>*]:h-full">
+          <div data-tour="trace" className="col-span-12 grid gap-[2px] bg-[var(--ht-line-strong)] lg:col-span-3 lg:min-h-0 lg:grid-rows-[auto_1fr_auto] lg:[&>*]:min-h-0 lg:[&>*]:h-full">
             <ErrorBoundary name="Agent trace"><AgentTraceTimeline /></ErrorBoundary>
             <ErrorBoundary name="Evaluation"><EvalScorecard /></ErrorBoundary>
             <ErrorBoundary name="Redis case memory"><RedisStatsRail /></ErrorBoundary>
@@ -182,6 +183,7 @@ export function AppShell() {
       </TemporalTwinProvider>
 
       <DisclaimerModal />
+      <ProductTour />
     </div>
   );
 }

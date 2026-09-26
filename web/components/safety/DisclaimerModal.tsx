@@ -11,6 +11,7 @@
 import { useState, useSyncExternalStore } from "react";
 
 const ACK_KEY = "hearttwin:disclaimer-ack:v1";
+export const DISCLAIMER_ACK_EVENT = "beatit:disclaimer-acknowledged";
 
 const subscribeToStorage = () => () => undefined;
 const getAcknowledged = () => {
@@ -39,6 +40,7 @@ export function DisclaimerModal() {
     } catch {
       /* private mode — modal simply reappears next session */
     }
+    window.dispatchEvent(new Event(DISCLAIMER_ACK_EVENT));
     setDismissed(true);
   };
 
